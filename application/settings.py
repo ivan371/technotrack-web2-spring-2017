@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'core.apps.CoreConfig',
     'ugc.apps.UgcConfig',
+    'friend.apps.FriendConfig',
+    'message.apps.MessageConfig',
 ]
 
 MIDDLEWARE = [
