@@ -1,19 +1,19 @@
 from __future__ import unicode_literals
 
 from django.db import models
-from core.models import Authored
-from core.models import Dated
+from core.models import Authored, Dated, User
+from event.models import Eventable
 
-
-class Chat(models.Model):
+class Chat(Authored, Dated, Eventable):
 
     name = models.CharField(max_length=100)
 
-class ChatUser(Authored, Dated):
+class ChatUser(models.Model):
 
+    user = models.ForeignKey(User)
     chat = models.ForeignKey(Chat)
 
-class Message(Authored, Dated):
+class Message(Authored, Dated, Eventable):
 
     content = models.CharField(max_length=255)
     chat = models.ForeignKey(Chat)
