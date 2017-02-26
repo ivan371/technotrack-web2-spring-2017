@@ -10,7 +10,12 @@ class Event(Authored, Dated):
     target_content_type = models.ForeignKey(ContentType)
     target_id = models.PositiveIntegerField()
     target = GenericForeignKey('target_content_type', 'target_id')
-    value = {'create':1, 'delete': 2}
+    EVENT_CHOISE = (
+        (1, 'create'),
+        (2, 'delete'),
+    )
+    value = models.CharField(max_length=2, choices=EVENT_CHOISE, default=1)
+    {'create':1, 'delete': 2}
 
 
 class Eventable(models.Model):
