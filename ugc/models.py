@@ -13,7 +13,7 @@ class Post(Authored, Dated, Likeable, Eventable):
 	short_content = models.TextField()
 
 	def get_title(self):
-		return self.title
+		return self.title[:5]
 
 class Comment(Authored, Dated, Likeable, Eventable):
 

@@ -7,4 +7,5 @@ class UgcConfig(AppConfig):
     name = 'ugc'
 
     def ready(self):
-        import signals
+        import signals #init signals
+        import apy

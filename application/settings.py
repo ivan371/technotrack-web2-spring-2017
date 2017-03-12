@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'message.apps.MessageConfig',
     'like.apps.LikeConfig',
     'event.apps.EventConfig',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -64,6 +65,14 @@ MIDDLEWARE = [
 INTERNAL_IPS = '127.0.0.1',
 
 AUTH_USER_MODEL = 'core.User'
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
 
 ROOT_URLCONF = 'application.urls'
 

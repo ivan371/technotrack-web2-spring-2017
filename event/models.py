@@ -6,7 +6,7 @@ from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelatio
 from django.contrib.contenttypes.models import ContentType
 
 
-class Event(Authored, Dated):
+class Event(Authored, Dated): #mix in Publication,  draw himself. render title/contnet in all models
     target_content_type = models.ForeignKey(ContentType)
     target_id = models.PositiveIntegerField()
     target = GenericForeignKey('target_content_type', 'target_id')

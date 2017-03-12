@@ -4,7 +4,7 @@ from django.db import models
 from core.models import User
 from event.models import Eventable
 
-class Friend(Eventable):
+class Friend(Eventable): #following
 
     first = models.ForeignKey(User, related_name='first')
     second = models.ForeignKey(User, related_name='second')
