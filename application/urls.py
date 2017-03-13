@@ -19,7 +19,9 @@ from django.conf import settings
 from api import router
 
 urlpatterns = [
+    url(r'^social/', include('social_django.urls', namespace='social')),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^', include('core.urls')),
     url(r'^api/', include(router.urls)),
     url(r'^admin/', admin.site.urls),
 ]

@@ -1,6 +1,7 @@
 from message.models  import Chat, Message, ChatUser
 from rest_framework import serializers, viewsets, permissions
 from application.api import router
+from django.shortcuts import get_object_or_404
 
 
 class IsOwnerOrReadOnly(permissions.BasePermission):
@@ -47,6 +48,9 @@ class MessageViewSet(viewsets.ModelViewSet):
 
 
 class ChatUserSerializer(serializers.HyperlinkedModelSerializer):
+
+    chat = serializers.ReadOnlyField(source='chat_id')
+
     class Meta:
         model = ChatUser
         fields = ('url', 'user', 'chat')
@@ -55,6 +59,19 @@ class ChatUserViewSet(viewsets.ModelViewSet):
     queryset = ChatUser.objects.all()
     serializer_class = ChatUserSerializer
 
+    def get_queryset(self):
+        queryset = super(ChatUserViewSet, self).get_queryset()
+        try:
+            ChatUser.objects.get(chat=self.request.query_params, user=self.request.user)
+            if 'chat' in self.request.query_params:
+                queryset = queryset.filter(chat=self.request.query_params['chat'])
+                return queryset
+        except:
+            pass
+        return queryset.exclude()
+
+
 
 router.register(r'chats', ChatViewSet)
 router.register(r'messages', MessageViewSet)
+router.register(r'chatuser', ChatUserViewSet)
