@@ -14,8 +14,15 @@ class Event(Authored, Dated): #mix in Publication,  draw himself. render title/c
         (1, 'create'),
         (2, 'delete'),
     )
+    EVENT_TYPE = (
+        (1, 'post'),
+        (2, 'comment'),
+        (3, 'like'),
+    )
     value = models.CharField(max_length=2, choices=EVENT_CHOISE, default=1)
     {'create':1, 'delete': 2}
+    event_type = models.CharField(max_length=2, choices=EVENT_TYPE, default=1)
+    {'post': 1, 'comment': 2, 'like': 3}
 
 
 class Eventable(models.Model):

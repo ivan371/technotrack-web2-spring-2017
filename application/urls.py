@@ -17,13 +17,16 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.conf import settings
 from api import router
+from core.api import *
 
 urlpatterns = [
     url(r'^social/', include('social_django.urls', namespace='social')),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^', include('core.urls')),
+    url(r'^api/core/', include('core.urls')),
     url(r'^api/', include(router.urls)),
     url(r'^admin/', admin.site.urls),
+    url(r'^api/friendship/', include('friend.urls')),
+    #url(r'^api/cores/(?P<pk>\d+)', UserDetail.as_view(), name='UserDetail')
 ]
 
 if settings.DEBUG:

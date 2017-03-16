@@ -4,6 +4,32 @@ from application.api import router
 from django.shortcuts import get_object_or_404
 
 
+class ChatUserSerializer(serializers.HyperlinkedModelSerializer):
+
+    chat = serializers.ReadOnlyField(source='chat_id')
+
+    class Meta:
+        model = ChatUser
+        fields = ('user', 'chat')
+
+class ChatUserViewSet(viewsets.ModelViewSet):
+    queryset = ChatUser.objects.all()
+    serializer_class = ChatUserSerializer
+
+    def perform_create(self, serializer):
+        if 'chat' in self.request.query_params:
+            chat = Chat.objects.get(id = self.request.query_params['chat'])
+            serializer.save(chat=chat)
+
+    def get_queryset(self):
+        queryset = super(ChatUserViewSet, self).get_queryset()
+        #ChatUser.objects.get(chat=self.request.query_params, user=self.request.user)
+        if 'chat' in self.request.query_params:
+            queryset = queryset.filter(chat=self.request.query_params['chat'])
+        return queryset
+
+
+
 class IsOwnerOrReadOnly(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
         if request.method in permissions.SAFE_METHODS:
@@ -12,9 +38,12 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
 
 
 class ChatSerializer(serializers.HyperlinkedModelSerializer):
+
+    chatuser_set = ChatUserSerializer(many=True)
+
     class Meta:
         model = Chat
-        fields = ('url', 'name')
+        fields = ('url', 'name', 'chatuser_set')
 
 class ChatViewSet(viewsets.ModelViewSet):
     queryset = Chat.objects.all()
@@ -29,7 +58,7 @@ class ChatViewSet(viewsets.ModelViewSet):
 class MessageSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Message
-        fields = ('url', 'content')
+        fields = ('url', 'content', 'chat')
 
 class MessageViewSet(viewsets.ModelViewSet):
     queryset = Message.objects.all()
@@ -44,32 +73,6 @@ class MessageViewSet(viewsets.ModelViewSet):
         if 'chat' in self.request.query_params:
             queryset = queryset.filter(chat=self.request.query_params['chat'])
         return queryset
-
-
-
-class ChatUserSerializer(serializers.HyperlinkedModelSerializer):
-
-    chat = serializers.ReadOnlyField(source='chat_id')
-
-    class Meta:
-        model = ChatUser
-        fields = ('url', 'user', 'chat')
-
-class ChatUserViewSet(viewsets.ModelViewSet):
-    queryset = ChatUser.objects.all()
-    serializer_class = ChatUserSerializer
-
-    def get_queryset(self):
-        queryset = super(ChatUserViewSet, self).get_queryset()
-        try:
-            ChatUser.objects.get(chat=self.request.query_params, user=self.request.user)
-            if 'chat' in self.request.query_params:
-                queryset = queryset.filter(chat=self.request.query_params['chat'])
-                return queryset
-        except:
-            pass
-        return queryset.exclude()
-
 
 
 router.register(r'chats', ChatViewSet)

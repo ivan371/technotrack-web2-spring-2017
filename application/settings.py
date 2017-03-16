@@ -82,7 +82,9 @@ REST_FRAMEWORK = {
     # or allow read-only access for unauthenticated users.
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ]
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 10
 }
 
 ROOT_URLCONF = 'application.urls'
@@ -120,6 +122,8 @@ DATABASES = {
 }
 
 
+SOCIAL_AUTH_VK_OAUTH2_KEY = '5922090'
+SOCIAL_AUTH_VK_OAUTH2_SECRET = 'iXP4XrxP0OpG2p77k5U2'
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
 

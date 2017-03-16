@@ -2,7 +2,9 @@
 
 from rest_framework import serializers, viewsets, permissions
 from ugc.models import Post, Comment
+from friend.models import Friend
 from application.api import router
+from django.shortcuts import get_object_or_404
 
 
 class PostSerializer(serializers.HyperlinkedModelSerializer):
@@ -11,7 +13,7 @@ class PostSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Post
-        fields = ('url','title', 'content','author', 'short_content', 'comment_count')
+        fields = ('url','title', 'content','author', 'short_content', 'comment_count', 'like_count')
 
 
 class IsOwnerOrReadOnly(permissions.BasePermission):
@@ -32,6 +34,11 @@ class PostRetrieve(viewsets.ModelViewSet):
     def get_queryset(self):
         queryset = super(PostRetrieve, self).get_queryset()
         if 'author' in self.request.query_params:
+            get_object_or_404(
+                Friend,
+                second=self.request.user,
+                first=self.request.query_params['author']
+            )
             queryset = queryset.filter(author=self.request.query_params['author'])
         return queryset
 
@@ -43,7 +50,7 @@ class CommentSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Comment
-        fields = ('url', 'text', 'author')
+        fields = ('url', 'text', 'author', 'like_count')
 
 class CommentRetrieve(viewsets.ModelViewSet):
 
@@ -57,6 +64,11 @@ class CommentRetrieve(viewsets.ModelViewSet):
         queryset = super(CommentRetrieve, self).get_queryset()
         print self.request.query_params
         if 'author' in self.request.query_params:
+            get_object_or_404(
+                Friend,
+                first=self.request.user,
+                second=self.request.query_params['author']
+            )
             queryset = queryset.filter(author=self.request.query_params['author'])
         if 'post' in self.request.query_params:
             queryset = queryset.filter(post=self.request.query_params['post'])
