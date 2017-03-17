@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.conf import settings
 from api import router
 from core.api import *
+from core.views import accounts
 
 urlpatterns = [
     url(r'^social/', include('social_django.urls', namespace='social')),
@@ -26,6 +27,7 @@ urlpatterns = [
     url(r'^api/', include(router.urls)),
     url(r'^admin/', admin.site.urls),
     url(r'^api/friendship/', include('friend.urls')),
+    url(r'^accounts/profile/', accounts)
     #url(r'^api/cores/(?P<pk>\d+)', UserDetail.as_view(), name='UserDetail')
 ]
 
