@@ -1,5 +1,5 @@
 from friend.models import Friend, FriendShip
-from rest_framework import serializers, viewsets, permissions, generics
+from rest_framework import serializers, viewsets, permissions, generics, mixins
 from application.api import router
 from core.models import User
 from rest_framework.response import Response
@@ -31,21 +31,15 @@ class FriendShipUpdateSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = FriendShip
-        fields = ('iniciator', 'repliciant', 'approved')
+        fields = ('url', 'iniciator', 'repliciant', 'approved')
 
 
-class FriendShipCreateSerializer(serializers.HyperlinkedModelSerializer):
-
-    permission_classes = (permissions.IsAuthenticated,)
-    iniciator = serializers.ReadOnlyField(source='iniciator_id')
-    approved = serializers.ReadOnlyField()
-
-    class Meta:
-        model = FriendShip
-        fields = ('iniciator', 'repliciant', 'approved')
-
-
-class FriendShipUpdate(generics.UpdateAPIView, generics.RetrieveAPIView):
+class FriendShipUpdate(mixins.RetrieveModelMixin,
+                   mixins.UpdateModelMixin,
+                   mixins.DestroyModelMixin,
+                   mixins.ListModelMixin,
+                   viewsets.GenericViewSet):
+    queryset = FriendShip.objects.all()
     serializer_class = FriendShipUpdateSerializer
 
     def update(self, request, *args, **kwargs):
@@ -53,13 +47,17 @@ class FriendShipUpdate(generics.UpdateAPIView, generics.RetrieveAPIView):
         instance = self.get_object()
         print instance.approved
         if instance.approved == True:
-            Friend.objects.create(first = instance.iniciator, second = instance.repliciant)
-            Friend.objects.create(first = instance.repliciant, second = instance.iniciator)
+            if instance.iniciator == self.request.user:
+                Friend.objects.create(first = instance.repliciant, second = instance.iniciator)
+            else:
+                Friend.objects.create(first = instance.iniciator, second = instance.repliciant)
         else:
-            fr1 = get_object_or_404(Friend, first = instance.iniciator, second = instance.repliciant)
-            fr2 = get_object_or_404(Friend, first = instance.repliciant, second = instance.iniciator)
-            fr1.delete()
-            fr2.delete()
+            if instance.iniciator == self.request.user:
+                fr2 = get_object_or_404(Friend, first = instance.repliciant, second = instance.iniciator)
+                fr2.delete()
+            else:
+                fr1 = get_object_or_404(Friend, first = instance.iniciator, second = instance.repliciant)
+                fr1.delete()
         serializer = self.get_serializer(instance, data=request.data, partial=partial)
         serializer.is_valid(raise_exception=True)
         self.perform_update(serializer)
@@ -68,12 +66,24 @@ class FriendShipUpdate(generics.UpdateAPIView, generics.RetrieveAPIView):
     def get_queryset(self):
         return FriendShip.objects.filter(iniciator = self.request.user)
 
-class FriendShipCreate(generics.CreateAPIView):
+
+class FriendShipCreateSerializer(serializers.HyperlinkedModelSerializer):
+
+    permission_classes = (permissions.IsAuthenticated,)
+
+    class Meta:
+        model = FriendShip
+        fields = ('repliciant',)
+
+
+class FriendShipCreate(mixins.CreateModelMixin, viewsets.GenericViewSet):
     queryset = FriendShip.objects.all()
     serializer_class = FriendShipCreateSerializer
 
     def perform_create(self, serializer):
         serializer.save(iniciator=self.request.user, approved=False)
 
+
+router.register(r'friend/create', FriendShipCreate)
 router.register(r'friend', FriendViewSet)
-#router.register(r'friendship', FriendShipViewSet)
+router.register(r'friendship', FriendShipUpdate)

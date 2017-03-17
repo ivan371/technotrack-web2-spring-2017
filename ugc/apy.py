@@ -5,11 +5,15 @@ from ugc.models import Post, Comment
 from friend.models import Friend
 from application.api import router
 from django.shortcuts import get_object_or_404
+from django.db.models import Q
 
 
 class PostSerializer(serializers.HyperlinkedModelSerializer):
 
     author = serializers.ReadOnlyField(source='author_id')
+    comment_count = serializers.ReadOnlyField()
+    like_count = serializers.ReadOnlyField()
+    short_content = serializers.ReadOnlyField()
 
     class Meta:
         model = Post
@@ -33,12 +37,9 @@ class PostRetrieve(viewsets.ModelViewSet):
 
     def get_queryset(self):
         queryset = super(PostRetrieve, self).get_queryset()
+        friends_ids = Friend.objects.filter(first = self.request.user).values_list('second', flat=True)
+        queryset = queryset.filter(Q(author = self.request.user) | Q(author=friends_ids))
         if 'author' in self.request.query_params:
-            get_object_or_404(
-                Friend,
-                second=self.request.user,
-                first=self.request.query_params['author']
-            )
             queryset = queryset.filter(author=self.request.query_params['author'])
         return queryset
 
@@ -64,11 +65,6 @@ class CommentRetrieve(viewsets.ModelViewSet):
         queryset = super(CommentRetrieve, self).get_queryset()
         print self.request.query_params
         if 'author' in self.request.query_params:
-            get_object_or_404(
-                Friend,
-                first=self.request.user,
-                second=self.request.query_params['author']
-            )
             queryset = queryset.filter(author=self.request.query_params['author'])
         if 'post' in self.request.query_params:
             queryset = queryset.filter(post=self.request.query_params['post'])
