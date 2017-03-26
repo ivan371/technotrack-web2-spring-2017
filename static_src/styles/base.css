@@ -1,0 +1,14 @@
+.list{
+  background-color: #00FA9A;
+}
+.b-post{
+  margin: 1px;
+  border-radius: 2px;
+  padding: 10px;
+  background-color: white;
+}
+.b-post__title{};
+.b-post-list{};
+.b-user-name{};
+.b-post__content{};
+.b-avatar{};

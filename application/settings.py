@@ -29,9 +29,20 @@ SECRET_KEY = config.get('main', 'SECRET')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['vk', '127.0.0.1']
 
 # Application definition
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'), # We do this so that django's collectstatic copies or our bundles to the STATIC_ROOT or syncs them to whatever storage we use.
+)
+
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'BUNDLE_DIR_NAME': 'bundles/',
+        'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.json'),
+    }
+}
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -49,6 +60,7 @@ INSTALLED_APPS = [
     'event.apps.EventConfig',
     'rest_framework',
     'social_django',
+    'webpack_loader',
 ]
 
 MIDDLEWARE = [
@@ -68,7 +80,6 @@ AUTHENTICATION_BACKENDS = (
     'social_core.backends.vk.VKOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 )
-
 
 SOCIAL_AUTH_VK_OAUTH2_SCOPE = ['email',]
 
@@ -160,4 +171,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '/static/build/'
+STATIC_ROOT = '/home/asus/vk/collected_static/'
+STATICFILES_DIRS = ('/home/asus/vk/src/static/build', )
