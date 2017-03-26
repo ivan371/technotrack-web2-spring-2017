@@ -10,14 +10,14 @@ from django.db.models import Q
 
 class PostSerializer(serializers.HyperlinkedModelSerializer):
 
-    author = serializers.ReadOnlyField(source='author_id')
+    # author = serializers.ReadOnlyField(source='author_id')
     comment_count = serializers.ReadOnlyField()
     like_count = serializers.ReadOnlyField()
     short_content = serializers.ReadOnlyField()
 
     class Meta:
         model = Post
-        fields = ('url','title', 'content','author', 'short_content', 'comment_count', 'like_count')
+        fields = ('id', 'url','title', 'content','author', 'short_content', 'comment_count', 'like_count')
 
 
 class IsOwnerOrReadOnly(permissions.BasePermission):

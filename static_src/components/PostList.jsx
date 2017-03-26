@@ -3,25 +3,29 @@ import ReactDOM from 'react-dom';
 import './../styles/base.css';
 import Post from './Post';
 
-const POST_TEXT = 'There are a lot of asldjfsaldkjfasldkjflsadflasdjflsakdflks';
-const OWNER = {
-  avaUrl: 'wer',
-  name: 'Иван Ивановчи'
-};
 
 class PostListComponent extends React.Component {
   render() {
+      const postList = this.props.postList.map(
+        (post) => {
+          return <Post
+              key={ post.id }
+              author={ post.author }
+              content={ post.content }
+              title={ post.title }/>
+        }
+      );
     return (
         <div className="b-post-list">
-           <Post owner={ OWNER } content={ POST_TEXT } />
+          { this.props.isLoading ? <div>Загрузка...</div> :  postList }
         </div>
     );
   }
 };
 
-export default PostListComponent;
+PostListComponent.propTypes = {
+  postList: React.PropTypes.arrayOf(React.PropTypes.shape(Post.PropTypes)),
+  isLoading: React.PropTypes.bool,
+};
 
-ReactDOM.render(
-  <PostListComponent />,
-  document.getElementById('root'),
-);
+export default PostListComponent;
