@@ -10,7 +10,7 @@ from django.db.models import Q
 
 class PostSerializer(serializers.HyperlinkedModelSerializer):
 
-    # author = serializers.ReadOnlyField(source='author_id')
+    author = serializers.ReadOnlyField(source='author_id')
     comment_count = serializers.ReadOnlyField()
     like_count = serializers.ReadOnlyField()
     short_content = serializers.ReadOnlyField()
@@ -47,11 +47,12 @@ class PostRetrieve(viewsets.ModelViewSet):
 class CommentSerializer(serializers.HyperlinkedModelSerializer):
 
     author = serializers.ReadOnlyField(source='author_id')
+    id = serializers.ReadOnlyField()
     permission_classes = (permissions.IsAuthenticated, IsOwnerOrReadOnly)
 
     class Meta:
         model = Comment
-        fields = ('url', 'text', 'author', 'like_count')
+        fields = ('url', 'id', 'text', 'author', 'like_count')
 
 class CommentRetrieve(viewsets.ModelViewSet):
 

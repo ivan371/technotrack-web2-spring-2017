@@ -4,5 +4,6 @@ from core.api import *
 
 urlpatterns = [
     #url(r'^core/', vklogin),
+    url(r'^id/', myid),
     url(r'^',index),
 ]

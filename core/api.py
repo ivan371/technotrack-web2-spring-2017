@@ -14,7 +14,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = User
-        fields = ('url','username', 'email', 'first_name','last_name', 'rating')
+        fields = ('url', 'id', 'username', 'email', 'first_name','last_name', 'rating')
 
 class UserViewSet(mixins.RetrieveModelMixin,
                    mixins.UpdateModelMixin,

@@ -48,9 +48,7 @@ class AppComponent extends React.Component {
       <Grid>
         <Row className="show-grid">
         <Layout onSelect={ this.onMenuSelect }>
-             <Col xs={4} className="list">
                { page }
-            </Col>
         </Layout>
         </Row>
       </Grid>
