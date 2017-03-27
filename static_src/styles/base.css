@@ -12,3 +12,20 @@
 .b-user-name{};
 .b-post__content{};
 .b-avatar{};
+.b-modal_container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 2;
+}
+.b-modal {
+  position: fixed;
+  top: 50px;
+  right: 100px;
+  left: 100px;
+  bottom: 50px;
+  background-color: black;
+  opacity: 0.8;
+}

@@ -9,44 +9,52 @@ import ControlLabel from 'react-bootstrap/lib/ControlLabel'
 import FormControl from 'react-bootstrap/lib/FormControl'
 import HelpBlock from 'react-bootstrap/lib/HelpBlock'
 import Button from 'react-bootstrap/lib/Button';
-import PostList from './components/PostList';
-import PostForm from './components/PostForm';
+import SelfRoom from './components/SelfRoom';
+import Layout from './components/Layout';
+import Chats from './components/Chats';
+import Friends from './components/Friends';
+import News from './components/News';
+import People from './components/People';
 
 class AppComponent extends React.Component {
   state = {
-    postList: [],
-    isLoading: false,
+    currentPageName: "self_room",
   }
 
-  onCreate = (post) => {
-    this.setState({
-      postList: [post, ...this.state.postList]
-    });
+  onMenuSelect = (currentMenu) => {
+    this.setState({ currentPageName: currentMenu });
   }
 
-  componentDidMount() {
-    this.setState({ isLoading: true });
-    fetch('/api/posts', {
-      credentials: "same-origin",
-    })
-    .then((resp) => resp.json())
-    .then((data) => {
-       this.setState({ postList: data.results, isLoading: false });
-      }
-    )
-  }
   render() {
+    let page = null;
+    switch (this.state.currentPageName) {
+      case 'self_room':
+        page = <SelfRoom />
+        break;
+      case 'news':
+        page = <News />
+        break;
+      case 'friends':
+        page = <Friends />
+        break;
+      case 'chats':
+        page = <Chats />
+        break;
+      case 'peoples':
+        page = <People />
+        break;
+    }
     return (
       <Grid>
         <Row className="show-grid">
-           <Col xs={4} xsOffset={4}  className="list">
-          <h1>Лента постов</h1>
-      <PostForm onCreate={ this.onCreate }/>
-      <PostList isLoading={ this.state.isLoading } postList={ this.state.postList }/>
-      </Col>
-      </Row>
-    </Grid>
-    );
+        <Layout onSelect={ this.onMenuSelect }>
+             <Col xs={4} className="list">
+               { page }
+            </Col>
+        </Layout>
+        </Row>
+      </Grid>
+      );
   }
 }
 

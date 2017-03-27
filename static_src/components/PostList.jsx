@@ -10,9 +10,11 @@ class PostListComponent extends React.Component {
         (post) => {
           return <Post
               key={ post.id }
+              id={ post.id }
               author={ post.author }
               content={ post.content }
-              title={ post.title }/>
+              title={ post.title }
+              onOpen={ this.props.onPostOpen }/>
         }
       );
     return (
@@ -26,6 +28,7 @@ class PostListComponent extends React.Component {
 PostListComponent.propTypes = {
   postList: React.PropTypes.arrayOf(React.PropTypes.shape(Post.PropTypes)),
   isLoading: React.PropTypes.bool,
+  onPostOpen: React.PropTypes.func,
 };
 
 export default PostListComponent;
