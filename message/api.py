@@ -10,7 +10,7 @@ class ChatUserSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = ChatUser
-        fields = ('user', 'chat')
+        fields = ('user', 'chat', 'id',)
 
 class ChatUserViewSet(viewsets.ModelViewSet):
     queryset = ChatUser.objects.all()
@@ -43,7 +43,7 @@ class ChatSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Chat
-        fields = ('url', 'name', 'chatuser_set')
+        fields = ('url', 'name', 'chatuser_set', 'id')
 
 class ChatViewSet(viewsets.ModelViewSet):
     queryset = Chat.objects.all()
@@ -58,7 +58,7 @@ class ChatViewSet(viewsets.ModelViewSet):
 class MessageSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Message
-        fields = ('url', 'content', 'chat')
+        fields = ('url', 'content', 'chat', 'author')
 
 class MessageViewSet(viewsets.ModelViewSet):
     queryset = Message.objects.all()

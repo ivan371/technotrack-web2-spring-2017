@@ -1,0 +1,14 @@
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% if user.is_anonymous %}
+        <form method="post" enctype="multipart/form-data" class="form-signin"> {% csrf_token %}
+            {% if form.errors %}
+                <p class="error">Пожалуйста исправьте нижеприведённые ошибки.</p>
+            {% endif %}
+            {{form}}
+            <input type="submit" class="button" value="Зарегистироваться">
+        </form>
+    {% else %}
+        <p class="form-signin-heading"><br> Вы уже зарегистрированы и авторизованы</p>
+    {% endif %}
+</form>
