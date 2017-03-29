@@ -173,4 +173,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/build/'
 STATIC_ROOT = '/home/asus/vk/collected_static/'
-STATICFILES_DIRS = ('/home/asus/vk/src/static/build', )
+STATICFILES_DIRS = ('/home/asus/vk/src/static/build/', )

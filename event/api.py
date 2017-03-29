@@ -7,11 +7,15 @@ from like.models import Like
 from django.contrib.contenttypes.models import ContentType
 from rest_framework.reverse import reverse
 
-class EventSerializer(serializers.HyperlinkedModelSerializer):
+class EventSerializer(serializers.ModelSerializer):
 
     def get_target(self, obj):
-        viewname = '%s-detail' % obj.target_content_type.name
-        return reverse(viewname, (obj.target_id,))
+        # viewname = '%s-detail' % obj.target_content_type.name
+        # return reverse(viewname, (obj.target_id,))
+        print obj.target_content_type.name
+        if obj.target_content_type.name == 'post':
+            return PostSerializer(obj.target).data
+        return "1asdf"
 
     target = serializers.SerializerMethodField()
 

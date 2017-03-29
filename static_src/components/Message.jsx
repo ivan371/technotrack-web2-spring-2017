@@ -15,7 +15,7 @@ class MessageComponent extends React.Component {
 }
 
 MessageComponent.propTypes = {
-  message: React.PropTypes.string.isRequired,
+  content: React.PropTypes.string.isRequired,
   // author: React.PropTypes.string.isRequired,
 };
 

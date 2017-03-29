@@ -58,7 +58,7 @@ class ChatViewSet(viewsets.ModelViewSet):
 class MessageSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Message
-        fields = ('url', 'content', 'chat', 'author')
+        fields = ('url', 'content', 'chat', 'author', 'id')
 
 class MessageViewSet(viewsets.ModelViewSet):
     queryset = Message.objects.all()

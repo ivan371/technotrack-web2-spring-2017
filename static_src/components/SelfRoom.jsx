@@ -70,16 +70,17 @@ class SelfRoomComponent extends React.Component {
     }
     return (
       <div>
-        <Col xs={4} className="list">
-          <h1>Лента постов</h1>
+        <div className="box">
+          <div className="b-post"><h1>Лента постов</h1></div>
+
           <PostForm onCreate={ this.onCreate }/>
           <PostList isLoading={ this.state.isLoading } postList={ this.state.postList } onPostOpen={ this.onPostOpen }/>
           <Modal isOpen={ this.state.isOpen } onClose={ this.onCloseModel }>{ modalContent }</Modal>
-        </Col>
-        <Col xs={4} className="list">
-          <h1>Моя страница</h1>
+        </div>
+        <div className="box">
+          <div className="b-post"><h1>Моя страница</h1></div>
           { usercontent ? <div>Загрузка...</div> :  profile }
-        </Col>
+        </div>
       </div>
     );
   }

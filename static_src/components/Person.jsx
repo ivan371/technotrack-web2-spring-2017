@@ -9,7 +9,7 @@ class PersonComponent extends React.Component {
   render() {
 
     return (
-      <div>
+      <div className="b-post">
         <h3> { this.props.username } </h3>
       </div>
     );

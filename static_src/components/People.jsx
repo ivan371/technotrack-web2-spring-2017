@@ -22,26 +22,28 @@ class PeopleComponent extends React.Component {
 
   }
   render() {
-    let userList;
+    let userList = [];
     if (!this.state.isLoading) {
       userList = this.state.userList.map(
         (user) => {
-          return
+          return(
             <Profile
                 key={ user.id }
                 username={ user.username }
                 email={ user.email }
                 lastname={ user.last_name }
                 firstname={ user.first_name }
-                rating={ user.rating }/>
+                rating={ user.rating }/>)
           }
       );
     }
+    console.log(userList);
     return (
       <div>
-        <Col xs={4} className="list">
+        <div className="box">
+          <div className="b-post"><h1>Люди</h1></div>
           { this.state.isLoading ? <div>Загрузка...</div> :  userList }
-        </Col>
+        </div>
       </div>
     );
   }

@@ -12,17 +12,12 @@ class PostComponent extends React.Component {
   render() {
     let openBut = null;
     if (this.props.onOpen) {
-      openBut = <Button onClick={ this.onOpen } bsStyle="primary" bsSize="large" block >Посмотреть пост</Button>
+      openBut = <div className="button_field">
+        <button onClick={ this.onOpen } >Посмотреть пост</button></div>
     }
 
     return (<div className="b-post">
             <h3>{ this.props.title }</h3>
-              <img className="b-avatar"
-                    width="40px"
-                    height="40px"
-                    alt="Аватарка не найдена"
-                    src="">
-              </img>
               <div className="b-user-name"></div>
             <div className="b-post__content">{ this.props.content }</div>
             { openBut }

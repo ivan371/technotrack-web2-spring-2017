@@ -4,7 +4,7 @@ import ChatList from './ChatList';
 import MessageList from './MessageList';
 
 
-let messageContent = null;
+// let messageContent = null;
 class ChatComponent extends React.Component {
 
   state = {
@@ -21,12 +21,12 @@ class ChatComponent extends React.Component {
       isOpen: true,
     });
   }
-  newChatList = () => {
-    messageContent = <MessageList id={ this.state.chatId } />;
-    this.state.isOpen = false;
-    console.log(messageContent);
-    return messageContent;
-  }
+  // newChatList = () => {
+  //   messageContent = <MessageList id={ this.state.chatId } />;
+  //   this.state.isOpen = false;
+  //   console.log(messageContent);
+  //   return messageContent;
+  // }
 
   componentDidMount() {
     this.setState({ isLoading: true });
@@ -43,23 +43,24 @@ class ChatComponent extends React.Component {
   }
 
   render() {
-    // if (this.state.isOpen) {
-    //   messageContent = <MessageList id={ this.state.chatId } />;
-    //   this.state.isOpen = false;
-    // }
+    let messageContent = null;
+    if (this.state.isOpen && this.state.chatId != null) {
+      messageContent = <MessageList id={ this.state.chatId } />;
+      this.state.isOpen = false;
+    }
     return (
       <div>
-        <Col xs={4} className="list">
-          <h1>Чаты</h1>
+        <div className="box">
+          <div className="b-post"><h1>Чаты</h1></div>
             <ChatList
               isLoading={ this.state.isLoading }
               chatList={ this.state.chatList }
               onChatOpen={ this.onChatOpen }/>
-        </Col>
-        <Col xs={4} className="list">
-          <h1>Сообщения</h1>
-          { this.state.isOpen ? this.newChatList() : messageContent }
-        </Col>
+          </div>
+        <div className="box">
+          <div className="b-post"><h1>Сообщения</h1></div>
+          { messageContent }
+        </div>
       </div>
     );
   }

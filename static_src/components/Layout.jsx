@@ -14,7 +14,7 @@ class LayoutComponent extends React.Component {
   render() {
     return (
       <div>
-             <Col xs={4} className="list">
+             <div className="Layout">
                <Button
                  onClick={ () => this.props.onSelect("self_room") }
                  bsStyle="primary" bsSize="large" block>Моя страница</Button>
@@ -28,9 +28,9 @@ class LayoutComponent extends React.Component {
                  onClick={ () => this.props.onSelect("chats") }
                  bsStyle="primary" bsSize="large" block>Чаты</Button>
                <Button
-                 onClick={ () => this.props.onSelect("peoples") } 
+                 onClick={ () => this.props.onSelect("peoples") }
                  bsStyle="primary" bsSize="large" block>Люди</Button>
-             </Col>
+             </div>
          <div> { this.props.children }</div>
       </div>
     );

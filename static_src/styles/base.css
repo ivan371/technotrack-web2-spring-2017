@@ -1,12 +1,60 @@
-.list{
+.main{
+  margin-left: 1%;
+  margin-right: 1%;
+  width: 98%;
+  box-sizing: border-box;
+
+}
+
+.back{
   background-color: #00FA9A;
-  bottom: 0px;
+  position: fixed;
+  width: 98%;
+  height: 100%;
+  opacity: 0.3;
+  z-index: -1;
+}
+
+.layout{
+  width: 16%;
+  display: block;
+  float: left;
+}
+
+h1{
+  text-align: center;
+}
+h3{
+  text-align: center;
+}
+.box{
+  margin-left: 2%;
+  width: 40%;
+  float: left;
+  position: inherit;
+}
+.list{
 }
 .b-post{
   margin: 1px;
   border-radius: 2px;
-  padding: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
   background-color: white;
+}
+.button_field{
+  position: relative;
+  height: 50px;
+}
+.button_field button {
+  float: right;
+  color: #fff;
+  background-color: #337ab7;
+  border-color: #2e6da4;
+  text-align: center;
+  padding: 5px 16px;
+  font-size: 18px;
+  border-radius: 6px;
 }
 .b-post__title{};
 .b-post-list{};

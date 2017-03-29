@@ -36,7 +36,7 @@ class PostFormComponent extends React.Component {
 
   render() {
     return (
-          <div className="b-create-form">
+          <div className="b-create-form b-post" >
           <form>
               <FieldGroup
                 id="formControlsText"
@@ -55,10 +55,10 @@ class PostFormComponent extends React.Component {
                     name="content"
                     />
                 </FormGroup>
-                <div className="well" style={ wellStyles }>
-                  <Button onClick={ this.onCreate } bsStyle="primary" bsSize="large" block>Создать</Button>
-              </div>
-            </form>
+                <div className="button_field">
+                  <button onClick={ this.onCreate }>Создать</button>
+                </div>
+          </form>
           </div>
     );
   }

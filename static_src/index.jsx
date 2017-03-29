@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './styles/base.css';
-import Grid from 'react-bootstrap/lib/Grid'
-import Col from 'react-bootstrap/lib/Col'
+import './styles/bootstrap.css';
+import { Grid, Col } from 'react-bootstrap';
+// import Grid from 'react-bootstrap/lib/Grid'
+//import Col from 'react-bootstrap/lib/Col'
 import Row from 'react-bootstrap/lib/Row'
 import FormGroup from 'react-bootstrap/lib/FormGroup'
 import ControlLabel from 'react-bootstrap/lib/ControlLabel'
@@ -45,13 +47,12 @@ class AppComponent extends React.Component {
         break;
     }
     return (
-      <Grid>
-        <Row className="show-grid">
+      <div className="main">
+        <div className="back"></div>
         <Layout onSelect={ this.onMenuSelect }>
                { page }
         </Layout>
-        </Row>
-      </Grid>
+      </div>
       );
   }
 }

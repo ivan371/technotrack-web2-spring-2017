@@ -8,7 +8,7 @@ from django.shortcuts import get_object_or_404
 from django.db.models import Q
 
 
-class PostSerializer(serializers.HyperlinkedModelSerializer):
+class PostSerializer(serializers.ModelSerializer):
 
     author = serializers.ReadOnlyField(source='author_id')
     comment_count = serializers.ReadOnlyField()
@@ -17,7 +17,7 @@ class PostSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Post
-        fields = ('id', 'url','title', 'content','author', 'short_content', 'comment_count', 'like_count')
+        fields = ('id','title', 'content','author', 'short_content', 'comment_count', 'like_count')
 
 
 class IsOwnerOrReadOnly(permissions.BasePermission):

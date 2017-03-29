@@ -3,7 +3,7 @@ import React from 'react';
 class ProfileComponent extends React.Component {
   render() {
     return (
-      <div>
+      <div className="b-post">
         <p>{ this.props.username }</p>
         <p>{ this.props.email }</p>
         <p>{ this.props.firstname }</p>

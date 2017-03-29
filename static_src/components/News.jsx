@@ -5,9 +5,9 @@ class NewsComponent extends React.Component {
   render() {
     return (
       <div>
-        <Col xs={4} className="list">
+        <div className="box">
           новости
-        </Col>
+        </div>
       </div>
     );
   }
