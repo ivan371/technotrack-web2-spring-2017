@@ -4,6 +4,7 @@ import './../styles/base.css';
 import Button from 'react-bootstrap/lib/Button';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { postOpen } from './../actions/posts';
 
 
 class PostComponent extends React.Component {
@@ -15,7 +16,7 @@ class PostComponent extends React.Component {
     // let openBut = null;
     // if (this.props.onOpen) {
     //   openBut = <div className="button_field">
-    //     <button onClick={ this.onOpen } >Посмотреть пост</button></div>
+    // <button onClick={ this.onOpen } >Посмотреть пост</button></div>
     // }
 
     return (<div className="b-post">
@@ -24,6 +25,7 @@ class PostComponent extends React.Component {
               <div className="b-user-name">
                 <h3>{ this.props.firstname } { this.props.lastname }</h3>
               </div>
+              <div className="button_field"><button onClick={ this.props.postOpen(this.props.id) } >Посмотреть пост</button></div>
          </div>
     );
     //     { openBut }
@@ -32,14 +34,7 @@ class PostComponent extends React.Component {
 }
 
 PostComponent.propTypes = {
-  //  author: React.PropTypes.shape({
-    // avaUrl: React.PropTypes.string,
-    //  username: React.PropTypes.string,
-  //  }).isRequired,
   id: React.PropTypes.number.isRequired,
-  // title: React.PropTypes.string.isRequired,
-  // content: React.PropTypes.string.isRequired,
-  // onOpen: React.PropTypes.func,
 };
 
 const mapStoreToProps = (state, props) => ({
@@ -49,7 +44,7 @@ const mapStoreToProps = (state, props) => ({
   lastname: state.posts.users[state.posts.posts[props.id].author].last_name,
 });
 const mapDispatchToProps = dispatch => ({
-  ...bindActionCreators({}, dispatch),
+  ...bindActionCreators({postOpen}, dispatch),
 });
 
 export default connect(

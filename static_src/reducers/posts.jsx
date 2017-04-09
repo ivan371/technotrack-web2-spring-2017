@@ -1,11 +1,6 @@
-import { LOAD_POSTS, LOAD_POSTS_SUCCESS, LOAD_POSTS_ERROR } from './../actions/posts';
+import { LOAD_POSTS, LOAD_POSTS_SUCCESS, LOAD_POSTS_ERROR, POST_OPEN } from './../actions/posts';
 import update from 'react-addons-update';
 import { postNormalize } from './../normilizers/post';
-
-const POST_LIST = {
-  1: {id: 1, title: "sdf", content: "werwer"},
-  2: {id: 2, title: "sdf", content: "werwer"},
-};
 
 const inititalStore = {
     postList: [],
@@ -38,6 +33,9 @@ export default function router (store = inititalStore, action) {
         );
       case LOAD_POSTS_ERROR:
         return update(store, { isLoading: { $set: false } });
+      case POST_OPEN:
+        console.log("postopen");
+        return store;
       default:
         return store;
     }
