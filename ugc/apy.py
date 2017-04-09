@@ -6,25 +6,54 @@ from friend.models import Friend
 from application.api import router
 from django.shortcuts import get_object_or_404
 from django.db.models import Q
-
-
-class PostSerializer(serializers.ModelSerializer):
-
-    author = serializers.ReadOnlyField(source='author_id')
-    comment_count = serializers.ReadOnlyField()
-    like_count = serializers.ReadOnlyField()
-    short_content = serializers.ReadOnlyField()
-
-    class Meta:
-        model = Post
-        fields = ('id','title', 'content','author', 'short_content', 'comment_count', 'like_count')
-
+from core.api import UserSerializer
 
 class IsOwnerOrReadOnly(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
         if request.method in permissions.SAFE_METHODS:
             return True
         return obj.author == request.user
+
+class CommentSerializer(serializers.ModelSerializer):
+
+    author = UserSerializer()
+    id = serializers.ReadOnlyField()
+    permission_classes = (permissions.IsAuthenticated, IsOwnerOrReadOnly)
+
+    class Meta:
+        model = Comment
+        fields = ('id', 'text', 'author', 'like_count')
+
+class CommentRetrieve(viewsets.ModelViewSet):
+
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)
+
+    def get_queryset(self):
+        queryset = super(CommentRetrieve, self).get_queryset()
+        print self.request.query_params
+        if 'author' in self.request.query_params:
+            queryset = queryset.filter(author=self.request.query_params['author'])
+        if 'post' in self.request.query_params:
+            queryset = queryset.filter(post=self.request.query_params['post'])
+
+class PostSerializer(serializers.ModelSerializer):
+
+    author = UserSerializer()
+    comment_count = serializers.ReadOnlyField()
+    like_count = serializers.ReadOnlyField()
+    short_content = serializers.ReadOnlyField()
+    comment_set = CommentSerializer(many=True)
+
+    class Meta:
+        model = Post
+        fields = ('id','title', 'content','author', 'short_content', 'comment_count', 'like_count', 'comment_set')
+
+
+
 
 class PostRetrieve(viewsets.ModelViewSet):
 
@@ -44,31 +73,7 @@ class PostRetrieve(viewsets.ModelViewSet):
         return queryset
 
 
-class CommentSerializer(serializers.HyperlinkedModelSerializer):
 
-    author = serializers.ReadOnlyField(source='author_id')
-    id = serializers.ReadOnlyField()
-    permission_classes = (permissions.IsAuthenticated, IsOwnerOrReadOnly)
-
-    class Meta:
-        model = Comment
-        fields = ('url', 'id', 'text', 'author', 'like_count')
-
-class CommentRetrieve(viewsets.ModelViewSet):
-
-    queryset = Comment.objects.all()
-    serializer_class = CommentSerializer
-
-    def perform_create(self, serializer):
-        serializer.save(author=self.request.user)
-
-    def get_queryset(self):
-        queryset = super(CommentRetrieve, self).get_queryset()
-        print self.request.query_params
-        if 'author' in self.request.query_params:
-            queryset = queryset.filter(author=self.request.query_params['author'])
-        if 'post' in self.request.query_params:
-            queryset = queryset.filter(post=self.request.query_params['post'])
         return queryset
 
 router.register(r'posts', PostRetrieve)

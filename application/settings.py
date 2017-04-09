@@ -124,7 +124,7 @@ WSGI_APPLICATION = 'application.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': config.get('db', 'NAME'),
         'USER': config.get('db', 'USER'),
         'PASSWORD': config.get('db', 'PASSWORD'),
@@ -172,5 +172,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/build/'
-STATIC_ROOT = '/home/ivan/vk/collected_static/'
-STATICFILES_DIRS = ('/home/ivan/vk/src/static/build/', )
+STATIC_ROOT = '/home/asus/vk/collected_static/'
+STATICFILES_DIRS = ('/home/asus/vk/src/static/build/', )

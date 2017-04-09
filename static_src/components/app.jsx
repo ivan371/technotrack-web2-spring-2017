@@ -13,12 +13,7 @@ import { bindActionCreators } from 'redux';
 import { selectPage } from './../actions/routing';
 
 class AppComponent extends React.Component {
-  state = {
-    currentPageName: "self_room",
-  };
-
   onMenuSelect = (currentMenu) => {
-    //this.setState({ currentPageName: currentMenu });
     this.props.selectPage(currentMenu);
   };
 

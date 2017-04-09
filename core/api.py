@@ -10,11 +10,11 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
             return True
         return obj == request.user
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('url', 'id', 'username', 'email', 'first_name','last_name', 'rating')
+        fields = ('id', 'username', 'email', 'first_name','last_name', 'rating')
 
 class UserViewSet(mixins.RetrieveModelMixin,
                    mixins.UpdateModelMixin,
