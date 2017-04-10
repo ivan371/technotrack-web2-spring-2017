@@ -67,9 +67,11 @@ class PostRetrieve(viewsets.ModelViewSet):
     def get_queryset(self):
         queryset = super(PostRetrieve, self).get_queryset()
         friends_ids = Friend.objects.filter(first = self.request.user).values_list('second', flat=True)
-        queryset = queryset.filter(Q(author = self.request.user) | Q(author=friends_ids))
+        # queryset = queryset.filter(Q(author = self.request.user) | Q(author=friends_ids))
         if 'author' in self.request.query_params:
             queryset = queryset.filter(author=self.request.query_params['author'])
+        else:
+            queryset = queryset.filter(author = self.request.user)
         return queryset
 
 

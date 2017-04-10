@@ -1,4 +1,9 @@
-import { LOAD_CHATS, LOAD_CHATS_SUCCESS, LOAD_CHATS_ERROR, CHAT_OPEN } from './../actions/chats';
+import {
+  LOAD_CHATS,
+  LOAD_CHATS_SUCCESS,
+  LOAD_CHATS_ERROR,
+  CHAT_OPEN,
+  CHAT_CLOSE } from './../actions/chats';
 import update from 'react-addons-update';
 import { chatNormalize, messageNormalize } from './../normilizers/chats';
 
@@ -39,10 +44,11 @@ export default function router (store = inititalStore, action) {
           messageList: { $merge: store.chats[action.id].message_set },
           chatopen: { $set: true },
          });
-      // case POST_CLOSE:
-      //   return update(store, {
-      //     modalopen: { $set: false },
-      //   });
+      case CHAT_CLOSE:
+        return update(store, {
+          chatopen: { $set: false },
+          messageList: { $set: []},
+        });
       default:
         return store;
     }

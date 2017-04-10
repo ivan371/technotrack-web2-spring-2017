@@ -8,22 +8,6 @@ import { bindActionCreators } from 'redux';
 // let messageContent = null;
 class ChatComponent extends React.Component {
 
-  // state = {
-  //   chatList: [],
-  //   isLoading: false,
-  //   isOpen: false,
-  //   chatId: null,
-  // }
-
-  // onChatOpen = (chatId) => {
-  //   console.log(chatId);
-  //   this.setState({
-  //     chatId: chatId,
-  //     isOpen: true,
-  //   });
-  // }
-
-
   render() {
     let messageContent = null;
     if (this.props.chatopen) {

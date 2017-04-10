@@ -7,10 +7,6 @@ import { bindActionCreators } from 'redux';
 import { loadChats, loadChatsSuccess, loadChatsError } from './../actions/chats';
 
 class ChatListComponent extends React.Component {
-  // onOpen = (id) => {
-  //   this.props.onChatOpen(id);
-  //   // console.log(id);
-  // }
   componentDidMount() {
     this.props.loadChats();
     fetch('/api/chats/', {
@@ -38,12 +34,6 @@ class ChatListComponent extends React.Component {
     );
   }
 };
-
-// ChatListComponent.propTypes = {
-//   postList: React.PropTypes.arrayOf(React.PropTypes.string),
-//   isLoading: React.PropTypes.bool,
-//   onChatOpen: React.PropTypes.func,
-// };
 
 const mapStoreToProps = state => ({
   chatList: state.chats.chatList,

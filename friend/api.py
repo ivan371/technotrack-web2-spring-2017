@@ -4,9 +4,10 @@ from application.api import router
 from core.models import User
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
-
+from core.api import UserSerializer
 
 class FriendSerializer(serializers.HyperlinkedModelSerializer):
+    second = UserSerializer()
     class Meta:
         model = Friend
         fields = ('second',)
