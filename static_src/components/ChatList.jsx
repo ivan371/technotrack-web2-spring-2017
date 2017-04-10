@@ -24,19 +24,16 @@ class ChatListComponent extends React.Component {
 
   }
   render() {
-      // const chatList = this.props.chatList.map(
-      //   (chat) => {
-      //     return <ChatButton
-      //       key={ chat.id }
-      //       id={ chat.id }
-      //       onOpen={ this.onOpen }
-      //       content={ chat.name }
-      //       />
-      //   }
-      // );
+      const chatList = this.props.chatList.map(
+        (chatId) => {
+          return <ChatButton
+            key={ chatId }
+            id={ chatId } />
+        }
+      );
     return (
         <div className="b-post-list">
-          {/* { this.props.isLoading ? <div>Загрузка...</div> :  chatList } */}
+         { this.props.isLoading ? <div>Загрузка...</div> :  chatList }
         </div>
     );
   }

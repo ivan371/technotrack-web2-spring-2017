@@ -26,19 +26,16 @@ export default function router (store = inititalStore, action) {
            chats: {
              $merge: result.entities.chat,
            },
-          // users: {
-          //   $merge: result.entities.author,
-          // },
         },
         );
         return store;
       case LOAD_CHATS_ERROR:
         return update(store, { isLoading: { $set: false } });
-      // case POST_OPEN:
-      //   return update(store, {
-      //     modalpost: { $set: store.posts[action.id]},
-      //     modalopen: { $set: true },
-      //    });
+      case CHAT_OPEN:
+        return update(store, {
+          chat: { $set: store.chats[action.id]},
+          chatopen: { $set: true },
+         });
       // case POST_CLOSE:
       //   return update(store, {
       //     modalopen: { $set: false },

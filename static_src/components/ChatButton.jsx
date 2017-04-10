@@ -1,6 +1,9 @@
 import React from 'react';
 import './../styles/base.css';
 import Button from 'react-bootstrap/lib/Button';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { chatOpen } from './../actions/chats';
 
 class ChatButtonComponent extends React.Component {
   onOpen = (e) => {
@@ -14,9 +17,8 @@ class ChatButtonComponent extends React.Component {
         id={ this.props.id }
         bsStyle="primary"
         bsSize="large"
-        onClick={ this.onOpen }
-        block
-      >
+        onClick={ this.props.chatOpen.bind(this.props.id) }
+        block>
       { this.props.content }
         </Button>
   }
@@ -24,8 +26,18 @@ class ChatButtonComponent extends React.Component {
 
 ChatButtonComponent.propTypes = {
   id: React.PropTypes.number.isRequired,
-  content: React.PropTypes.string.isRequired,
-  onOpen: React.PropTypes.func,
+  // content: React.PropTypes.string.isRequired,
+  // onOpen: React.PropTypes.func,
 };
 
-export default ChatButtonComponent;
+const mapStoreToProps = (state, props) => ({
+  content: state.chats.chats[props.id].name,
+});
+const mapDispatchToProps = dispatch => ({
+  ...bindActionCreators({chatOpen}, dispatch),
+});
+
+export default connect(
+    mapStoreToProps,
+    mapDispatchToProps
+)(ChatButtonComponent);

@@ -23,19 +23,6 @@ class ChatComponent extends React.Component {
   //   });
   // }
 
-  componentDidMount() {
-  //   this.setState({ isLoading: true });
-  //   let userId = null;
-  //   fetch('/api/chats/', {
-  //     credentials: "same-origin",
-  //   })
-  //   .then((resp) => resp.json())
-  //   .then((data) => {
-  //     this.setState({ chatList: data.results, isLoading: false });
-  //   }
-  // ).catch(console.log);
-
-  }
 
   render() {
     // let messageContent = null;

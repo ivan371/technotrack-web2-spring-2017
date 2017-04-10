@@ -8,17 +8,8 @@ import { postOpen } from './../actions/posts';
 
 
 class PostComponent extends React.Component {
-  // onOpen = () => {
-  //   this.props.onOpen(this.props.id)
-  // }
 
   render() {
-    // let openBut = null;
-    // if (this.props.onOpen) {
-    //   openBut = <div className="button_field">
-    // <button onClick={ this.onOpen } >Посмотреть пост</button></div>
-    // }
-
     return (<div className="b-post">
             <h3>{ this.props.title }</h3>
             <div className="b-post__content">{ this.props.content }</div>
@@ -30,8 +21,6 @@ class PostComponent extends React.Component {
             </div>
          </div>
     );
-    //     { openBut }
-
   }
 }
 
