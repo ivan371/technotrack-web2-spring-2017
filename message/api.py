@@ -2,15 +2,47 @@ from message.models  import Chat, Message, ChatUser
 from rest_framework import serializers, viewsets, permissions
 from application.api import router
 from django.shortcuts import get_object_or_404
+from core.api import UserSerializer
 
 
-class ChatUserSerializer(serializers.HyperlinkedModelSerializer):
+class IsOwnerOrReadOnly(permissions.BasePermission):
+    def has_object_permission(self, request, view, obj):
+        if request.method in permissions.SAFE_METHODS:
+            return True
+        return obj == request.user
 
-    chat = serializers.ReadOnlyField(source='chat_id')
+
+class MessageSerializer(serializers.ModelSerializer):
+
+    author = UserSerializer()
+
+    class Meta:
+        model = Message
+        fields = ('content', 'chat', 'author', 'id')
+
+class MessageViewSet(viewsets.ModelViewSet):
+    queryset = Message.objects.all()
+    serializer_class = MessageSerializer
+    permission_classes = (permissions.IsAuthenticated, IsOwnerOrReadOnly)
+
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)
+
+    def get_queryset(self):
+        queryset = super(MessageViewSet, self).get_queryset()
+        if 'chat' in self.request.query_params:
+            queryset = queryset.filter(chat=self.request.query_params['chat'])
+        return queryset
+
+
+
+class ChatUserSerializer(serializers.ModelSerializer):
+
+    user = UserSerializer()
 
     class Meta:
         model = ChatUser
-        fields = ('user', 'chat', 'id',)
+        fields = ('user', 'id',)
 
 class ChatUserViewSet(viewsets.ModelViewSet):
     queryset = ChatUser.objects.all()
@@ -30,20 +62,15 @@ class ChatUserViewSet(viewsets.ModelViewSet):
 
 
 
-class IsOwnerOrReadOnly(permissions.BasePermission):
-    def has_object_permission(self, request, view, obj):
-        if request.method in permissions.SAFE_METHODS:
-            return True
-        return obj == request.user
 
-
-class ChatSerializer(serializers.HyperlinkedModelSerializer):
+class ChatSerializer(serializers.ModelSerializer):
 
     chatuser_set = ChatUserSerializer(many=True)
+    message_set = MessageSerializer(many=True)
 
     class Meta:
         model = Chat
-        fields = ('url', 'name', 'chatuser_set', 'id')
+        fields = ('name', 'chatuser_set', 'id', 'message_set')
 
 class ChatViewSet(viewsets.ModelViewSet):
     queryset = Chat.objects.all()
@@ -53,26 +80,6 @@ class ChatViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         queryset = super(ChatViewSet, self).get_queryset()
         return queryset.filter(chatuser__user=self.request.user)
-
-
-class MessageSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Message
-        fields = ('url', 'content', 'chat', 'author', 'id')
-
-class MessageViewSet(viewsets.ModelViewSet):
-    queryset = Message.objects.all()
-    serializer_class = MessageSerializer
-    permission_classes = (permissions.IsAuthenticated, IsOwnerOrReadOnly)
-
-    def perform_create(self, serializer):
-        serializer.save(author=self.request.user)
-
-    def get_queryset(self):
-        queryset = super(MessageViewSet, self).get_queryset()
-        if 'chat' in self.request.query_params:
-            queryset = queryset.filter(chat=self.request.query_params['chat'])
-        return queryset
 
 
 router.register(r'chats', ChatViewSet)

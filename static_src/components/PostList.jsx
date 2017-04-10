@@ -5,7 +5,7 @@ import Post from './Post';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { loadPosts, loadPostsSuccess, loadPostsError } from './../actions/posts';
-import { loadUsers, loadUsersSuccess, loadUsersError } from './../actions/user';
+import { loadUser, loadUserSuccess, loadUserError } from './../actions/user';
 
 class PostListComponent extends React.Component {
   componentDidMount() {
@@ -25,13 +25,13 @@ class PostListComponent extends React.Component {
        this.props.loadPostsSuccess(data.results);
        if (data.results[0].author.id) {
          userId = data.results[0].author.id;
-         this.props.loadUsers();
+         this.props.loadUser();
           fetch('/api/users/' + userId, {
             credentials: "same-origin",
           }).then((resp) => resp.json())
           .then((newdata) => {
             console.log(newdata);
-            this.props.loadUsersSuccess(newdata);
+            this.props.loadUserSuccess(newdata);
           });
         }
       }
@@ -76,9 +76,9 @@ const mapDispatchToProps = dispatch => ({
     loadPosts,
     loadPostsSuccess,
     loadPostsError,
-    loadUsersSuccess,
-    loadUsersError,
-    loadUsers}, dispatch),
+    loadUserSuccess,
+    loadUserError,
+    loadUser}, dispatch),
 });
 
 export default connect(

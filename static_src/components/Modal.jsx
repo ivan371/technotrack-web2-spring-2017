@@ -6,9 +6,6 @@ import { postClose } from './../actions/posts';
 
 class ModalComponent extends React.Component {
   render() {
-    // if(!this.props.isOpen) {
-    //   return null;
-    // }
     return (
       <div className="b-modal_container">
         <div className="b-modal">
@@ -22,16 +19,6 @@ class ModalComponent extends React.Component {
     );
   }
 }
-
-// ModalComponent.defaultProps = {
-//   isOpen: false,
-// }
-
-// ModalComponent.propTypes = {
-//   inOpen: React.PropTypes.bool,
-//   onClose: React.PropTypes.func.isRequired,
-// }
-
 const mapStoreToProps = state => ({
   title: state.posts.modalpost.title,
   content: state.posts.modalpost.content,

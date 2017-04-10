@@ -10,10 +10,6 @@ import { bindActionCreators } from 'redux';
 class SelfRoomComponent extends React.Component {
   state = {
     postList: [],
-    isLoading: false,
-    isOpen: false,
-    postId: null,
-    user: null,
   }
   onCreate = (post) => {
     this.setState({
@@ -21,27 +17,10 @@ class SelfRoomComponent extends React.Component {
     });
   }
 
-  onCloseModel = () => {
-    this.setState({ isOpen: false });
-  }
-
-  onPostOpen = (postId) => {
-    this.setState({
-      postId,
-      isOpen: true,
-    });
-  }
 
   render() {
     let modalContent = null;
     let usercontent = true;
-    //  <Modal isOpen={ this.state.isOpen } onClose={ this.onCloseModel }>{ modalContent }</Modal>
-    // if (this.state.postId !== null) {
-    //   const postInfo = this.state.postList.find((value) => value.id == this.state.postId);
-    //   modalContent = <Post { ...postInfo } />
-    // }
-    // if (this.props.user !== null) {
-    // }
     let model = null;
     if (this.props.modalopen) {
       model = <Modal />;

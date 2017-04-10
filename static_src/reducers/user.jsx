@@ -1,4 +1,4 @@
-import { LOAD_USERS_SUCCESS, LOAD_USERS_ERROR, LOAD_USERS } from './../actions/user';
+import { LOAD_USER_SUCCESS, LOAD_USER_ERROR, LOAD_USER } from './../actions/user';
 import update from 'react-addons-update';
 
 const inititalStore = {
@@ -9,16 +9,16 @@ const inititalStore = {
 
 export default function router (store = inititalStore, action) {
     switch (action.type) {
-      case LOAD_USERS:
+      case LOAD_USER:
         return update(store,
           { isLoading: { $set: true } },
         );
-      case LOAD_USERS_SUCCESS:
+      case LOAD_USER_SUCCESS:
         return update(store, {
             user: { $set: action.apiResponse },
           },
         );
-      case LOAD_USERS_ERROR:
+      case LOAD_USER_ERROR:
         return update(store, { isLoading: { $set: false } });
       default:
         return store;

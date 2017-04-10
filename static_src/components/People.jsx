@@ -1,52 +1,53 @@
 import React from 'react';
 import Col from 'react-bootstrap/lib/Col';
-import Profile from './Profile';
-// import Modal from 'react-bootstrap/lib/Modal';
+import Person from './Person';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { loadUsers, loadUsersSuccess, loadUsersError } from './../actions/users';
 
 class PeopleComponent extends React.Component {
-  state = {
-    userList: [],
-    isLoading: true,
-  }
   componentDidMount() {
-    this.setState({ isLoading: true });
+    this.props.loadUsers();
     let userId = null;
     fetch('/api/users', {
       credentials: "same-origin",
     })
     .then((resp) => resp.json())
     .then((data) => {
-       this.setState({ userList: data.results, isLoading: false });
+       this.props.loadUsersSuccess(data.results);
       }
     );
 
   }
   render() {
     let userList = [];
-    if (!this.state.isLoading) {
-      userList = this.state.userList.map(
-        (user) => {
-          return(
-            <Profile
-                key={ user.id }
-                username={ user.username }
-                email={ user.email }
-                lastname={ user.last_name }
-                firstname={ user.first_name }
-                rating={ user.rating }/>)
-          }
+    if (!this.props.isLoading) {
+      userList = this.props.userList.map(
+        (userId) => {
+          return <Person key={ userId } id={ userId }/>
+        }
       );
     }
-    console.log(userList);
     return (
       <div>
         <div className="box">
           <div className="b-post"><h1>Люди</h1></div>
-          { this.state.isLoading ? <div>Загрузка...</div> :  userList }
+          { this.props.isLoading ? <div>Загрузка...</div> :  userList }
         </div>
       </div>
     );
   }
 }
 
-export default PeopleComponent;
+const mapStoreToProps = state => ({
+  userList: state.users.userList,
+  isLoading: state.users.isLoading,
+});
+const mapDispatchToProps = dispatch => ({
+  ...bindActionCreators({loadUsers, loadUsersSuccess, loadUsersError }, dispatch),
+});
+
+export default connect(
+    mapStoreToProps,
+    mapDispatchToProps
+)(PeopleComponent);
