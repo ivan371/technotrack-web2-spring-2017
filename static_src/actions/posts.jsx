@@ -2,6 +2,7 @@ export const LOAD_POSTS = 'LOAD_POSTS';
 export const LOAD_POSTS_SUCCESS = 'LOAD_POSTS_SUCCESS';
 export const LOAD_POSTS_ERROR = 'LOAD_POSTS_ERROR';
 export const POST_OPEN = 'POST_OPEN';
+export const POST_CLOSE = 'POST_CLOSE';
 
 
 export function loadPosts() {
@@ -28,5 +29,11 @@ export function postOpen(id) {
   return {
     type: POST_OPEN,
     id,
+  }
+}
+
+export function postClose() {
+  return {
+    type: POST_CLOSE,
   }
 }

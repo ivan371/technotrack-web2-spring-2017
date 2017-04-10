@@ -1,4 +1,4 @@
-import { LOAD_POSTS, LOAD_POSTS_SUCCESS, LOAD_POSTS_ERROR, POST_OPEN } from './../actions/posts';
+import { LOAD_POSTS, LOAD_POSTS_SUCCESS, LOAD_POSTS_ERROR, POST_OPEN, POST_CLOSE } from './../actions/posts';
 import update from 'react-addons-update';
 import { postNormalize } from './../normilizers/post';
 
@@ -7,6 +7,8 @@ const inititalStore = {
     posts: {},
     users: {},
     isLoading: false,
+    modalpost: {},
+    modalopen: false,
 };
 
 
@@ -34,8 +36,14 @@ export default function router (store = inititalStore, action) {
       case LOAD_POSTS_ERROR:
         return update(store, { isLoading: { $set: false } });
       case POST_OPEN:
-        console.log("postopen");
-        return store;
+        return update(store, {
+          modalpost: { $set: store.posts[action.id]},
+          modalopen: { $set: true },
+         });
+      case POST_CLOSE:
+        return update(store, {
+          modalopen: { $set: false },
+        });
       default:
         return store;
     }

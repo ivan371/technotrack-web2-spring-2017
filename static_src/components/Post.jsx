@@ -25,7 +25,9 @@ class PostComponent extends React.Component {
               <div className="b-user-name">
                 <h3>{ this.props.firstname } { this.props.lastname }</h3>
               </div>
-              <div className="button_field"><button onClick={ this.props.postOpen(this.props.id) } >Посмотреть пост</button></div>
+              <div className="button_field">
+                <button onClick={ this.props.postOpen.bind(this, this.props.id) } >Посмотреть пост</button>
+            </div>
          </div>
     );
     //     { openBut }

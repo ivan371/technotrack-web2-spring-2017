@@ -35,26 +35,34 @@ class SelfRoomComponent extends React.Component {
   render() {
     let modalContent = null;
     let usercontent = true;
+    //  <Modal isOpen={ this.state.isOpen } onClose={ this.onCloseModel }>{ modalContent }</Modal>
     // if (this.state.postId !== null) {
     //   const postInfo = this.state.postList.find((value) => value.id == this.state.postId);
     //   modalContent = <Post { ...postInfo } />
     // }
     // if (this.props.user !== null) {
-    const profile =  <Profile />;
     // }
+    let model = null;
+    if (this.props.modalopen) {
+      model = <Modal />;
+    }
+
     return (
       <div>
         <div className="box">
+
           <div className="b-post"><h1>Лента постов</h1></div>
 
            <PostForm onCreate={ this.onCreate }/>
            <PostList onPostOpen={ this.onPostOpen }/>
-            <Modal isOpen={ this.state.isOpen } onClose={ this.onCloseModel }>{ modalContent }</Modal>
+          { model }
+
+
         </div>
         <div className="box">
           <div className="b-post"><h1>Моя страница</h1></div>
-          { profile }
-          { this.props.isLoading ? <div>Загрузка...</div> :  profile }
+          <Profile />
+          { this.props.isLoading ? <div>Загрузка...</div> :  <Profile /> }
         </div>
       </div>
     );
@@ -64,6 +72,7 @@ class SelfRoomComponent extends React.Component {
 const mapStoreToProps = state => ({
   user: state.user.user,
   isLoading: state.user.isLoading,
+  modalopen: state.posts.modalopen,
 });
 const mapDispatchToProps = dispatch => ({
   ...bindActionCreators({}, dispatch),
