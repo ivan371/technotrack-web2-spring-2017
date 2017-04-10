@@ -25,24 +25,19 @@ class ChatComponent extends React.Component {
 
 
   render() {
-    // let messageContent = null;
-    // if (this.state.isOpen && this.state.chatId != null) {
-    //   messageContent = <MessageList id={ this.state.chatId } />;
-    //   this.state.isOpen = false;
-    // }
+    let messageContent = null;
+    if (this.props.chatopen) {
+      messageContent = <MessageList />;
+    }
     return (
       <div>
         <div className="box">
           <div className="b-post"><h1>Чаты</h1></div>
         <ChatList/>
-            {/* <ChatList
-              isLoading={ this.state.isLoading }
-              chatList={ this.state.chatList }
-              onChatOpen={ this.onChatOpen }/> */}
           </div>
         <div className="box">
           <div className="b-post"><h1>Сообщения</h1></div>
-          {/* { messageContent } */}
+          { messageContent }
         </div>
       </div>
     );
@@ -51,6 +46,7 @@ class ChatComponent extends React.Component {
 
 
 const mapStoreToProps = state => ({
+  chatopen: state.chats.chatopen,
 });
 const mapDispatchToProps = dispatch => ({
   ...bindActionCreators({}, dispatch),

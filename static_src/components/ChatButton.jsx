@@ -17,7 +17,7 @@ class ChatButtonComponent extends React.Component {
         id={ this.props.id }
         bsStyle="primary"
         bsSize="large"
-        onClick={ this.props.chatOpen.bind(this.props.id) }
+        onClick={ this.props.chatOpen.bind(this, this.props.id) }
         block>
       { this.props.content }
         </Button>

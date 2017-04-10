@@ -2,6 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './../styles/base.css';
 import Button from 'react-bootstrap/lib/Button';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
 
 
 class MessageComponent extends React.Component {
@@ -15,8 +18,17 @@ class MessageComponent extends React.Component {
 }
 
 MessageComponent.propTypes = {
-  content: React.PropTypes.string.isRequired,
-  // author: React.PropTypes.string.isRequired,
+  id: React.PropTypes.number.isRequired,
 };
 
-export default MessageComponent;
+const mapStoreToProps = (state, props) => ({
+  content: state.chats.messages[props.id].content,
+});
+const mapDispatchToProps = dispatch => ({
+  ...bindActionCreators({}, dispatch),
+});
+
+export default connect(
+    mapStoreToProps,
+    mapDispatchToProps
+)(MessageComponent);

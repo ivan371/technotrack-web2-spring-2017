@@ -10,3 +10,8 @@ export function chatNormalize (chats) {
    const result = normalize(chats, [chat]);
    return result;
 }
+
+export function messageNormalize (messages) {
+  const message = new schema.Entity('message');
+  return normalize(messages, message);
+}
