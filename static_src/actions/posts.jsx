@@ -3,6 +3,7 @@ export const LOAD_POSTS_SUCCESS = 'LOAD_POSTS_SUCCESS';
 export const LOAD_POSTS_ERROR = 'LOAD_POSTS_ERROR';
 export const POST_OPEN = 'POST_OPEN';
 export const POST_CLOSE = 'POST_CLOSE';
+export const POST_CREATE = 'POST_CREATE';
 
 
 export function loadPosts() {
@@ -35,5 +36,13 @@ export function postOpen(id) {
 export function postClose() {
   return {
     type: POST_CLOSE,
+  }
+}
+
+export function postCreate(title, content) {
+  return {
+    type: POST_CREATE,
+    title,
+    content,
   }
 }

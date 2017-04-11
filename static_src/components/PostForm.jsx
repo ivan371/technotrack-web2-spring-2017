@@ -4,6 +4,9 @@ import ControlLabel from 'react-bootstrap/lib/ControlLabel'
 import FormControl from 'react-bootstrap/lib/FormControl'
 import HelpBlock from 'react-bootstrap/lib/HelpBlock'
 import Button from 'react-bootstrap/lib/Button';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { postCreate } from './../actions/posts';
 
 const wellStyles = {maxWidth: 400, margin: '0 auto 10px'};
 
@@ -31,7 +34,7 @@ class PostFormComponent extends React.Component {
 
   onCreate = (e) => {
     e.preventDefault();
-    this.props.onCreate({ ...this.state });
+    this.props.postCreate(this.state.title, this.state.content);
   }
 
   render() {
@@ -52,11 +55,10 @@ class PostFormComponent extends React.Component {
                     placeholder="Текст"
                     value={ this.state.content }
                     onChange={ this.onChange }
-                    name="content"
-                    />
+                    name="content"/>
                 </FormGroup>
                 <div className="button_field">
-                  <button onClick={ this.onCreate }>Создать</button>
+                  <button onClick={ this.onCreate.bind(this) }>Создать</button>
                 </div>
           </form>
           </div>
@@ -64,8 +66,17 @@ class PostFormComponent extends React.Component {
   }
 }
 
-PostFormComponent.propTypes = {
-  onCreate: React.PropTypes.func.isRequired,
-}
+// PostFormComponent.propTypes = {
+//   onCreate: React.PropTypes.func.isRequired,
+// }
 
-export default PostFormComponent;
+const mapStoreToProps = props => ({
+});
+const mapDispatchToProps = dispatch => ({
+  ...bindActionCreators({postCreate}, dispatch),
+});
+
+export default connect(
+    mapStoreToProps,
+    mapDispatchToProps
+)(PostFormComponent);

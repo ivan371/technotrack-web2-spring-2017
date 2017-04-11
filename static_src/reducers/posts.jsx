@@ -1,6 +1,7 @@
-import { LOAD_POSTS, LOAD_POSTS_SUCCESS, LOAD_POSTS_ERROR, POST_OPEN, POST_CLOSE } from './../actions/posts';
+import { LOAD_POSTS, LOAD_POSTS_SUCCESS, LOAD_POSTS_ERROR, POST_OPEN, POST_CLOSE, POST_CREATE } from './../actions/posts';
 import update from 'react-addons-update';
-import { postNormalize } from './../normilizers/post';
+import { postNormalize, postDeNotmilize } from './../normilizers/post';
+import { post } from './../promises/post';
 
 const inititalStore = {
     postList: [],
@@ -44,6 +45,10 @@ export default function router (store = inititalStore, action) {
         return update(store, {
           modalopen: { $set: false },
         });
+      case POST_CREATE:
+        const postresult = postDeNotmilize(action.title, action.content);
+        post('/api/posts', postresult);
+        return store;
       default:
         return store;
     }

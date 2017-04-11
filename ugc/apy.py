@@ -42,11 +42,11 @@ class CommentRetrieve(viewsets.ModelViewSet):
 
 class PostSerializer(serializers.ModelSerializer):
 
-    author = UserSerializer()
+    author = UserSerializer(read_only=True)
     comment_count = serializers.ReadOnlyField()
     like_count = serializers.ReadOnlyField()
     short_content = serializers.ReadOnlyField()
-    comment_set = CommentSerializer(many=True)
+    comment_set = CommentSerializer(many=True, read_only=True)
 
     class Meta:
         model = Post
