@@ -17,17 +17,19 @@ import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 import reducers from './reducers';
 // import { createBrowserHistory } from 'history';
 //
-// const history = syncHistoryWithStore(createBrowserHistory(), initStore());
+const history = syncHistoryWithStore(browserHistory, initStore());
+
+const routers =
+( <div><Route path="vk/" component={App}>
+  <Route path="/vk/self/" component={SelfRoom}/>
+    <Route path="/vk/chats/" component={Chats}/>
+    <Route path="/vk/people/" component={People}/>
+  </Route></div>);
 
 ReactDOM.render(
     <Provider store={ initStore() }>
-      {/* <Router history={history}>
-        <Route path="/" component={App}>
-          <Route path="chats" component={Chats}/>
-          <Route path="people" component={People}/>
-        </Route>
-      </Router> */}
-      <App/>
+      <Router history={history} routes={routers}/>
+      {/* <App/> */}
      </Provider>,
   document.getElementById('root'),
 );

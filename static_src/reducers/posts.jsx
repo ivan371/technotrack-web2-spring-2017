@@ -47,7 +47,7 @@ export default function router (store = inititalStore, action) {
         });
       case POST_CREATE:
         const postresult = postDeNotmilize(action.title, action.content);
-        post('/api/posts', postresult);
+        post('/api/posts/', postresult);
         return store;
       default:
         return store;

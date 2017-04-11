@@ -2,12 +2,12 @@ import { normalize, schema, denormilize } from 'normalizr';
 
 export function postNormalize (posts) {
   const author = new schema.Entity('author');
-  const comment = new schema.Entity('comment_set', {
+  const comment = new schema.Entity('comments', {
     author: author,
   });
   const post = new schema.Entity('posts', {
     author: author,
-    comments: [comment],
+    comment_set: [comment],
   });
   const result = normalize(posts, [post]);
   console.log(result);

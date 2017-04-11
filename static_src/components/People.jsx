@@ -32,7 +32,7 @@ class PeopleComponent extends React.Component {
       <div>
         <div className="box">
           <div className="b-post"><h1>Люди</h1></div>
-          { this.props.isLoading ? <div>Загрузка...</div> :  userList }
+          { this.props.isLoading ? <div className="loading"></div> :  userList }
         </div>
       </div>
     );

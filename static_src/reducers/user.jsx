@@ -16,6 +16,7 @@ export default function router (store = inititalStore, action) {
       case LOAD_USER_SUCCESS:
         return update(store, {
             user: { $set: action.apiResponse },
+            isLoading: { $set: false }
           },
         );
       case LOAD_USER_ERROR:

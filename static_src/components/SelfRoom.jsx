@@ -8,15 +8,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 class SelfRoomComponent extends React.Component {
-  state = {
-    postList: [],
-  }
-  onCreate = (post) => {
-    this.setState({
-      postList: [post, ...this.state.postList]
-    });
-  }
-
 
   render() {
     let modalContent = null;
@@ -41,7 +32,7 @@ class SelfRoomComponent extends React.Component {
         <div className="box">
           <div className="b-post"><h1>Моя страница</h1></div>
           <Profile />
-          { this.props.isLoading ? <div>Загрузка...</div> :  <Profile /> }
+          { this.props.isLoading ? <div className="loading"></div> :  <Profile /> }
         </div>
       </div>
     );

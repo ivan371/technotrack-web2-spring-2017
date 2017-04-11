@@ -29,7 +29,7 @@ class ChatListComponent extends React.Component {
       );
     return (
         <div className="b-post-list">
-         { this.props.isLoading ? <div>Загрузка...</div> :  chatList }
+         { this.props.isLoading ? <div className="loading"></div> :  chatList }
         </div>
     );
   }

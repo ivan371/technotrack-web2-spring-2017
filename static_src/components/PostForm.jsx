@@ -35,6 +35,7 @@ class PostFormComponent extends React.Component {
   onCreate = (e) => {
     e.preventDefault();
     this.props.postCreate(this.state.title, this.state.content);
+    // this.props.onCreate({ ...this.state });
   }
 
   render() {

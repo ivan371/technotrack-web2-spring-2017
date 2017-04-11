@@ -43,19 +43,10 @@ class PostListComponent extends React.Component {
         (postId) => {
           return <Post key={ postId } id={ postId }/>
         }
-        // (post) => {
-        //   return <Post
-        //       key={ post.id }
-        //       id={ post.id }
-        //       author={ post.author }
-        //       content={ post.content }
-        //       title={ post.title }
-        //       onOpen={ this.props.onPostOpen }/>
-        // }
       );
     return (
         <div className="b-post-list">
-          { this.props.isLoading ? <div>Загрузка...</div> :  postList }
+          { this.props.isLoading ? <div className="loading"></div> :  postList }
         </div>
     );
   }
