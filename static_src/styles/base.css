@@ -37,7 +37,8 @@ h3{
   border-radius: 2px;
   padding-left: 10px;
   padding-right: 10px;
-  background-color: white;
+  background: linear-gradient(to right, grey, LightGray, grey);
+  border: 1px solid black;
 }
 .button_field{
   position: relative;
@@ -52,6 +53,23 @@ h3{
   padding: 5px 16px;
   font-size: 18px;
   border-radius: 6px;
+}
+.button_field button:hover {
+  background-color: black;
+}
+.button {
+  width: 180px;
+  color: white;
+  color: #fff;
+  background-color: #337ab7;
+  border-color: #2e6da4;
+  text-align: center;
+  padding: 5px 16px;
+  font-size: 18px;
+  border-radius: 6px;
+}
+.button:hover {
+  background-color: black;
 }
 .b-modal_container {
   position: fixed;

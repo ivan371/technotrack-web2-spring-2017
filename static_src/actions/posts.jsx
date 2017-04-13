@@ -4,6 +4,7 @@ export const LOAD_POSTS_ERROR = 'LOAD_POSTS_ERROR';
 export const POST_OPEN = 'POST_OPEN';
 export const POST_CLOSE = 'POST_CLOSE';
 export const POST_CREATE = 'POST_CREATE';
+import { postNormalize, postDeNotmilize } from './../normilizers/post';
 
 
 export function loadPosts() {
@@ -13,9 +14,10 @@ export function loadPosts() {
 }
 
 export function loadPostsSuccess(apiResponse) {
+    const result = postNormalize(apiResponse);
     return {
         type: LOAD_POSTS_SUCCESS,
-        apiResponse,
+        result,
     };
 }
 

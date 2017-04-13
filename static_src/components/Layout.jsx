@@ -1,12 +1,5 @@
 import React from 'react';
-import FormGroup from 'react-bootstrap/lib/FormGroup'
-import ControlLabel from 'react-bootstrap/lib/ControlLabel'
-import FormControl from 'react-bootstrap/lib/FormControl'
-import HelpBlock from 'react-bootstrap/lib/HelpBlock'
-import Button from 'react-bootstrap/lib/Button';
-import Grid from 'react-bootstrap/lib/Grid'
-import Col from 'react-bootstrap/lib/Col'
-import Row from 'react-bootstrap/lib/Row'
+import { Link } from 'react-router';
 
 const wellStyles = {maxWidth: 400, margin: '0 auto 10px'};
 
@@ -15,21 +8,16 @@ class LayoutComponent extends React.Component {
     return (
       <div>
              <div className="Layout">
-               <Button
-                 onClick={ () => this.props.onSelect("self_room") }
-                 bsStyle="primary" bsSize="large" block>Моя страница</Button>
-               <Button
-                 onClick={ () => this.props.onSelect("news") }
-                 bsStyle="primary" bsSize="large" block>Новости</Button>
-               <Button
-                 onClick={ () => this.props.onSelect("friends") }
-                 bsStyle="primary" bsSize="large" block>Друзья</Button>
-               <Button
-                 onClick={ () => this.props.onSelect("chats") }
-                 bsStyle="primary" bsSize="large" block>Чаты</Button>
-               <Button
-                 onClick={ () => this.props.onSelect("peoples") }
-                 bsStyle="primary" bsSize="large" block>Люди</Button>
+                 <Link to="/vk/self/">
+               <button className="button">Моя страница</button></Link>
+               <Link to="/vk/news/">
+               <button className="button">Новости</button></Link>
+              <Link to="/vk/friends/">
+               <button className="button">Друзья</button></Link>
+              <Link to="/vk/chats/">
+               <button className="button">Чаты</button></Link>
+              <Link to="/vk/people/">
+               <button className="button">Люди</button></Link>
              </div>
          <div> { this.props.children }</div>
       </div>

@@ -6,24 +6,7 @@ import { bindActionCreators } from 'redux';
 import { chatClose } from './../actions/chats';
 
 class MessageListComponent extends React.Component {
-  componentWillReceiveProps(nextProps) {
-    if(nextProps.messageList != this.props.messageList) {
-      console.log('comprecieve', this.props.messageList);
-      // this.props.chatClose();
-    //   fetch('/api/messages/?chat=' + nextProps.id, {
-    //     credentials: "same-origin",
-    //   })
-    //   .then((resp) => resp.json())
-    //   .then((data) => {
-    //     console.log(data.results);
-    //     this.setState({ messageList: data.results, isLoading: false });
-    //   }
-    // ).catch(console.log);
-  }
-
-  }
   render() {
-    //let messageList = null;
      const messageList = this.props.messageList.map(
       (messageId) => {
         console.log(messageId);
@@ -35,7 +18,6 @@ class MessageListComponent extends React.Component {
     return (
       <div className="b-post">
         {messageList}
-          { this.props.chatopen ? <div className="loading"></div> :  messageList }
       </div>
     );
   }

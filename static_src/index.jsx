@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './styles/base.css';
-// import './styles/bootstrap.css';
 import { Provider } from 'react-redux';
 import App from './components/app';
 import SelfRoom from './components/SelfRoom';
@@ -24,6 +23,8 @@ const routers =
   <Route path="/vk/self/" component={SelfRoom}/>
     <Route path="/vk/chats/" component={Chats}/>
     <Route path="/vk/people/" component={People}/>
+    <Route path="/vk/news/" component={News}/>
+    <Route path="/vk/friends/" component={Friends}/>
   </Route></div>);
 
 ReactDOM.render(

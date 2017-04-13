@@ -6,7 +6,6 @@ import { post } from './../promises/post';
 const inititalStore = {
     postList: [],
     posts: {},
-    users: {},
     isLoading: false,
     modalpost: {},
     modalopen: false,
@@ -20,17 +19,11 @@ export default function router (store = inititalStore, action) {
           { isLoading: { $set: true } },
         );
       case LOAD_POSTS_SUCCESS:
-        const result = postNormalize(action.apiResponse);
-        console.log(result.result);
-        console.log(result.entities.posts);
         return update(store, {
           isLoading: { $set: false },
-          postList: { $set: result.result },
+          postList: { $set: action.result.result },
           posts: {
-            $merge: result.entities.posts,
-          },
-          users: {
-            $merge: result.entities.author,
+            $merge: action.result.entities.posts,
           },
         },
         );

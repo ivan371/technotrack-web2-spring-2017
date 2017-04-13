@@ -31,8 +31,8 @@ PostComponent.propTypes = {
 const mapStoreToProps = (state, props) => ({
   title: state.posts.posts[props.id].title,
   content: state.posts.posts[props.id].content,
-  firstname: state.posts.users[state.posts.posts[props.id].author].first_name,
-  lastname: state.posts.users[state.posts.posts[props.id].author].last_name,
+  firstname: state.users.users[state.posts.posts[props.id].author].first_name,
+  lastname: state.users.users[state.posts.posts[props.id].author].last_name,
 });
 const mapDispatchToProps = dispatch => ({
   ...bindActionCreators({postOpen}, dispatch),

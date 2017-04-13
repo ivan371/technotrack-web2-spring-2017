@@ -25,4 +25,9 @@ class UserViewSet(mixins.RetrieveModelMixin,
     serializer_class = UserSerializer
     permission_classes = (permissions.IsAuthenticated, IsOwnerOrReadOnly,)
 
+    def get_queryset(self):
+        queryset = super(UserViewSet, self).get_queryset()
+        if 'me' in self.request.query_params:
+            queryset = queryset.filter(id=self.request.user.id)
+        return queryset
 router.register(r'users', UserViewSet)

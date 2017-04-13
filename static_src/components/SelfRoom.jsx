@@ -6,17 +6,31 @@ import Post from './Post';
 import Profile from './Profile';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { loadUser, loadUserSuccess, loadUserError } from './../actions/users';
 
 class SelfRoomComponent extends React.Component {
 
+  componentDidMount() {
+   this.props.loadUser();
+    fetch('/api/users/?me', {
+      credentials: "same-origin",
+    }).then((resp) => resp.json())
+    .then((newdata) => {
+      console.log(newdata.results);
+      this.props.loadUserSuccess(newdata.results);
+    }).catch(console.log);
+  }
   render() {
     let modalContent = null;
-    let usercontent = true;
+    let usercontent = <div className="loading"></div>;
     let model = null;
     if (this.props.modalopen) {
       model = <Modal />;
     }
-
+    if (!this.props.ismeLoading) {
+       usercontent = <Profile/>;
+    }
+    console.log(this.props.ismeLoading)
     return (
       <div>
         <div className="box">
@@ -31,8 +45,7 @@ class SelfRoomComponent extends React.Component {
         </div>
         <div className="box">
           <div className="b-post"><h1>Моя страница</h1></div>
-          <Profile />
-          { this.props.isLoading ? <div className="loading"></div> :  <Profile /> }
+          { usercontent }
         </div>
       </div>
     );
@@ -40,12 +53,14 @@ class SelfRoomComponent extends React.Component {
 }
 
 const mapStoreToProps = state => ({
-  user: state.user.user,
-  isLoading: state.user.isLoading,
+  ismeLoading: state.users.ismeLoading,
   modalopen: state.posts.modalopen,
 });
 const mapDispatchToProps = dispatch => ({
-  ...bindActionCreators({}, dispatch),
+  ...bindActionCreators({
+    loadUserSuccess,
+    loadUserError,
+    loadUser}, dispatch),
 });
 
 export default connect(

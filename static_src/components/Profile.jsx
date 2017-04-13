@@ -26,12 +26,12 @@ ProfileComponent.propTypes = {
   // id: React.PropTypes.number.isRequired,
 };
 
-const mapStoreToProps = state => ({
-  username: state.user.user.username,
-  email: state.user.user.email,
-  firstname: state.user.user.first_name,
-  lastname: state.user.user.last_name,
-  rating: state.user.user.rating,
+const mapStoreToProps = (state, props) => ({
+  username: state.users.users[0].username,
+  email: state.users.users[0].email,
+  firstname: state.users.users[0].first_name,
+  lastname: state.users.users[0].last_name,
+  rating: state.users.users[0].rating,
 });
 const mapDispatchToProps = dispatch => ({
   ...bindActionCreators({}, dispatch),

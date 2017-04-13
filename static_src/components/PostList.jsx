@@ -5,35 +5,29 @@ import Post from './Post';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { loadPosts, loadPostsSuccess, loadPostsError } from './../actions/posts';
-import { loadUser, loadUserSuccess, loadUserError } from './../actions/user';
+import { loadUser, loadUserSuccess, loadUserError } from './../actions/users';
 
 class PostListComponent extends React.Component {
   componentDidMount() {
     this.props.loadPosts();
     let userId = null;
-    // window.setTimeout(
-    //   () => {
-    //     this.props.loadPostsSuccess(apiResponse);
-    //   },
-    //   1000
-    // );
     fetch('/api/posts', {
       credentials: "same-origin",
     })
     .then((resp) => resp.json())
     .then((data) => {
        this.props.loadPostsSuccess(data.results);
-       if (data.results[0].author.id) {
-         userId = data.results[0].author.id;
-         this.props.loadUser();
-          fetch('/api/users/' + userId, {
-            credentials: "same-origin",
-          }).then((resp) => resp.json())
-          .then((newdata) => {
-            console.log(newdata);
-            this.props.loadUserSuccess(newdata);
-          });
-        }
+      //  if (data.results[0].author.id) {
+      //    userId = data.results[0].author.id;
+      //    this.props.loadUser();
+      //     fetch('/api/users/' + userId, {
+      //       credentials: "same-origin",
+      //     }).then((resp) => resp.json())
+      //     .then((newdata) => {
+      //       console.log(newdata);
+      //       this.props.loadUserSuccess(newdata);
+      //     });
+      //   }
       }
     ).catch(console.log);
 
