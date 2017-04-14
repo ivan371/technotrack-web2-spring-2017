@@ -125,3 +125,15 @@ h3{
 .avatar {
   width: 100px;
 }
+.area {
+  width: 100%;
+  user-select: text;
+  flex-direction: column;
+  resize: auto;
+  cursor: auto;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 6px 12px;
+}

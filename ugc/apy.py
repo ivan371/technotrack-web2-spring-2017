@@ -16,7 +16,7 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
 
 class CommentSerializer(serializers.ModelSerializer):
 
-    author = UserSerializer()
+    author = UserSerializer(read_only=True)
     id = serializers.ReadOnlyField()
     permission_classes = (permissions.IsAuthenticated, IsOwnerOrReadOnly)
 

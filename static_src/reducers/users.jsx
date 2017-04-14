@@ -6,6 +6,7 @@ import {
   LOAD_USER_SUCCESS,
   LOAD_USER_ERROR } from './../actions/users';
 import { LOAD_POSTS_SUCCESS } from './../actions/posts';
+import { LOAD_CHATS_SUCCESS } from './../actions/chats';
 import update from 'react-addons-update';
 import { userNormalize } from './../normilizers/users';
 
@@ -38,6 +39,12 @@ export default function router (store = inititalStore, action) {
         return update(store, {
           users: {
             $merge: action.result.entities.author,
+          },
+        });
+      case LOAD_CHATS_SUCCESS:
+        return update(store, {
+          users: {
+            $merge: action.result.entities.user,
           },
         });
       case LOAD_USERS_ERROR:

@@ -3,7 +3,7 @@ export const LOAD_CHATS_SUCCESS = 'LOAD_CHATS_SUCCESS';
 export const LOAD_CHATS_ERROR = 'LOAD_CHATS_ERROR';
 export const CHAT_OPEN = 'CHAT_OPEN';
 export const CHAT_CLOSE = 'CHAT_CLOSE';
-
+import { chatNormalize, messageNormalize } from './../normilizers/chats';
 
 export function loadChats() {
     return {
@@ -12,9 +12,11 @@ export function loadChats() {
 }
 
 export function loadChatsSuccess(apiResponse) {
+    const result = chatNormalize(apiResponse);
+    console.log(result);
     return {
         type: LOAD_CHATS_SUCCESS,
-        apiResponse,
+        result,
     };
 }
 

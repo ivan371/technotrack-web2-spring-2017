@@ -14,7 +14,7 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
 
 class MessageSerializer(serializers.ModelSerializer):
 
-    author = UserSerializer()
+    author = UserSerializer(read_only=True)
 
     class Meta:
         model = Message

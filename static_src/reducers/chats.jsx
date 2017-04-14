@@ -25,15 +25,13 @@ export default function router (store = inititalStore, action) {
           { isLoading: { $set: true } },
         );
       case LOAD_CHATS_SUCCESS:
-        const result = chatNormalize(action.apiResponse);
-        console.log(result);
         return update(store, {
           isLoading: { $set: false },
-           chatList: { $set: result.result },
+           chatList: { $set: action.result.result },
            chats: {
-             $merge: result.entities.chat,
+             $merge: action.result.entities.chat,
            },
-           messages: { $merge: result.entities.message}
+           messages: { $merge: action.result.entities.message}
         },
         );
         return store;

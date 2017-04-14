@@ -48,8 +48,7 @@ class PostFormComponent extends React.Component {
                 placeholder="Заголовок"
                 value={ this.state.title }
                 onChange={ this.onChange }
-                name="title"
-                />
+                name="title"/>
                 <FormGroup controlId="formControlsTextarea">
                   <FormControl
                     componentClass="textarea"
