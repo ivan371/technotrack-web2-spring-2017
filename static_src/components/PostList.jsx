@@ -10,24 +10,12 @@ import { loadUser, loadUserSuccess, loadUserError } from './../actions/users';
 class PostListComponent extends React.Component {
   componentDidMount() {
     this.props.loadPosts();
-    let userId = null;
     fetch('/api/posts', {
       credentials: "same-origin",
     })
     .then((resp) => resp.json())
     .then((data) => {
        this.props.loadPostsSuccess(data.results);
-      //  if (data.results[0].author.id) {
-      //    userId = data.results[0].author.id;
-      //    this.props.loadUser();
-      //     fetch('/api/users/' + userId, {
-      //       credentials: "same-origin",
-      //     }).then((resp) => resp.json())
-      //     .then((newdata) => {
-      //       console.log(newdata);
-      //       this.props.loadUserSuccess(newdata);
-      //     });
-      //   }
       }
     ).catch(console.log);
 

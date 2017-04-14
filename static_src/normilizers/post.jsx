@@ -15,11 +15,7 @@ export function postNormalize (posts) {
 }
 
 export function postDeNotmilize (title, content) {
-  // const titl = new schema.Entity('title');
-  // const conten = new schema.Entity('content');
-  // const entities = { titl: title, conten: content };
-  // const result = denormilize(entities);
-  const result = { title, content }
+  const result = { "title": title, "content": content }
   console.log(result);
   return result;
 }

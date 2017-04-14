@@ -1,7 +1,5 @@
 import { LOAD_POSTS, LOAD_POSTS_SUCCESS, LOAD_POSTS_ERROR, POST_OPEN, POST_CLOSE, POST_CREATE } from './../actions/posts';
 import update from 'react-addons-update';
-import { postNormalize, postDeNotmilize } from './../normilizers/post';
-import { post } from './../promises/post';
 
 const inititalStore = {
     postList: [],
@@ -39,9 +37,13 @@ export default function router (store = inititalStore, action) {
           modalopen: { $set: false },
         });
       case POST_CREATE:
-        const postresult = postDeNotmilize(action.title, action.content);
-        post('/api/posts/', postresult);
-        return store;
+        return update(store, {
+          postList: { $merge: action.result.result },
+          posts: {
+            $merge: action.result.post,
+          },
+        },
+        );
       default:
         return store;
     }

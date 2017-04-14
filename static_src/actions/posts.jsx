@@ -5,6 +5,7 @@ export const POST_OPEN = 'POST_OPEN';
 export const POST_CLOSE = 'POST_CLOSE';
 export const POST_CREATE = 'POST_CREATE';
 import { postNormalize, postDeNotmilize } from './../normilizers/post';
+import { post } from './../promises/post';
 
 
 export function loadPosts() {
@@ -42,9 +43,14 @@ export function postClose() {
 }
 
 export function postCreate(title, content) {
+  post('/api/posts/', {title, content});
+  const result = {
+    post: {0: {id: 0, title, content, author: 0}},
+    result: {0: 0},
+  };
+  console.log(result);
   return {
     type: POST_CREATE,
-    title,
-    content,
+    result,
   }
 }

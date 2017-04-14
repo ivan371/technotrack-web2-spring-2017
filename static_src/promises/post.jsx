@@ -1,14 +1,15 @@
 import cookie from 'react-cookie';
 
 export function post(url, requestuestBody) {
-  console.log('result:', requestuestBody);
   const csrftoken = cookie.load('csrftoken');
   fetch(url, {
     method: 'post',
     credentials: "same-origin",
-    body: requestuestBody,
+    body: JSON.stringify(requestuestBody),
     headers: {
       "X-CSRFToken": csrftoken,
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
     }
   })
   .then(function (data) {
