@@ -13,6 +13,7 @@ class PersonComponent extends React.Component {
       <div className="b-post">
         <h3>{ this.props.username }</h3>
         <div className="b-post__content">
+        <img className="avatar" src={ this.props.avatar }/>
         <p>{ this.props.email }</p>
         <p>{ this.props.firstname }</p>
         <p>{ this.props.lastname }</p>
@@ -36,6 +37,7 @@ const mapStoreToProps = (state, props) => ({
   firstname: state.users.users[props.id].first_name,
   lastname: state.users.users[props.id].last_name,
   rating: state.users.users[props.id].rating,
+  avatar: state.users.users[props.id].avatar,
 });
 const mapDispatchToProps = dispatch => ({
   ...bindActionCreators({}, dispatch),

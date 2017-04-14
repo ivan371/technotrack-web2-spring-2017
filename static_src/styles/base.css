@@ -121,3 +121,7 @@ h3{
 @keyframes loading {
   100% {transform: rotate(1turn);}
 }
+
+.avatar {
+  width: 100px;
+}

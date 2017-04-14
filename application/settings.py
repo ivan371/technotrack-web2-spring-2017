@@ -174,3 +174,6 @@ USE_TZ = True
 STATIC_URL = '/static/build/'
 STATIC_ROOT = '/home/ivan/vk/collected_static/'
 STATICFILES_DIRS = ('/home/ivan/vk/src/static/build/', )
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'media/')

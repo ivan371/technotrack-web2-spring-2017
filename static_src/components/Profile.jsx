@@ -7,6 +7,7 @@ class ProfileComponent extends React.Component {
     console.log(this.props);
     return (
       <div className="b-post">
+        <img className="avatar" src={ this.props.avatar }/>
         <p>{ this.props.username }</p>
         <p>{ this.props.email }</p>
         <p>{ this.props.firstname }</p>
@@ -17,21 +18,13 @@ class ProfileComponent extends React.Component {
   }
 }
 
-ProfileComponent.propTypes = {
-  // username: React.PropTypes.string.isRequired,
-  // email: React.PropTypes.string.isRequired,
-  // firstname: React.PropTypes.string.isRequired,
-  // lastname: React.PropTypes.string.isRequired,
-  // rating: React.PropTypes.number.isRequired,
-  // id: React.PropTypes.number.isRequired,
-};
-
 const mapStoreToProps = (state, props) => ({
   username: state.users.users[0].username,
   email: state.users.users[0].email,
   firstname: state.users.users[0].first_name,
   lastname: state.users.users[0].last_name,
   rating: state.users.users[0].rating,
+  avatar: state.users.users[0].avatar,
 });
 const mapDispatchToProps = dispatch => ({
   ...bindActionCreators({}, dispatch),
