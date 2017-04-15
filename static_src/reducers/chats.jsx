@@ -11,7 +11,7 @@ const inititalStore = {
     chatList: [],
     chats: {},
     isLoading: false,
-    chat: {},
+    chat: null,
     messageList: [],
     messages: {},
     chatopen: false,
@@ -41,6 +41,7 @@ export default function router (store = inititalStore, action) {
         return update(store, {
           messageList: { $merge: store.chats[action.id].message_set },
           chatopen: { $set: true },
+          chat: { $set: action.id},
          });
       case CHAT_CLOSE:
         return update(store, {

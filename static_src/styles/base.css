@@ -71,20 +71,27 @@ h3{
 .button:hover {
   background-color: black;
 }
-.b-modal_container {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  z-index: 2;
-}
 .b-modal {
-  position: fixed;
-  top: 50px;
-  width: 40%;
-  bottom: 50px;
-  background-color: black;
-  opacity: 0.8;
-  z-index: 2;
+  background: #fff;
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	margin-top: -200px;
+	overflow: hidden;
+	z-index: 2000;
+	width: 500px;
+	padding: 0px;
+	margin-left: -250px;
+}
+.b-modal_container {
+  background: #000;
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	z-index: 1000;
+	opacity: .5;
 }
 .loading {
   position: relative;
@@ -136,4 +143,9 @@ h3{
   border: 1px solid #ccc;
   border-radius: 4px;
   padding: 6px 12px;
+}
+.messageList {
+  position: relative;
+  height: 500px;
+  scrolling: yes;
 }

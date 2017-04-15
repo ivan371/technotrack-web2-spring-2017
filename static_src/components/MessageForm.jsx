@@ -2,6 +2,7 @@ import React from 'react';
 import './../styles/base.css';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { messageCreate } from './../actions/chats';
 
 class MessageFormComponent extends React.Component {
   state = {
@@ -15,6 +16,7 @@ class MessageFormComponent extends React.Component {
   onCreate = (e) => {
     e.preventDefault();
     this.setState({content: ''});
+    this.props.messageCreate(this.props.chat, this.state.content);
   }
   render() {
     return (
@@ -40,7 +42,7 @@ MessageFormComponent.propTypes = {
 };
 
 const mapStoreToProps = (state, props) => ({
-  // username: state.users.users[props.id].username,
+  chat: state.chats.chat,
   // email: state.users.users[props.id].email,
   // firstname: state.users.users[props.id].first_name,
   // lastname: state.users.users[props.id].last_name,
@@ -48,7 +50,7 @@ const mapStoreToProps = (state, props) => ({
   // avatar: state.users.users[props.id].avatar,
 });
 const mapDispatchToProps = dispatch => ({
-  ...bindActionCreators({}, dispatch),
+  ...bindActionCreators({messageCreate}, dispatch),
 });
 
 export default connect(

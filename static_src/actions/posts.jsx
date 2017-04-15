@@ -4,9 +4,10 @@ export const LOAD_POSTS_ERROR = 'LOAD_POSTS_ERROR';
 export const POST_OPEN = 'POST_OPEN';
 export const POST_CLOSE = 'POST_CLOSE';
 export const POST_CREATE = 'POST_CREATE';
+export const POST_CHANGE = 'POST_CHANGE';
 import { postNormalize, postDeNotmilize } from './../normilizers/post';
 import { post } from './../promises/post';
-
+import { put } from './../promises/put';
 
 export function loadPosts() {
     return {
@@ -52,5 +53,15 @@ export function postCreate(title, content) {
   return {
     type: POST_CREATE,
     result,
+  }
+}
+
+export function postChange(id, title, content) {
+  put('/api/posts/' + id + '/', {title, content});
+  return {
+    type: POST_CHANGE,
+    id,
+    title,
+    content
   }
 }

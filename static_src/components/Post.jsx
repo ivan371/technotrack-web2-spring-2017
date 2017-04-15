@@ -17,7 +17,7 @@ class PostComponent extends React.Component {
                 <h3>{ this.props.firstname } { this.props.lastname }</h3>
               </div>
               <div className="button_field">
-                <button onClick={ this.props.postOpen.bind(this, this.props.id) } >Посмотреть пост</button>
+                <button onClick={ this.props.postOpen.bind(this, this.props.id) } >Изменить</button>
             </div>
          </div>
     );

@@ -1,4 +1,11 @@
-import { LOAD_POSTS, LOAD_POSTS_SUCCESS, LOAD_POSTS_ERROR, POST_OPEN, POST_CLOSE, POST_CREATE } from './../actions/posts';
+import {
+  LOAD_POSTS,
+  LOAD_POSTS_SUCCESS,
+  LOAD_POSTS_ERROR,
+  POST_OPEN,
+  POST_CLOSE,
+  POST_CREATE,
+  POST_CHANGE} from './../actions/posts';
 import update from 'react-addons-update';
 
 const inititalStore = {
@@ -41,9 +48,14 @@ export default function router (store = inititalStore, action) {
           postList: { $merge: action.result.result },
           posts: {
             $merge: action.result.post,
+            },
           },
-        },
         );
+      case POST_CHANGE:
+        let post = store.posts[action.id];
+        console.log(action);
+        // return update(store, {posts: {id: {title: {$set: action.title}}}});
+        return store;
       default:
         return store;
     }

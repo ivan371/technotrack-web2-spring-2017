@@ -17,7 +17,7 @@ class MessageListComponent extends React.Component {
       }
     );
     return (
-      <div>
+      <div scrolling="auto">
         {messageList}
         <MessageForm/>
       </div>

@@ -18,24 +18,6 @@ class AppComponent extends React.Component {
   };
 
   render() {
-    let page = null;
-    // switch (this.props.currentPage) {
-    //   case 'self_room':
-    //     page = <SelfRoom />
-    //     break;
-    //   case 'news':
-    //     page = <News />
-    //     break;
-    //   case 'friends':
-    //     page = <Friends />
-    //     break;
-    //   case 'chats':
-    //     page = <Chats />
-    //     break;
-    //   case 'peoples':
-    //     page = <People />
-    //     break;
-    // }
     return (
       <div className="main">
         <div className="back"></div>
