@@ -65,8 +65,8 @@ class ChatUserViewSet(viewsets.ModelViewSet):
 
 class ChatSerializer(serializers.ModelSerializer):
 
-    chatuser_set = ChatUserSerializer(many=True)
-    message_set = MessageSerializer(many=True)
+    chatuser_set = ChatUserSerializer(many=True, read_only=True)
+    message_set = MessageSerializer(many=True, read_only=True)
 
     class Meta:
         model = Chat
@@ -76,6 +76,9 @@ class ChatViewSet(viewsets.ModelViewSet):
     queryset = Chat.objects.all()
     serializer_class = ChatSerializer
     permission_classes = (permissions.IsAuthenticated, IsOwnerOrReadOnly)
+
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)
 
     def get_queryset(self):
         queryset = super(ChatViewSet, self).get_queryset()

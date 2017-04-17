@@ -2,6 +2,7 @@ import React from 'react';
 import Col from 'react-bootstrap/lib/Col';
 import ChatList from './ChatList';
 import MessageList from './MessageList';
+import ChatCreate from './ChatCreate.jsx';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -17,10 +18,13 @@ class ChatComponent extends React.Component {
       <div>
         <div className="box">
           <div className="b-post"><h1>Чаты</h1></div>
-        <ChatList/>
+        <div className="b-post"><ChatList/></div>
+        <ChatCreate/>
           </div>
         <div className="box">
-          <div className="b-post"><h1>Сообщения</h1></div>
+          <div className="b-post">
+            <h1>Сообщения</h1>
+          </div>
           { messageContent }
         </div>
       </div>
