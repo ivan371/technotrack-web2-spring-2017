@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 import PostList from './PostList';
 import PostForm from './PostForm';
 import Modal from './Modal';
@@ -6,19 +6,12 @@ import Post from './Post';
 import Profile from './Profile';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { loadUser, loadUserSuccess, loadUserError } from './../actions/users';
+import { userFetchData } from './../actions/users';
 
 class SelfRoomComponent extends React.Component {
 
   componentDidMount() {
-   this.props.loadUser();
-    fetch('/api/users/?me', {
-      credentials: "same-origin",
-    }).then((resp) => resp.json())
-    .then((newdata) => {
-      console.log(newdata.results);
-      this.props.loadUserSuccess(newdata.results);
-    }).catch(console.log);
+    this.props.fetchData('/api/users/?me');
   }
   render() {
     let modalContent = null;
@@ -52,16 +45,19 @@ class SelfRoomComponent extends React.Component {
   }
 }
 
+SelfRoomComponent.propTypes = {
+  fetchData: PropTypes.func.isRequired,
+};
+
 const mapStoreToProps = state => ({
   ismeLoading: state.users.ismeLoading,
   modalopen: state.posts.modalopen,
 });
-const mapDispatchToProps = dispatch => ({
-  ...bindActionCreators({
-    loadUserSuccess,
-    loadUserError,
-    loadUser}, dispatch),
-});
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchData: (url) => dispatch(userFetchData(url))
+  };
+}
 
 export default connect(
     mapStoreToProps,

@@ -21,7 +21,7 @@ export default function router (store = inititalStore, action) {
     switch (action.type) {
       case LOAD_POSTS:
         return update(store,
-          { isLoading: { $set: true } },
+          { isLoading: { $set: action.bool } },
         );
       case LOAD_POSTS_SUCCESS:
         return update(store, {

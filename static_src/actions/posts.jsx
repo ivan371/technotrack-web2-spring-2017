@@ -9,9 +9,10 @@ import { postNormalize, postDeNotmilize } from './../normilizers/post';
 import { post } from './../promises/post';
 import { put } from './../promises/put';
 
-export function loadPosts() {
+export function loadPosts(bool) {
     return {
         type: LOAD_POSTS,
+        isLoading: bool
     };
 }
 
@@ -64,4 +65,24 @@ export function postChange(id, title, content) {
     title,
     content
   }
+}
+
+export function postFetchData(url) {
+    return (dispatch) => {
+        dispatch(loadPosts(true));
+        fetch(url, {
+           credentials: "same-origin",
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw Error(response.statusText);
+                }
+                dispatch(loadPosts(false));
+                return response;
+            })
+            .then((response) => response.json())
+            .then((data) => dispatch(loadPostsSuccess(data.results)))
+            .catch(() => dispatch(loadPostsError(true)))
+            .catch(console.log);
+    };
 }

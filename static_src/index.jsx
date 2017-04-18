@@ -9,6 +9,7 @@ import Chats from './components/Chats';
 import Friends from './components/Friends';
 import News from './components/News';
 import People from './components/People';
+import User from './components/User';
 import initStore from './store';
 import { createStore, combineReducers } from 'redux';
 import { Router, Route, browserHistory } from 'react-router';
@@ -25,6 +26,7 @@ const routers =
     <Route path="/vk/people/" component={People}/>
     <Route path="/vk/news/" component={News}/>
     <Route path="/vk/friends/" component={Friends}/>
+    <Route path="/vk/user/" component={User}/>
   </Route></div>);
 
 ReactDOM.render(

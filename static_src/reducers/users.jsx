@@ -22,7 +22,7 @@ export default function router (store = inititalStore, action) {
     switch (action.type) {
       case LOAD_USERS:
         return update(store,
-          { isLoading: { $set: true } },
+          { isLoading: { $set: action.bool } },
         );
       case LOAD_USERS_SUCCESS:
         const result = userNormalize(action.apiResponse);
