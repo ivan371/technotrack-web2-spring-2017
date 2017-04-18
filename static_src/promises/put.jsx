@@ -13,7 +13,7 @@ export function put(url, requestuestBody) {
     }
   })
   .then(function (data) {
-    console.log('Request succeeded with JSON response', data);
+    console.log('Request succeeded with JSON response', data.url);
   })
   .catch(function (error) {
     console.log('Request failed', error);
