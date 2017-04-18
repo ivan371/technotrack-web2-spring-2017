@@ -12,6 +12,12 @@ export function post(url, requestuestBody) {
       'Content-Type': 'application/json'
     }
   })
-  .then((data) =>  console.log('Request succeeded with JSON response', data))
-  .catch((error) => console.log('Request failed', error));
+  .then((response) => {
+    if (!response.ok) {
+      throw Error(response.statusText);
+    }
+    return response;
+  })
+  .then((response) =>  response.json())
+  .catch(console.log);
 }
