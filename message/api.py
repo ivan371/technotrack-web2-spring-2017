@@ -3,6 +3,7 @@ from rest_framework import serializers, viewsets, permissions
 from application.api import router
 from django.shortcuts import get_object_or_404
 from core.api import UserSerializer
+from django.db.models import Q
 
 
 class IsOwnerOrReadOnly(permissions.BasePermission):
@@ -82,7 +83,7 @@ class ChatViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         queryset = super(ChatViewSet, self).get_queryset()
-        return queryset.filter(chatuser__user=self.request.user)
+        return queryset.filter(Q(chatuser__user=self.request.user) | Q(author=self.request.user)).distinct().order_by('id')
 
 
 router.register(r'chats', ChatViewSet)

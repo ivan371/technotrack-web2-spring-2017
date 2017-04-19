@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 import './../styles/base.css';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { messageCreate } from './../actions/chats';
+import { createChatFetchData } from './../actions/chats';
 
 class ChatCreateComponent extends React.Component {
   state = {
@@ -13,11 +13,11 @@ class ChatCreateComponent extends React.Component {
       [e.target.name]: e.target.value,
     });
   }
-  // onCreate = (e) => {
-  //   e.preventDefault();
-  //   this.setState({content: ''});
-  //   this.props.messageCreate(this.props.chat, this.state.content);
-  // }
+  onCreate = (e) => {
+    e.preventDefault();
+    this.setState({content: ''});
+    this.props.fetchData('/api/posts', this.state.content);
+  }
   render() {
     return (
       <div className="b-post">
@@ -30,7 +30,7 @@ class ChatCreateComponent extends React.Component {
           name="content"></input>
       </div>
         <div className="button_field">
-          <button>Создать</button>
+          <button onClick={ this.onCreate.bind(this) }>Создать</button>
       </div>
        </div>
     );
@@ -38,20 +38,22 @@ class ChatCreateComponent extends React.Component {
 }
 
 ChatCreateComponent.propTypes = {
-  // id: React.PropTypes.number.isRequired,
+  fetchData: PropTypes.func.isRequired,
 };
 
-const mapStoreToProps = (state, props) => ({
-  chat: state.chats.chat,
+const mapStoreToProps = state => ({
+  // chat: state.chats.chat,
   // email: state.users.users[props.id].email,
   // firstname: state.users.users[props.id].first_name,
   // lastname: state.users.users[props.id].last_name,
   // rating: state.users.users[props.id].rating,
   // avatar: state.users.users[props.id].avatar,
 });
-const mapDispatchToProps = dispatch => ({
-  ...bindActionCreators({}, dispatch),
-});
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchData: (url, name) => dispatch(createChatFetchData(url, name))
+  };
+}
 
 export default connect(
     mapStoreToProps,

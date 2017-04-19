@@ -2,6 +2,7 @@ import cookie from 'react-cookie';
 
 export function post(url, requestuestBody) {
   const csrftoken = cookie.load('csrftoken');
+  let result = 0;
   fetch(url, {
     method: 'post',
     credentials: "same-origin",
@@ -12,12 +13,9 @@ export function post(url, requestuestBody) {
       'Content-Type': 'application/json'
     }
   })
-  .then((response) => {
-    if (!response.ok) {
-      throw Error(response.statusText);
-    }
-    return response;
-  })
-  .then((response) =>  response.json())
+  .then((response) => response.json())
+  .then((response) =>  console.log(response))
   .catch(console.log);
+  console.log(result);
+  // return result;
 }

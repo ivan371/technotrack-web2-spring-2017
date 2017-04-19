@@ -3,7 +3,8 @@ import {
   LOAD_CHATS_SUCCESS,
   LOAD_CHATS_ERROR,
   CHAT_OPEN,
-  CHAT_CLOSE } from './../actions/chats';
+  CHAT_CLOSE,
+  CHAT_CREATE} from './../actions/chats';
 import update from 'react-addons-update';
 import { chatNormalize, messageNormalize } from './../normilizers/chats';
 
@@ -35,6 +36,14 @@ export default function router (store = inititalStore, action) {
         },
         );
         return store;
+      case CHAT_CREATE:
+        const id = parseInt(action.result.id);
+        let result = {};
+        result[action.result.id] = action.result;
+        return update(store, {
+          chatList: { $push: [id]},
+          chats: { $merge: result}
+        })
       case LOAD_CHATS_ERROR:
         return update(store, { isLoading: { $set: false } });
       case CHAT_OPEN:
