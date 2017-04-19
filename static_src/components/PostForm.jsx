@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 import FormGroup from 'react-bootstrap/lib/FormGroup'
 import ControlLabel from 'react-bootstrap/lib/ControlLabel'
 import FormControl from 'react-bootstrap/lib/FormControl'
@@ -6,7 +6,7 @@ import HelpBlock from 'react-bootstrap/lib/HelpBlock'
 import Button from 'react-bootstrap/lib/Button';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { postCreate } from './../actions/posts';
+import { createPostFetchData } from './../actions/posts';
 
 const wellStyles = {maxWidth: 400, margin: '0 auto 10px'};
 
@@ -34,7 +34,8 @@ class PostFormComponent extends React.Component {
 
   onCreate = (e) => {
     e.preventDefault();
-    this.props.postCreate(this.state.title, this.state.content);
+    // this.props.postCreate(this.state.title, this.state.content);
+    this.props.fetchData('/api/posts/', this.state.title, this.state.content);
     this.setState({title: '', content: ''});
   }
 
@@ -69,12 +70,17 @@ class PostFormComponent extends React.Component {
 // PostFormComponent.propTypes = {
 //   onCreate: React.PropTypes.func.isRequired,
 // }
+PostFormComponent.propTypes = {
+  fetchData: PropTypes.func.isRequired,
+};
 
 const mapStoreToProps = props => ({
 });
-const mapDispatchToProps = dispatch => ({
-  ...bindActionCreators({postCreate}, dispatch),
-});
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchData: (url, title, content) => dispatch(createPostFetchData(url, title, content))
+  };
+}
 
 export default connect(
     mapStoreToProps,

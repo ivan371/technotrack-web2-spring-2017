@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { postClose, postChange } from './../actions/posts';
+import { postClose, postChange, updatePostFetchData } from './../actions/posts';
 
 class ModalComponent extends React.Component {
   state = {
@@ -16,7 +16,7 @@ class ModalComponent extends React.Component {
   }
   postChange = (e) => {
     e.preventDefault();
-    this.props.postChange(this.props.id, this.props.title, this.state.content);
+    this.props.fetchData('/api/posts',this.props.id, this.props.title, this.state.content);
   }
   render() {
     return (
@@ -41,13 +41,21 @@ class ModalComponent extends React.Component {
     );
   }
 }
+
+ModalComponent.propTypes = {
+  fetchData: PropTypes.func.isRequired,
+};
+
 const mapStoreToProps = state => ({
   title: state.posts.modalpost.title,
   content: state.posts.modalpost.content,
   id: state.posts.modalpost.id,
 });
 const mapDispatchToProps = dispatch => ({
-  ...bindActionCreators({postClose, postChange}, dispatch),
+  ...bindActionCreators({
+    postClose, postChange,
+  }, dispatch),
+  fetchData: (url, id, title, content) => dispatch(updatePostFetchData(url, id, title, content))
 });
 
 export default connect(

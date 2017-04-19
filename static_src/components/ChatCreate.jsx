@@ -16,7 +16,7 @@ class ChatCreateComponent extends React.Component {
   onCreate = (e) => {
     e.preventDefault();
     this.setState({content: ''});
-    this.props.fetchData('/api/posts', this.state.content);
+    this.props.fetchData('/api/chats', this.state.content);
   }
   render() {
     return (

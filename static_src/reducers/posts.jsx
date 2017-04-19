@@ -45,17 +45,35 @@ export default function router (store = inititalStore, action) {
         });
       case POST_CREATE:
         return update(store, {
-          postList: { $merge: action.result.result },
+          postList: { $push: [parseInt(action.result.result)] },
           posts: {
-            $merge: action.result.post,
-            },
+            $merge: action.result.entities.posts,
           },
-        );
+        });
       case POST_CHANGE:
-        let post = store.posts[action.id];
-        console.log(action);
-        // return update(store, {posts: {id: {title: {$set: action.title}}}});
-        return store;
+        console.log('onChange');
+        return update(store, {
+          posts: {
+            $merge: action.result.entities.posts,
+          }
+        });
+        // const id = parseInt(action.result.id);
+        // let result = {};
+        // result[action.result.id] = action.result;
+        // return update(store, {
+        //   postList: { $push: [id]},
+        //   posts: { $merge: result}
+        //   // postList: { $merge: action.result.result },
+        //   // posts: {
+        //   //   $merge: action.result.post,
+        //   //   },
+        //   // },
+        // });
+      // case POST_CHANGE:
+      //   let post = store.posts[action.id];
+      //   console.log(action);
+      //   // return update(store, {posts: {id: {title: {$set: action.title}}}});
+      //   return store;
       default:
         return store;
     }
