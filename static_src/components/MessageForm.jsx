@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 import './../styles/base.css';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { messageCreate } from './../actions/chats';
+import { createMessageFetchData } from './../actions/chats';
 
 class MessageFormComponent extends React.Component {
   state = {
@@ -16,7 +16,7 @@ class MessageFormComponent extends React.Component {
   onCreate = (e) => {
     e.preventDefault();
     this.setState({content: ''});
-    this.props.messageCreate(this.props.chat, this.state.content);
+    this.props.fetchData('/api/messages/', this.props.chat, this.state.content);
   }
   render() {
     return (
@@ -38,20 +38,17 @@ class MessageFormComponent extends React.Component {
 }
 
 MessageFormComponent.propTypes = {
-  // id: React.PropTypes.number.isRequired,
+  fetchData: PropTypes.func.isRequired,
 };
 
 const mapStoreToProps = (state, props) => ({
   chat: state.chats.chat,
-  // email: state.users.users[props.id].email,
-  // firstname: state.users.users[props.id].first_name,
-  // lastname: state.users.users[props.id].last_name,
-  // rating: state.users.users[props.id].rating,
-  // avatar: state.users.users[props.id].avatar,
 });
-const mapDispatchToProps = dispatch => ({
-  ...bindActionCreators({messageCreate}, dispatch),
-});
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchData: (url, chat, content) => dispatch(createMessageFetchData(url, chat, content))
+  };
+}
 
 export default connect(
     mapStoreToProps,

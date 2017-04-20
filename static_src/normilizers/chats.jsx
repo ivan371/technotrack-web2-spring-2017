@@ -12,6 +12,7 @@ export function chatNormalize (chats) {
 }
 
 export function messageNormalize (messages) {
-  const message = new schema.Entity('message');
+  const author = new schema.Entity('user');
+  const message = new schema.Entity('message', {'author': author});
   return normalize(messages, message);
 }

@@ -42,12 +42,6 @@ ChatCreateComponent.propTypes = {
 };
 
 const mapStoreToProps = state => ({
-  // chat: state.chats.chat,
-  // email: state.users.users[props.id].email,
-  // firstname: state.users.users[props.id].first_name,
-  // lastname: state.users.users[props.id].last_name,
-  // rating: state.users.users[props.id].rating,
-  // avatar: state.users.users[props.id].avatar,
 });
 const mapDispatchToProps = (dispatch) => {
   return {

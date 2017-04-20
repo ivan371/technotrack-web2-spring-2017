@@ -8,7 +8,7 @@ import { chatClose } from './../actions/chats';
 
 class MessageListComponent extends React.Component {
   render() {
-     const messageList = this.props.messageList.reverse().map(
+     const messageList = this.props.messageList.map(
       (messageId) => {
         console.log(messageId);
         return <Message
