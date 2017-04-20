@@ -30,18 +30,19 @@ class UserComponent extends React.Component {
     console.log(this.props.ismeLoading)
     return (
       <div>
-        <div className="box">
+        {/* <div className="box"> */}
 
-          <div className="b-post"><h1>Лента постов</h1></div>
+          <div className="b-post"><h1>Страница пользователя</h1></div>
 
            {/* <PostForm onCreate={ this.onCreate }/> */}
-           <PostList onPostOpen={ this.onPostOpen }/>
+           {/* <PostList onPostOpen={ this.onPostOpen }/> */}
 
-        </div>
-        <div className="box">
+
+        {/* <div className="box">
           <div className="b-post"><h1>Профиль</h1></div>
           { usercontent }
         </div>
+      </div> */}
       </div>
     );
   }
