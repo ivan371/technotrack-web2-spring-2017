@@ -1,37 +1,58 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './../styles/base.css';
+import React, { Component, PropTypes } from 'react';
+import Button from 'react-bootstrap/lib/Button';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { postOpen } from './../actions/posts';
-
+import { postClose, postChange, updatePostFetchData } from './../actions/posts';
 
 class PostChangeComponent extends React.Component {
-
+  state = {
+    title: this.props.title,
+    content: this.props.content
+  }
+  onChange = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value,
+    });
+  }
+  postChange = (e) => {
+    e.preventDefault();
+    this.props.fetchData('/api/posts',this.props.id, this.props.title, this.state.content);
+  }
   render() {
-    return (<div className="b-post">
-            <h3><input>{ this.props.title }</input></h3>
-            <div className="b-post__content"><input>{ this.props.content }</input></div>
-              <div className="button_field">
-                <button >Сохранить</button>
-            </div>
-         </div>
+    return (
+      <div>
+        <div className="b-post">
+        <h3><input
+          value={ this.state.title }
+          onChange={ this.onChange }
+          name="title"></input></h3>
+        <div className="b-post__content"><p>
+          <input
+            value={ this.state.content }
+            onChange={ this.onChange }
+            name="content"></input></p></div>
+          <Button bsStyle="primary" bsSize="large" block onClick={ this.postChange.bind(this) }>Сохранить</Button>
+          <Button bsStyle="primary" bsSize="large" block onClick={ this.props.postClose.bind() }>Закрыть</Button>
+        </div>
+    </div>
     );
   }
 }
 
 PostChangeComponent.propTypes = {
-  id: React.PropTypes.number.isRequired,
+  fetchData: PropTypes.func.isRequired,
 };
 
-const mapStoreToProps = (state, props) => ({
-  title: state.posts.posts[props.id].title,
-  content: state.posts.posts[props.id].content,
-  firstname: state.users.users[state.posts.posts[props.id].author].first_name,
-  lastname: state.users.users[state.posts.posts[props.id].author].last_name,
+const mapStoreToProps = state => ({
+  title: state.posts.modalpost.title,
+  content: state.posts.modalpost.content,
+  id: state.posts.modalpost.id,
 });
 const mapDispatchToProps = dispatch => ({
-  ...bindActionCreators({postOpen}, dispatch),
+  ...bindActionCreators({
+    postClose, postChange,
+  }, dispatch),
+  fetchData: (url, id, title, content) => dispatch(updatePostFetchData(url, id, title, content))
 });
 
 export default connect(

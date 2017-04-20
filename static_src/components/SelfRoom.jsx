@@ -18,7 +18,7 @@ class SelfRoomComponent extends React.Component {
     let usercontent = <div className="loading"></div>;
     let model = null;
     if (this.props.modalopen) {
-      model = <Modal />;
+      model = <Modal action="PostChange"/>;
     }
     if (!this.props.ismeLoading) {
        usercontent = <Profile/>;

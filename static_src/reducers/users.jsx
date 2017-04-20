@@ -4,7 +4,11 @@ import {
   LOAD_USERS_ERROR,
   LOAD_USER,
   LOAD_USER_SUCCESS,
-  LOAD_USER_ERROR } from './../actions/users';
+  LOAD_USER_ERROR,
+  MODAL_USER,
+  MODAL_CLOSE,
+  PROFILE_CHANGE
+ } from './../actions/users';
 import { LOAD_POSTS_SUCCESS } from './../actions/posts';
 import { LOAD_CHATS_SUCCESS } from './../actions/chats';
 import update from 'react-addons-update';
@@ -15,17 +19,20 @@ const inititalStore = {
     users: {},
     isLoading: false,
     ismeLoading: true,
+    modalopen: false,
+    myid: null,
 };
 
 
 export default function router (store = inititalStore, action) {
+    let result = null;
     switch (action.type) {
       case LOAD_USERS:
         return update(store,
           { isLoading: { $set: action.bool } },
         );
       case LOAD_USERS_SUCCESS:
-        const result = userNormalize(action.apiResponse);
+        result = userNormalize(action.apiResponse);
         console.log(result);
          return update(store, {
            isLoading: { $set: false },
@@ -35,6 +42,14 @@ export default function router (store = inititalStore, action) {
            },
          }
          );
+     case MODAL_USER:
+       return update(store, {
+         modalopen: { $set: true },
+        });
+      case MODAL_CLOSE:
+        return update(store, {
+          modalopen: { $set: false },
+         });
       case LOAD_POSTS_SUCCESS:
         return update(store, {
           users: {
@@ -54,10 +69,25 @@ export default function router (store = inititalStore, action) {
           { ismeLoading: { $set: true } },
         );
       case LOAD_USER_SUCCESS:
+        result = userNormalize(action.apiResponse);
         console.log('here', action.apiResponse[0].id);
         return update(store, {
-            users: { $merge: action.apiResponse },
-            ismeLoading: { $set: false }
+            userList: { $set: result.result },
+            users: {
+              $merge: result.entities.user,
+            },
+            ismeLoading: { $set: false },
+            myid: { $set: action.apiResponse[0].id},
+          },
+        );
+      case PROFILE_CHANGE:
+        let res = {};
+        res[store.myid] = action.apiResponse;
+        console.log(res);
+        return update(store, {
+            users: {
+              $merge: res
+            },
           },
         );
       case LOAD_USER_ERROR:
