@@ -4,11 +4,12 @@ import './../styles/base.css';
 import Button from 'react-bootstrap/lib/Button';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Link } from 'react-router';
 
 class PersonComponent extends React.Component {
 
   render() {
-
+    const link = "/vk/people/" + this.props.id + '/';
     return (
       <div className="b-post">
         <h3>{ this.props.username }</h3>
@@ -19,7 +20,7 @@ class PersonComponent extends React.Component {
         <p>{ this.props.lastname }</p>
         <p>{ this.props.rating }</p>
         <div className="button_field">
-          <button >Посмотреть информацию</button>
+          <Link to={ link }><button >Посмотреть информацию</button></Link>
       </div>
     </div>
        </div>

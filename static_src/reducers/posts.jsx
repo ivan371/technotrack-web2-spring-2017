@@ -33,7 +33,15 @@ export default function router (store = inititalStore, action) {
         },
         );
       case LOAD_POSTS_ERROR:
-        return update(store, { isLoading: { $set: false } });
+        return update(store,
+          { isLoading: { $set: false },
+          posts: {
+            $set: {}
+          },
+          postList: {
+            $set: []
+          }
+        });
       case POST_OPEN:
         return update(store, {
           modalpost: { $set: store.posts[action.id]},

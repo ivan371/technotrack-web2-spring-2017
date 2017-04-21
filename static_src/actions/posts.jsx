@@ -58,7 +58,7 @@ export function creatPostResult(result) {
 export function createPostFetchData(url, title, content) {
     return (dispatch) => {
         const csrftoken = cookie.load('csrftoken');
-        fetch('/api/posts/', {
+        fetch(url, {
           method: 'post',
           credentials: "same-origin",
           body: JSON.stringify({title, content}),
