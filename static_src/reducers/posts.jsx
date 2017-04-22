@@ -53,7 +53,7 @@ export default function router (store = inititalStore, action) {
         });
       case POST_CREATE:
         return update(store, {
-          postList: { $push: [parseInt(action.result.result)] },
+          postList: { $unshift: [parseInt(action.result.result)] },
           posts: {
             $merge: action.result.entities.posts,
           },

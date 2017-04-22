@@ -29,5 +29,7 @@ class UserViewSet(mixins.RetrieveModelMixin,
         queryset = super(UserViewSet, self).get_queryset()
         if 'me' in self.request.query_params:
             queryset = queryset.filter(id=self.request.user.id)
+        if 'author' in self.request.query_params:
+            queryset = queryset.filter(id=self.request.query_params['author'])
         return queryset
 router.register(r'users', UserViewSet)

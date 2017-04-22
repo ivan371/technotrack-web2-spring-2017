@@ -4,16 +4,22 @@ import PostForm from './PostForm';
 import Modal from './Modal';
 import Post from './Post';
 import Profile from './Profile';
+import Person from './Person';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { userFetchData } from './../actions/users';
 
 class UserComponent extends React.Component {
-  // componentDidMount() {
-  //   this.props.fetchData('/api/users/' + this.props.params.id + '/');
-  // }
+  componentDidMount() {
+    this.props.fetchData('/api/users/' + this.props.params.id + '/');
+  }
   render() {
-    console.log(this.props.ismeLoading)
+    console.log(this.props.ismeLoading);
+    let usercontent = null;
+    const numid = parseInt(this.props.params.id);
+    if (!this.props.ismeLoading) {
+       usercontent = <Person key={ numid } id={ numid }/>;
+    }
     return (
       <div>
         <div className="box">
@@ -25,7 +31,7 @@ class UserComponent extends React.Component {
            </div>
         <div className="box">
           <div className="b-post"><h1>Профиль</h1></div>
-          {/* { usercontent } */}
+          { usercontent }
         </div>
       </div>
     );
@@ -37,7 +43,7 @@ UserComponent.propTypes = {
 
 
 const mapStoreToProps = state => ({
-  // ismeLoading: state.users.ismeLoading,
+  ismeLoading: state.users.ismeLoading,
   // modalopen: state.posts.modalopen,
 });
 const mapDispatchToProps = (dispatch) => {

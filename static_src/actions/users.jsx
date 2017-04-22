@@ -102,9 +102,6 @@ export function userFetchData(url) {
 }
 
 export function updateProfileResult(apiResponse) {
-  // console.log(result);
-  // const apiResponse = simplepostNormalize(result);
-  // console.log('response:', apiResponse);
   return {
     type: PROFILE_CHANGE,
     apiResponse,

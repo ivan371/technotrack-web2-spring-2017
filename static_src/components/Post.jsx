@@ -10,15 +10,19 @@ import { postOpen } from './../actions/posts';
 class PostComponent extends React.Component {
 
   render() {
+    let changeable = null;
+    if(this.props.myid == this.props.authorid) {
+      changeable = <div className="button_field">
+        <button onClick={ this.props.postOpen.bind(this, this.props.id) } >Изменить</button>
+    </div>;
+    }
     return (<div className="b-post">
             <h3>{ this.props.title }</h3>
             <div className="b-post__content">{ this.props.content }</div>
               <div className="b-user-name">
                 <h3>{ this.props.firstname } { this.props.lastname }</h3>
               </div>
-              <div className="button_field">
-                <button onClick={ this.props.postOpen.bind(this, this.props.id) } >Изменить</button>
-            </div>
+              { changeable }
          </div>
     );
   }
@@ -33,6 +37,8 @@ const mapStoreToProps = (state, props) => ({
   content: state.posts.posts[props.id].content,
   firstname: state.users.users[state.posts.posts[props.id].author].first_name,
   lastname: state.users.users[state.posts.posts[props.id].author].last_name,
+  myid: state.users.myid,
+  authorid: state.posts.posts[props.id].author
 });
 const mapDispatchToProps = dispatch => ({
   ...bindActionCreators({postOpen}, dispatch),
