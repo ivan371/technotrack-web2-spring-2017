@@ -31,6 +31,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['vk', '127.0.0.1']
 
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+CELERY_TASK_SERIALIZER = 'json'
 # Application definition
 
 STATICFILES_DIRS = (
@@ -80,6 +84,8 @@ EMAIL_PORT=1025
 #EMAIL_HOST=''
 #EMAIL_USER=''
 #EMAIL_PASSWORD=''
+
+ADMIN=(('nagaiko.ivan@gmail.com'),)
 
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.vk.VKOAuth2',

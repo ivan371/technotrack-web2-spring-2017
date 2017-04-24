@@ -1,0 +1,10 @@
+{ % {% block subject %}
+  Активация e-mail
+{% endblock %}
+{% block html %}
+  <h2>Ваш код автивации: {{code}}</h2>
+{% endblock %}
+
+{% block text %}
+  Ошибка при регистрации
+{% endblock %}
