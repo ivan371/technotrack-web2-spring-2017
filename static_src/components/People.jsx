@@ -14,7 +14,7 @@ class PeopleComponent extends React.Component {
     if (!this.props.isLoading) {
       userList = this.props.userList.map(
         (userId) => {
-          return <Person key={ userId } id={ userId }/>
+          return <Person key={ userId } id={ userId } islist={true}/>
         }
       );
     }

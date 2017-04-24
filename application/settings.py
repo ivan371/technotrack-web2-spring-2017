@@ -76,6 +76,11 @@ MIDDLEWARE = [
 
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
 
+EMAIL_PORT=1025
+#EMAIL_HOST=''
+#EMAIL_USER=''
+#EMAIL_PASSWORD=''
+
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.vk.VKOAuth2',
     'django.contrib.auth.backends.ModelBackend',

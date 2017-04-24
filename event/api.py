@@ -6,10 +6,11 @@ from ugc.apy import PostSerializer, CommentSerializer
 from message.api import MessageSerializer, ChatSerializer
 from like.api import LikeSerializer
 from like.models import Like
+from core.api import UserSerializer
 from django.contrib.contenttypes.models import ContentType
 from rest_framework.reverse import reverse
 
-class EventSerializer(serializers.ModelSerializer):
+class EventSerializer(serializers.HyperlinkedModelSerializer):
 
     def get_target(self, obj):
         if obj.target_content_type.name == 'post':
@@ -20,19 +21,21 @@ class EventSerializer(serializers.ModelSerializer):
             return MessageSerializer(obj.target).data
         elif obj.target_content_type.name == 'chat':
             return ChatSerializer(obj.target).data
-        elif obj.target_content_type.name == 'like':
-            return LikeSerializer(obj.target).data
+        # elif obj.target_content_type.name == 'like':
+        #     return LikeSerializer(obj.target).data
         return obj.target_content_type.name
 
     def get_objtype(self, obj):
         return obj.target_content_type.name
+
+    author = UserSerializer(read_only=True)
 
     target = serializers.SerializerMethodField()
     objtype = serializers.SerializerMethodField()
 
     class Meta:
         model = Event
-        fields = ('author','target', 'objtype')
+        fields = ('id', 'author','target', 'objtype')
 
 class EventViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Event.objects.all()

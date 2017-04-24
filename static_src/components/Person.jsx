@@ -10,6 +10,12 @@ class PersonComponent extends React.Component {
 
   render() {
     const link = "/vk/people/" + this.props.id + '/';
+    let info = null;
+    if (this.props.islist) {
+      info = <div className="button_field">
+        <Link to={ link }><button >Посмотреть информацию</button></Link>
+    </div>
+    }
     return (
       <div className="b-post">
         <h3>{ this.props.username }</h3>
@@ -19,9 +25,7 @@ class PersonComponent extends React.Component {
         <p>{ this.props.firstname }</p>
         <p>{ this.props.lastname }</p>
         <p>{ this.props.rating }</p>
-        <div className="button_field">
-          <Link to={ link }><button >Посмотреть информацию</button></Link>
-      </div>
+        {info}
     </div>
        </div>
     );
@@ -30,6 +34,7 @@ class PersonComponent extends React.Component {
 
 PersonComponent.propTypes = {
   id: React.PropTypes.number.isRequired,
+  islist: React.PropTypes.bool.isRequired,
 };
 
 const mapStoreToProps = (state, props) => ({

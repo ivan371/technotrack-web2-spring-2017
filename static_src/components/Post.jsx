@@ -23,6 +23,9 @@ class PostComponent extends React.Component {
                 <h3>{ this.props.firstname } { this.props.lastname }</h3>
               </div>
               { changeable }
+              <div className="button_field">
+            <img className="like" src="http://127.0.0.1:8000/media/like.png"/>
+          </div>
          </div>
     );
   }

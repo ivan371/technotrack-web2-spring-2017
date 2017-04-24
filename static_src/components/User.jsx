@@ -17,9 +17,7 @@ class UserComponent extends React.Component {
     console.log(this.props.ismeLoading);
     let usercontent = null;
     const numid = parseInt(this.props.params.id);
-    if (!this.props.ismeLoading) {
-       usercontent = <Person key={ numid } id={ numid }/>;
-    }
+    usercontent = <Person key={ numid } id={ numid } islist={ false }/>;
     return (
       <div>
         <div className="box">
