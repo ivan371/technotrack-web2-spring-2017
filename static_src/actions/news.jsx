@@ -1,7 +1,7 @@
 export const LOAD_NEWS = 'LOAD_NEWS';
 export const LOAD_NEWS_SUCCESS = 'LOAD_NEWS_SUCCESS';
 export const LOAD_NEWS_ERROR = 'LOAD_NEWS_ERROR';
-import newsNormalize from './../normilizers/news';
+import {newsNormalize} from './../normilizers/news';
 import cookie from 'react-cookie';
 
 export function loadNews(bool) {
@@ -12,6 +12,8 @@ export function loadNews(bool) {
 }
 
 export function loadNewsSuccess(apiResponse) {
+    console.log('here', apiResponse);
+    console.log('after', newsNormalize(apiResponse));
     const result = newsNormalize(apiResponse);
     return {
         type: LOAD_NEWS_SUCCESS,
@@ -34,6 +36,7 @@ export function newsFetchData(url) {
            credentials: "same-origin",
         })
             .then((response) => {
+                // console.log(response);
                 if (!response.ok) {
                     throw Error(response.statusText);
                 }
@@ -41,6 +44,11 @@ export function newsFetchData(url) {
                 return response;
             })
             .then((response) => response.json())
+            // .then((response) => {
+            //     let res = response;
+            //     console.log('thus', res);
+            //     return res.json();
+            //   })
             .then((data) => dispatch(loadNewsSuccess(data.results)))
             .catch(() => dispatch(loadNewsError(true)))
             .catch(console.log);

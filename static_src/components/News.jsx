@@ -11,11 +11,11 @@ class NewsComponent extends React.Component {
   render() {
     let newsList = [];
     if (!this.props.isLoading) {
-      // newsList = this.props.newsList.map(
-      //   (newId) => {
-      //     return <New key={ newId } id={ newId }/>
-      //   }
-      // );
+      newsList = this.props.newsList.map(
+        (newId) => {
+          return <New key={ newId } id={ newId }/>
+        }
+      );
     }
     return (
       <div>
@@ -33,8 +33,8 @@ NewsComponent.propTypes = {
 };
 
 const mapStoreToProps = state => ({
-  newsList: state.users.newsList,
-  isLoading: state.users.isLoading,
+  newsList: state.news.newsList,
+  isLoading: state.news.isLoading,
 });
 const mapDispatchToProps = (dispatch) => {
   return {

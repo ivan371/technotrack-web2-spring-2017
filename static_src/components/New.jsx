@@ -9,7 +9,8 @@ class NewComponent extends React.Component {
   render() {
     return (
       <div className="b-post">
-        <h3>{ this.props.objtype }</h3>
+        {/* <h3>{ this.props.username }</h3> */}
+        <p>{ this.props.objtype }</p>
        </div>
     );
   }
@@ -21,6 +22,7 @@ NewComponent.propTypes = {
 
 const mapStoreToProps = (state, props) => ({
   objtype: state.news.news[props.id].objtype,
+  // username: state.users.users[props.id].username,
 });
 const mapDispatchToProps = dispatch => ({
   ...bindActionCreators({}, dispatch),

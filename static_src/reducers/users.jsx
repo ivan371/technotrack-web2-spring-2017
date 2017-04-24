@@ -11,6 +11,7 @@ import {
  } from './../actions/users';
 import { LOAD_POSTS_SUCCESS } from './../actions/posts';
 import { LOAD_CHATS_SUCCESS } from './../actions/chats';
+import { LOAD_NEWS_SUCCESS } from './../actions/news';
 import update from 'react-addons-update';
 import { userNormalize } from './../normilizers/users';
 
@@ -56,6 +57,12 @@ export default function router (store = inititalStore, action) {
             $merge: action.result.entities.author,
           },
         });
+      // case LOAD_NEWS_SUCCESS:
+      //   return update(store, {
+      //     users: {
+      //       $merge: action.result.entities.author,
+      //     },
+      //   });
       case LOAD_CHATS_SUCCESS:
         return update(store, {
           users: {
