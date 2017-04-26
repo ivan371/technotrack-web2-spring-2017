@@ -10,7 +10,11 @@ class User(AbstractUser):
     email = models.EmailField(max_length=100)
     rating = models.IntegerField(default=0)
     avatar = models.ImageField(upload_to='avatars', blank=True, null=True)
-    
+    is_verificated = models.BooleanField(default=False)
+    activation_code = models.IntegerField(default=0)
+
+    def is_activated(self):
+        return self.is_verificated
 
 
 class Authored(models.Model):

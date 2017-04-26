@@ -8,6 +8,12 @@ export const MODAL_USER = 'MODAL_USER';
 export const MODAL_CLOSE = 'MODAL_CLOSE';
 export const PROFILE_CHANGE = 'PROFILE_CHANGE';
 import cookie from 'react-cookie';
+import { FetchData } from './load';
+import { userNormalize } from './../normilizers/users';
+
+function opt(a) {
+  return a;
+}
 
 export function loadUser(bool) {
     return {
@@ -63,42 +69,46 @@ export function loadUsersError(users) {
 }
 
 export function usersFetchData(url) {
-    return (dispatch) => {
-        dispatch(loadUsers(true));
-        fetch(url, {
-           credentials: "same-origin",
-        })
-            .then((response) => {
-                if (!response.ok) {
-                    throw Error(response.statusText);
-                }
-                dispatch(loadUsers(false));
-                return response;
-            })
-            .then((response) => response.json())
-            .then((data) => dispatch(loadUsersSuccess(data.results)))
-            .catch(() => dispatch(loadUsersError(true)))
-            .catch(console.log);
-    };
+    const types = [LOAD_USERS, LOAD_USERS_SUCCESS, LOAD_USERS_ERROR];
+    return FetchData(url, types, userNormalize);
+    // return (dispatch) => {
+    //     dispatch(loadUsers(true));
+    //     fetch(url, {
+    //        credentials: "same-origin",
+    //     })
+    //         .then((response) => {
+    //             if (!response.ok) {
+    //                 throw Error(response.statusText);
+    //             }
+    //             dispatch(loadUsers(false));
+    //             return response;
+    //         })
+    //         .then((response) => response.json())
+    //         .then((data) => dispatch(loadUsersSuccess(data.results)))
+    //         .catch(() => dispatch(loadUsersError(true)))
+    //         .catch(console.log);
+    // };
 }
 export function userFetchData(url) {
-    return (dispatch) => {
-        dispatch(loadUser(true));
-        fetch(url, {
-           credentials: "same-origin",
-        })
-            .then((response) => {
-                if (!response.ok) {
-                    throw Error(response.statusText);
-                }
-                dispatch(loadUser(false));
-                return response;
-            })
-            .then((response) => response.json())
-            .then((data) => dispatch(loadUserSuccess(data.results)))
-            .catch(() => dispatch(loadUserError(true)))
-            .catch(console.log);
-    };
+    const types = [LOAD_USER, LOAD_USER_SUCCESS, LOAD_USER_ERROR];
+    return FetchData(url, types, userNormalize);
+    // return (dispatch) => {
+    //     dispatch(loadUser(true));
+    //     fetch(url, {
+    //        credentials: "same-origin",
+    //     })
+    //         .then((response) => {
+    //             if (!response.ok) {
+    //                 throw Error(response.statusText);
+    //             }
+    //             dispatch(loadUser(false));
+    //             return response;
+    //         })
+    //         .then((response) => response.json())
+    //         .then((data) => dispatch(loadUserSuccess(data.results)))
+    //         .catch(() => dispatch(loadUserError(true)))
+    //         .catch(console.log);
+    // };
 }
 
 export function updateProfileResult(apiResponse) {

@@ -33,13 +33,11 @@ export default function router (store = inititalStore, action) {
           { isLoading: { $set: action.bool } },
         );
       case LOAD_USERS_SUCCESS:
-        result = userNormalize(action.apiResponse);
-        console.log(result);
          return update(store, {
            isLoading: { $set: false },
-           userList: { $set: result.result },
+           userList: { $set: action.result.result },
            users: {
-             $merge: result.entities.user,
+             $merge: action.result.entities.user,
            },
          }
          );
@@ -76,15 +74,13 @@ export default function router (store = inititalStore, action) {
           { ismeLoading: { $set: true } },
         );
       case LOAD_USER_SUCCESS:
-        result = userNormalize(action.apiResponse);
-        console.log('here', action.apiResponse[0].id);
         return update(store, {
-            userList: { $set: result.result },
+            userList: { $set: action.result.result },
             users: {
-              $merge: result.entities.user,
+              $merge: action.result.entities.user,
             },
             ismeLoading: { $set: false },
-            myid: { $set: action.apiResponse[0].id},
+            myid: { $set: action.result.result[0]},
           },
         );
       case PROFILE_CHANGE:

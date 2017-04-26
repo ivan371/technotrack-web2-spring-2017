@@ -9,28 +9,29 @@ import { postNormalize, postDeNotmilize, simplepostNormalize } from './../normil
 import { post } from './../promises/post';
 import { put } from './../promises/put';
 import cookie from 'react-cookie';
+import { FetchData } from './load';
 
-export function loadPosts(bool) {
-    return {
-        type: LOAD_POSTS,
-        isLoading: bool
-    };
-}
-
-export function loadPostsSuccess(apiResponse) {
-    const result = postNormalize(apiResponse);
-    return {
-        type: LOAD_POSTS_SUCCESS,
-        result,
-    };
-}
-
-export function loadPostsError(posts) {
-    return {
-        type: LOAD_POSTS_ERROR,
-        posts,
-    };
-}
+// export function loadPosts(bool) {
+//     return {
+//         type: LOAD_POSTS,
+//         isLoading: bool
+//     };
+// }
+//
+// export function loadPostsSuccess(apiResponse) {
+//     const result = postNormalize(apiResponse);
+//     return {
+//         type: LOAD_POSTS_SUCCESS,
+//         result,
+//     };
+// }
+//
+// export function loadPostsError(posts) {
+//     return {
+//         type: LOAD_POSTS_ERROR,
+//         posts,
+//     };
+// }
 
 export function postOpen(id) {
   return {
@@ -46,9 +47,9 @@ export function postClose() {
 }
 
 export function creatPostResult(result) {
-  console.log(result);
+  // console.log(result);
   const apiResponse = simplepostNormalize(result);
-  console.log('response:', apiResponse);
+  // console.log('response:', apiResponse);
   return {
     type: POST_CREATE,
     result: apiResponse,
@@ -74,18 +75,18 @@ export function createPostFetchData(url, title, content) {
       }
 }
 
-export function postCreate(title, content) {
-  post('/api/posts/', {title, content});
-  const result = {
-    post: {0: {id: 0, title, content, author: 0}},
-    result: {0: 0},
-  };
-  console.log(result);
-  return {
-    type: POST_CREATE,
-    result,
-  }
-}
+// export function postCreate(title, content) {
+//   post('/api/posts/', {title, content});
+//   const result = {
+//     post: {0: {id: 0, title, content, author: 0}},
+//     result: {0: 0},
+//   };
+//   console.log(result);
+//   return {
+//     type: POST_CREATE,
+//     result,
+//   }
+// }
 
 // export function postChange(result) {
 //   // put('/api/posts/' + id + '/', {title, content});
@@ -125,21 +126,23 @@ export function updatePostFetchData(url, id, title, content) {
 }
 
 export function postFetchData(url) {
-    return (dispatch) => {
-        dispatch(loadPosts(true));
-        fetch(url, {
-           credentials: "same-origin",
-        })
-            .then((response) => {
-                if (!response.ok) {
-                    throw Error(response.statusText);
-                }
-                dispatch(loadPosts(false));
-                return response;
-            })
-            .then((response) => response.json())
-            .then((data) => dispatch(loadPostsSuccess(data.results)))
-            .catch(() => dispatch(loadPostsError(true)))
-            .catch(console.log);
-    };
+    const types = [LOAD_POSTS, LOAD_POSTS_SUCCESS, LOAD_POSTS_ERROR];
+    return FetchData(url, types, postNormalize);
+    // return (dispatch) => {
+    //     dispatch(loadPosts(true));
+    //     fetch(url, {
+    //        credentials: "same-origin",
+    //     })
+    //         .then((response) => {
+    //             if (!response.ok) {
+    //                 throw Error(response.statusText);
+    //             }
+    //             dispatch(loadPosts(false));
+    //             return response;
+    //         })
+    //         .then((response) => response.json())
+    //         .then((data) => dispatch(loadPostsSuccess(data.results)))
+    //         .catch(() => dispatch(loadPostsError(true)))
+    //         .catch(console.log);
+    // };
 }

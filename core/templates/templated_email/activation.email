@@ -6,5 +6,5 @@
 {% endblock %}
 
 {% block text %}
-  Ошибка при регистрации
+  Ваш код автивации: {{code}}
 {% endblock %}
