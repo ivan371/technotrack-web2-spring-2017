@@ -57,22 +57,24 @@ export function creatPostResult(result) {
 }
 
 export function createPostFetchData(url, title, content) {
-    return (dispatch) => {
-        const csrftoken = cookie.load('csrftoken');
-        fetch(url, {
-          method: 'post',
-          credentials: "same-origin",
-          body: JSON.stringify({title, content}),
-          headers: {
-            "X-CSRFToken": csrftoken,
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          }
-        })
-        .then((response) => response.json())
-        .then((response) =>  dispatch(creatPostResult(response)))
-        .catch(console.log);
-      }
+    const types = [LOAD_POSTS, POST_CREATE, LOAD_POSTS_ERROR];
+    return FetchData(url, types, simplepostNormalize, 'post', JSON.stringify({title, content}));
+    // return (dispatch) => {
+    //     const csrftoken = cookie.load('csrftoken');
+    //     fetch(url, {
+    //       method: 'post',
+    //       credentials: "same-origin",
+    //       body: JSON.stringify({title, content}),
+    //       headers: {
+    //         "X-CSRFToken": csrftoken,
+    //         'Accept': 'application/json',
+    //         'Content-Type': 'application/json'
+    //       }
+    //     })
+    //     .then((response) => response.json())
+    //     .then((response) =>  dispatch(creatPostResult(response)))
+    //     .catch(console.log);
+    //   }
 }
 
 // export function postCreate(title, content) {
@@ -107,27 +109,29 @@ export function updatePostResult(result) {
 
 
 export function updatePostFetchData(url, id, title, content) {
-    return (dispatch) => {
-        const csrftoken = cookie.load('csrftoken');
-        fetch('/api/posts/' + id + '/', {
-          method: 'put',
-          credentials: "same-origin",
-          body: JSON.stringify({title, content}),
-          headers: {
-            "X-CSRFToken": csrftoken,
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          }
-        })
-        .then((response) => response.json())
-        .then((response) =>  dispatch(updatePostResult(response)))
-        .catch(console.log);
-      }
+    const types = [LOAD_POSTS, POST_CHANGE, LOAD_POSTS_ERROR];
+    return FetchData('/api/posts/' + id + '/', types, simplepostNormalize, 'put', JSON.stringify({title, content}));
+    // return (dispatch) => {
+    //     const csrftoken = cookie.load('csrftoken');
+    //     fetch('/api/posts/' + id + '/', {
+    //       method: 'put',
+    //       credentials: "same-origin",
+    //       body: JSON.stringify({title, content}),
+    //       headers: {
+    //         "X-CSRFToken": csrftoken,
+    //         'Accept': 'application/json',
+    //         'Content-Type': 'application/json'
+    //       }
+    //     })
+    //     .then((response) => response.json())
+    //     .then((response) =>  dispatch(updatePostResult(response)))
+    //     .catch(console.log);
+    //   }
 }
 
 export function postFetchData(url) {
     const types = [LOAD_POSTS, LOAD_POSTS_SUCCESS, LOAD_POSTS_ERROR];
-    return FetchData(url, types, postNormalize);
+    return FetchData(url, types, postNormalize, 'get');
     // return (dispatch) => {
     //     dispatch(loadPosts(true));
     //     fetch(url, {

@@ -26,11 +26,11 @@ export default function router (store = inititalStore, action) {
     switch (action.type) {
       case LOAD_CHATS:
         return update(store,
-          { isLoading: { $set: true } },
+          { isLoading: { $set: action.bool } },
         );
       case LOAD_CHATS_SUCCESS:
         return update(store, {
-          isLoading: { $set: false },
+          isLoading: { $set: action.bool },
            chatList: { $set: action.result.result },
            chats: {
              $merge: action.result.entities.chat,
@@ -40,13 +40,19 @@ export default function router (store = inititalStore, action) {
         );
         return store;
       case CHAT_CREATE:
-        id = parseInt(action.result.id);
-        result = {};
-        result[action.result.id] = action.result;
         return update(store, {
-          chatList: { $push: [id]},
-          chats: { $merge: result}
-        })
+          chatList: { $push: [parseInt(action.result.result)] },
+          chats: {
+            $merge: action.result.entities.chat,
+          },
+        });
+        // id = parseInt(action.result.id);
+        // result = {};
+        // result[action.result.id] = action.result;
+        // return update(store, {
+        //   chatList: { $push: [id]},
+        //   chats: { $merge: result}
+        // })
       case MESSAGE_CREATE:
         console.log(action.result);
         return update(store, {

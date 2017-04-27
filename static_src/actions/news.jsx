@@ -32,7 +32,7 @@ export function loadNewsError(news) {
 
 export function newsFetchData(url) {
     const types = [LOAD_NEWS, LOAD_NEWS_SUCCESS, LOAD_NEWS_ERROR];
-    return FetchData(url, types, newsNormalize);
+    return FetchData(url, types, newsNormalize, 'get');
     // return (dispatch) => {
     //     dispatch(loadNews(true));
     //     fetch(url, {

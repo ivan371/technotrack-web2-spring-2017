@@ -1,24 +1,16 @@
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 import './../styles/base.css';
 import Button from 'react-bootstrap/lib/Button';
 import ChatButton from './ChatButton';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { loadChats, loadChatsSuccess, loadChatsError } from './../actions/chats';
+import { loadChats, loadChatsSuccess, loadChatsError, chatFetchData } from './../actions/chats';
 
 class ChatListComponent extends React.Component {
   componentDidMount() {
-    this.props.loadChats();
-    fetch('/api/chats/', {
-      credentials: "same-origin",
-    })
-    .then((resp) => resp.json())
-    .then((data) => {
-      this.props.loadChatsSuccess(data.results);
-    }
-  ).catch(console.log);
-
+    this.props.fetchData('/api/chats');
   }
+
   render() {
       const chatList = this.props.chatList.map(
         (chatId) => {
@@ -35,17 +27,20 @@ class ChatListComponent extends React.Component {
   }
 };
 
+ChatListComponent.propTypes = {
+  fetchData: PropTypes.func.isRequired,
+};
+
 const mapStoreToProps = state => ({
   chatList: state.chats.chatList,
   isLoading: state.chats.isLoading,
 });
 
-const mapDispatchToProps = dispatch => ({
-  ...bindActionCreators({
-    loadChats,
-    loadChatsSuccess,
-    loadChatsError,}, dispatch),
-});
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchData: (url) => dispatch(chatFetchData(url))
+  };
+}
 
 export default connect(
     mapStoreToProps,

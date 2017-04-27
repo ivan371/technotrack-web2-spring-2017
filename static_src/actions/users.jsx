@@ -70,7 +70,7 @@ export function loadUsersError(users) {
 
 export function usersFetchData(url) {
     const types = [LOAD_USERS, LOAD_USERS_SUCCESS, LOAD_USERS_ERROR];
-    return FetchData(url, types, userNormalize);
+    return FetchData(url, types, userNormalize, 'get');
     // return (dispatch) => {
     //     dispatch(loadUsers(true));
     //     fetch(url, {
@@ -91,7 +91,7 @@ export function usersFetchData(url) {
 }
 export function userFetchData(url) {
     const types = [LOAD_USER, LOAD_USER_SUCCESS, LOAD_USER_ERROR];
-    return FetchData(url, types, userNormalize);
+    return FetchData(url, types, userNormalize, 'get');
     // return (dispatch) => {
     //     dispatch(loadUser(true));
     //     fetch(url, {
