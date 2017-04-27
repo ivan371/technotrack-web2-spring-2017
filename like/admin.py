@@ -8,3 +8,8 @@ class LikesInline(admin.StackedInline, GenericInlineModelAdmin):
     ct_field = 'target_content_type'
     ct_fk_field = 'target_id'
     extra=1
+
+@admin.register(Like)
+class LikeAdmin(admin.ModelAdmin):
+
+    inlines = LikesInline,

@@ -16,13 +16,14 @@ function loadSuccess(apiResponse, normilizer, type) {
     };
 }
 
-function loadError(type) {
+function loadError(type, id) {
     return {
         type,
+        id,
     };
 }
 
-export function FetchData(url, types, normilizer, method, data) {
+export function FetchData(url, types, normilizer, method, data, model, id) {
     let headers = null;
     let body = null;
     if (method == 'post' || method == 'put') {
@@ -35,6 +36,7 @@ export function FetchData(url, types, normilizer, method, data) {
       body = data;
     }
     console.log(types);
+    console.log(model);
     return (dispatch) => {
         dispatch(loadres(true, types[0]));
         fetch(url, {
@@ -53,13 +55,18 @@ export function FetchData(url, types, normilizer, method, data) {
             .then((response) => response.json())
             .then((data) => {
               if (method == 'get') {
-                dispatch(loadSuccess(data.results, normilizer, types[1]))
+                  dispatch(loadSuccess(data.results, normilizer, types[1]))
               }
               else {
-                dispatch(loadSuccess(data, normilizer, types[1]))
+                if(model == 'like') {
+                  dispatch(loadSuccess(data.target, normilizer, types[1]))
+                }
+                else {
+                  dispatch(loadSuccess(data, normilizer, types[1]))
+                }
               }
             })
-            .catch(() => dispatch(loadError(types[2])))
+            .catch(() => dispatch(loadError(types[2], id)))
             .catch(console.log);
     };
 }

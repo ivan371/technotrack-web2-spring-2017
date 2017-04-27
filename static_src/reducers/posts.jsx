@@ -6,6 +6,10 @@ import {
   POST_CLOSE,
   POST_CREATE,
   POST_CHANGE} from './../actions/posts';
+import {
+  LOAD_LIKE_SUCCESS,
+  LOAD_LIKE_ERROR,
+} from './../actions/like';
 import update from 'react-addons-update';
 
 const inititalStore = {
@@ -65,23 +69,23 @@ export default function router (store = inititalStore, action) {
             $merge: action.result.entities.posts,
           }
         });
-        // const id = parseInt(action.result.id);
-        // let result = {};
-        // result[action.result.id] = action.result;
-        // return update(store, {
-        //   postList: { $push: [id]},
-        //   posts: { $merge: result}
-        //   // postList: { $merge: action.result.result },
-        //   // posts: {
-        //   //   $merge: action.result.post,
-        //   //   },
-        //   // },
-        // });
-      // case POST_CHANGE:
-      //   let post = store.posts[action.id];
-      //   console.log(action);
-      //   // return update(store, {posts: {id: {title: {$set: action.title}}}});
-      //   return store;
+      case LOAD_LIKE_SUCCESS:
+        console.log('onChange');
+        return update(store, {
+          posts: {
+            $merge: action.result.entities.posts,
+          }
+        });
+      case LOAD_LIKE_ERROR:
+        // const like_count = posts[action.id].like_count - 1;
+        const id = action.id;
+        const post = store.posts[id];
+        post.like_count--;
+        return update(store, {
+          posts: {
+            $merge: post,
+          }
+        });
       default:
         return store;
     }

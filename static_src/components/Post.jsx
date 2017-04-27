@@ -1,13 +1,18 @@
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import './../styles/base.css';
 import Button from 'react-bootstrap/lib/Button';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { postOpen } from './../actions/posts';
+import { likeFetchData } from './../actions/like';
 
 
 class PostComponent extends React.Component {
+  likeChange = (e) => {
+    e.preventDefault();
+    this.props.fetchData('/api/likes/?type=post&&id='+ this.props.id, this.props.id);
+  }
 
   render() {
     let changeable = null;
@@ -24,7 +29,8 @@ class PostComponent extends React.Component {
               </div>
               { changeable }
               <div className="button_field">
-            <img className="like" src="http://127.0.0.1:8000/media/like.png"/>
+                <img className="like" src="http://127.0.0.1:8000/media/like.png" onClick={ this.likeChange.bind(this) }/>
+              <div className="like_count"> <h4> { this.props.like_count } </h4>  </div>
           </div>
          </div>
     );
@@ -33,18 +39,23 @@ class PostComponent extends React.Component {
 
 PostComponent.propTypes = {
   id: React.PropTypes.number.isRequired,
+  fetchData: PropTypes.func.isRequired,
 };
 
 const mapStoreToProps = (state, props) => ({
   title: state.posts.posts[props.id].title,
   content: state.posts.posts[props.id].content,
+  like_count: state.posts.posts[props.id].like_count,
   firstname: state.users.users[state.posts.posts[props.id].author].first_name,
   lastname: state.users.users[state.posts.posts[props.id].author].last_name,
   myid: state.users.myid,
   authorid: state.posts.posts[props.id].author
 });
 const mapDispatchToProps = dispatch => ({
-  ...bindActionCreators({postOpen}, dispatch),
+  ...bindActionCreators({
+    postOpen,
+  }, dispatch),
+  fetchData: (url, id) => dispatch(likeFetchData(url, id))
 });
 
 export default connect(

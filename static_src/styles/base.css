@@ -149,6 +149,10 @@ h3{
   height: 500px;
   scrolling: yes;
 }
+.like_count {
+  float: right;
+  width: 40px;
+}
 .like {
   float: right;
   width: 40px;
