@@ -55,12 +55,13 @@ export default function router (store = inititalStore, action) {
             $merge: action.result.entities.author,
           },
         });
-      // case LOAD_NEWS_SUCCESS:
-      //   return update(store, {
-      //     users: {
-      //       $merge: action.result.entities.author,
-      //     },
-      //   });
+      case LOAD_NEWS_SUCCESS:
+        console.log("success");
+        return update(store, {
+          users: {
+            $merge: action.result.entities.author,
+          },
+        });
       case LOAD_CHATS_SUCCESS:
         return update(store, {
           users: {
