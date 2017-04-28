@@ -11,6 +11,7 @@ import { userFetchData } from './../actions/users';
 
 class UserComponent extends React.Component {
   componentDidMount() {
+    console.log('prop;', this.props.params.id);
     this.props.fetchData('/api/users/' + this.props.params.id + '/');
   }
   render() {

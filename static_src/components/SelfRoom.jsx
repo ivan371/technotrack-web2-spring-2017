@@ -17,6 +17,10 @@ class SelfRoomComponent extends React.Component {
     let modalContent = null;
     let usercontent = <div className="loading"></div>;
     let model = null;
+    let page = null;
+    if(this.props.params.hasOwnProperty('id')) {
+      page = this.props.params.id;
+    }
     if (this.props.modalopen) {
       model = <Modal action="PostChange"/>;
     }
@@ -31,7 +35,7 @@ class SelfRoomComponent extends React.Component {
           <div className="b-post"><h1>Лента постов</h1></div>
 
            <PostForm onCreate={ this.onCreate }/>
-           <PostList onPostOpen={ this.onPostOpen }/>
+           <PostList onPostOpen={ this.onPostOpen } page={page}/>
           { model }
 
 

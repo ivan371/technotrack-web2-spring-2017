@@ -21,7 +21,8 @@ const history = syncHistoryWithStore(browserHistory, initStore());
 
 const routers =
 ( <div><Route path="vk/" component={App}>
-  <Route path="/vk/self/" component={SelfRoom}/>
+    <Route path="/vk/self/" component={SelfRoom}/>
+    <Route path="/vk/self/page/:id/" component={SelfRoom}/>
     <Route path="/vk/chats/" component={Chats}/>
     <Route path="/vk/people/:id/" component={User}/>
     <Route path="/vk/people/" component={People}/>

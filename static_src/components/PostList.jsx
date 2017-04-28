@@ -5,21 +5,22 @@ import Post from './Post';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { postFetchData } from './../actions/posts';
-import Pagination from 'react-js-pagination';
+import Page from './Page';
+import {Link} from 'react-router';
 
 class PostListComponent extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      activePage: 15
-    };
-  }
   componentDidMount() {
-    this.props.fetchData('/api/posts');
+    if(this.props.page != null) {
+      this.props.fetchData('/api/posts/?offset=' + 10 * (parseInt(this.props.page) - 1));
+    }
+    else {
+      this.props.fetchData('/api/posts');
+    }
   }
-  handlePageChange(pageNumber) {
-    console.log(`active page is ${pageNumber}`);
-    this.setState({activePage: pageNumber});
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.page != this.props.page) {
+      this.props.fetchData('/api/posts/?offset=' + 10 * (parseInt(nextProps.page) - 1));
+    }
   }
   render() {
       const postList = this.props.postList.map(
@@ -29,13 +30,11 @@ class PostListComponent extends React.Component {
       );
     return (
         <div className="b-post-list">
-          <Pagination
-           activePage={this.state.activePage}
-           itemsCountPerPage={10}
-           totalItemsCount={40}
-           pageRangeDisplayed={9}
-           onChange={::this.handlePageChange}/>
-          { this.props.isLoading ? <div className="loading"></div> :  postList }
+          <div className="paging">
+            <Page page={1}/>
+            <Page page={2}/>
+          </div>
+           { this.props.isLoading ? <div className="loading"></div> :  postList }
         </div>
     );
   }
@@ -43,6 +42,7 @@ class PostListComponent extends React.Component {
 
 PostListComponent.propTypes = {
   fetchData: PropTypes.func.isRequired,
+  page: PropTypes.string
 };
 
 const mapStoreToProps = state => ({
