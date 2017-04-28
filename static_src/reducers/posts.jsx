@@ -5,7 +5,9 @@ import {
   POST_OPEN,
   POST_CLOSE,
   POST_CREATE,
-  POST_CHANGE} from './../actions/posts';
+  POST_CHANGE,
+  POST_PAGINATE,
+} from './../actions/posts';
 import {
   LOAD_NEWS_SUCCESS
 } from './../actions/news';
@@ -21,6 +23,7 @@ const inititalStore = {
     isLoading: false,
     modalpost: {},
     modalopen: false,
+    count: 0,
 };
 
 
@@ -37,6 +40,10 @@ export default function router (store = inititalStore, action) {
       }
     }
     switch (action.type) {
+      case POST_PAGINATE:
+        return update(store,
+          { count: { $set: Math.floor(action.result / 10)} },
+        );
       case LOAD_POSTS:
         return update(store,
           { isLoading: { $set: action.bool } },

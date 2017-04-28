@@ -2,6 +2,7 @@ import {
   LOAD_NEWS,
   LOAD_NEWS_SUCCESS,
   LOAD_NEWS_ERROR,
+  NEWS_PAGINATE,
 } from './../actions/news';
 import update from 'react-addons-update';
 
@@ -9,14 +10,19 @@ const inititalStore = {
     newsList: [],
     news: {},
     isLoading: false,
+    count: null,
 };
 
 
 export default function router (store = inititalStore, action) {
     switch (action.type) {
+      case NEWS_PAGINATE:
+        return update(store,
+          { count: { $set: Math.floor(action.result / 10)} },
+        );
       case LOAD_NEWS:
         return update(store,
-          { isLoading: { $set: action.bool } },
+          { isLoading: { $set: true } },
         );
       case LOAD_NEWS_SUCCESS:
         return update(store, {

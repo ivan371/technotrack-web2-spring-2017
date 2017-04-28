@@ -5,6 +5,7 @@ export const POST_OPEN = 'POST_OPEN';
 export const POST_CLOSE = 'POST_CLOSE';
 export const POST_CREATE = 'POST_CREATE';
 export const POST_CHANGE = 'POST_CHANGE';
+export const POST_PAGINATE = 'POST_PAGINATE';
 import { postNormalize, postDeNotmilize, simplepostNormalize } from './../normilizers/post';
 import { post } from './../promises/post';
 import { put } from './../promises/put';
@@ -33,7 +34,7 @@ export function creatPostResult(result) {
 }
 
 export function createPostFetchData(url, title, content) {
-  const types = [LOAD_POSTS, POST_CREATE, LOAD_POSTS_ERROR];
+  const types = [LOAD_POSTS, POST_CREATE, LOAD_POSTS_ERROR, POST_PAGINATE];
   return FetchData(url, types, simplepostNormalize, 'post', JSON.stringify({title, content}));
 }
 
@@ -48,11 +49,11 @@ export function updatePostResult(result) {
 }
 
 export function updatePostFetchData(url, id, title, content) {
-    const types = [LOAD_POSTS, POST_CHANGE, LOAD_POSTS_ERROR];
+    const types = [LOAD_POSTS, POST_CHANGE, LOAD_POSTS_ERROR, POST_PAGINATE];
     return FetchData('/api/posts/' + id + '/', types, simplepostNormalize, 'put', JSON.stringify({title, content}));
 }
 
 export function postFetchData(url) {
-    const types = [LOAD_POSTS, LOAD_POSTS_SUCCESS, LOAD_POSTS_ERROR];
+    const types = [LOAD_POSTS, LOAD_POSTS_SUCCESS, LOAD_POSTS_ERROR, POST_PAGINATE];
     return FetchData(url, types, postNormalize, 'get');
 }

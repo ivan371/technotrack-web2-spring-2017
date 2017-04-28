@@ -9,7 +9,7 @@ class PageComponent extends React.Component {
   render() {
     return (
         <div className="page">
-          <Link to={'/vk/self/page/' + this.props.page + '/'}><button>{this.props.page}</button></Link>
+          <Link to={this.props.link}><button>{this.props.page}</button></Link>
         </div>
     );
   }
@@ -17,6 +17,7 @@ class PageComponent extends React.Component {
 
 PageComponent.propTypes = {
   page: PropTypes.number.isRequired,
+  link: PropTypes.string.isRequired,
 };
 
 const mapStoreToProps = state => ({

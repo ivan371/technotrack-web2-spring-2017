@@ -28,11 +28,14 @@ class PostListComponent extends React.Component {
           return <Post key={ postId } id={ postId }/>
         }
       );
+      let pages = [];
+      for(let i = 1; i <= this.props.count + 1; i++) {
+        pages.push(<Page page={i} link={'/vk/self/page/' + i + '/'} key={i}/>);
+      }
     return (
         <div className="b-post-list">
           <div className="paging">
-            <Page page={1}/>
-            <Page page={2}/>
+            {pages}
           </div>
            { this.props.isLoading ? <div className="loading"></div> :  postList }
         </div>
@@ -48,6 +51,7 @@ PostListComponent.propTypes = {
 const mapStoreToProps = state => ({
   postList: state.posts.postList,
   isLoading: state.posts.isLoading,
+  count: state.posts.count,
 });
 const mapDispatchToProps = (dispatch) => {
   return {

@@ -1,16 +1,28 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
-import { newsFetchData } from './../actions/news';
+import { newsFetchData, loadNews } from './../actions/news';
 import { connect } from 'react-redux';
 import New from './New';
 import Post from './Post';
 import Message from './Message';
 import ChatButton from './ChatButton';
 import { Link } from 'react-router';
+import Page from './Page';
 
 class NewsComponent extends React.Component {
   componentDidMount() {
-    this.props.fetchData('/api/events');
+    if(this.props.params.id != null) {
+      this.props.fetchData('/api/events/?offset=' + 10 * (parseInt(this.props.params.id) - 1));
+    }
+    else {
+      this.props.fetchData('/api/events');
+    }
+  }
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.params.id != this.props.params.id) {
+      this.props.load();
+      this.props.fetchData('/api/events/?offset=' + 10 * (parseInt(nextProps.params.id) - 1));
+    }
   }
   render() {
     let newsList = [];
@@ -59,10 +71,17 @@ class NewsComponent extends React.Component {
         }
       );
     }
+    let pages = [];
+    for(let i = 1; i <= this.props.count + 1; i++) {
+      pages.push(<Page page={i} link={'/vk/news/page/' + i + '/'} key={i}/>);
+    }
     return (
       <div>
         <div className="box">
           <div className="b-post"><h1>Новости</h1></div>
+          <div className="paging">
+            {pages}
+          </div>
           { this.props.isLoading ? <div className="loading"></div> :  newsList }
         </div>
       </div>
@@ -72,6 +91,7 @@ class NewsComponent extends React.Component {
 
 NewsComponent.propTypes = {
   fetchData: PropTypes.func.isRequired,
+  load: PropTypes.func.isRequired,
 };
 
 const mapStoreToProps = state => ({
@@ -79,10 +99,12 @@ const mapStoreToProps = state => ({
   isLoading: state.news.isLoading,
   news: state.news.news,
   users: state.users.users,
+  count: state.news.count,
 });
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchData: (url) => dispatch(newsFetchData(url))
+    fetchData: (url) => dispatch(newsFetchData(url)),
+    load: () => dispatch(loadNews()),
   };
 }
 

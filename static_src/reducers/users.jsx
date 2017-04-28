@@ -22,6 +22,7 @@ const inititalStore = {
     ismeLoading: true,
     modalopen: false,
     myid: null,
+    count: null,
 };
 
 

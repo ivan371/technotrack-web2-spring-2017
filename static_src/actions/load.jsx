@@ -1,4 +1,5 @@
 import cookie from 'react-cookie';
+import { bindActionCreators } from 'redux';
 
 function loadres(bool, type) {
     return {
@@ -23,6 +24,13 @@ function loadError(type, id) {
     };
 }
 
+function loadpaginate(result, type) {
+  return {
+    type,
+    result,
+  }
+}
+
 export function FetchData(url, types, normilizer, method, data, model, id) {
     let headers = null;
     let body = null;
@@ -38,7 +46,7 @@ export function FetchData(url, types, normilizer, method, data, model, id) {
     console.log(types);
     console.log(model);
     return (dispatch) => {
-        dispatch(loadres(true, types[0]));
+        // dispatch(loadres(false, types[0]));
         fetch(url, {
            credentials: "same-origin",
            method: method,
@@ -55,7 +63,10 @@ export function FetchData(url, types, normilizer, method, data, model, id) {
             .then((response) => response.json())
             .then((data) => {
               if (method == 'get') {
-                  dispatch(loadSuccess(data.results, normilizer, types[1]))
+                  // ...bindActionCreators({loadSuccess(data.results, normilizer, types[1])}, dispatch)
+                  dispatch(loadSuccess(data.results, normilizer, types[1]));
+                  // console.log(data.count);
+                  // dispatch(loadpaginate(data.count,types[3]));
               }
               else {
                 if(model == 'like') {
@@ -64,6 +75,12 @@ export function FetchData(url, types, normilizer, method, data, model, id) {
                 else {
                   dispatch(loadSuccess(data, normilizer, types[1]))
                 }
+              }
+              return data;
+            })
+            .then((data) => {
+              if (method == 'get') {
+                  dispatch(loadpaginate(data.count,types[3]));
               }
             })
             .catch(() => dispatch(loadError(types[2], id)))

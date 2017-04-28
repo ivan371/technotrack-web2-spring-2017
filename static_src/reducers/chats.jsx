@@ -20,6 +20,7 @@ const inititalStore = {
     messageList: [],
     messages: {},
     chatopen: false,
+    count: null,
 };
 
 

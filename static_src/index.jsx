@@ -27,6 +27,7 @@ const routers =
     <Route path="/vk/people/:id/" component={User}/>
     <Route path="/vk/people/" component={People}/>
     <Route path="/vk/news/" component={News}/>
+    <Route path="/vk/news/page/:id/" component={News}/>
     <Route path="/vk/friends/" component={Friends}/>
     <Route path="/vk/user/" component={User}/>
   </Route></div>);
