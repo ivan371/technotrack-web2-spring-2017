@@ -25,6 +25,17 @@ const inititalStore = {
 
 
 export default function router (store = inititalStore, action) {
+    if (action.hasOwnProperty('result')) {
+      if (action.result.hasOwnProperty('entities')){
+        if (action.result.entities.hasOwnProperty('posts')){
+          store = update(store, {
+            posts: {
+              $merge: action.result.entities.posts,
+            },
+          });
+        }
+      }
+    }
     switch (action.type) {
       case LOAD_POSTS:
         return update(store,
@@ -34,9 +45,6 @@ export default function router (store = inititalStore, action) {
         return update(store, {
           isLoading: { $set: false },
           postList: { $set: action.result.result },
-          posts: {
-            $merge: action.result.entities.posts,
-          },
         },
         );
       case LOAD_POSTS_ERROR:
@@ -48,13 +56,6 @@ export default function router (store = inititalStore, action) {
           postList: {
             $set: []
           }
-        });
-      case LOAD_NEWS_SUCCESS:
-        console.log("success");
-        return update(store, {
-          posts: {
-            $merge: action.result.entities.posts,
-          },
         });
       case POST_OPEN:
         return update(store, {
@@ -68,26 +69,8 @@ export default function router (store = inititalStore, action) {
       case POST_CREATE:
         return update(store, {
           postList: { $unshift: [parseInt(action.result.result)] },
-          posts: {
-            $merge: action.result.entities.posts,
-          },
-        });
-      case POST_CHANGE:
-        console.log('onChange');
-        return update(store, {
-          posts: {
-            $merge: action.result.entities.posts,
-          }
-        });
-      case LOAD_LIKE_SUCCESS:
-        console.log('onChange');
-        return update(store, {
-          posts: {
-            $merge: action.result.entities.posts,
-          }
         });
       case LOAD_LIKE_ERROR:
-        // const like_count = posts[action.id].like_count - 1;
         const id = action.id;
         const post = store.posts[id];
         post.like_count--;

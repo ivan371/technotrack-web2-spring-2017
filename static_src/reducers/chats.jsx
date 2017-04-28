@@ -26,6 +26,24 @@ const inititalStore = {
 export default function router (store = inititalStore, action) {
     let id = 0;
     let result = {};
+    if (action.hasOwnProperty('result')) {
+      if (action.result.hasOwnProperty('entities')){
+        if (action.result.entities.hasOwnProperty('chat')){
+          store = update(store, {
+            chats: {
+              $merge: action.result.entities.chat,
+            },
+          });
+        }
+        if (action.result.entities.hasOwnProperty('message')){
+          store = update(store, {
+            messages: {
+              $merge: action.result.entities.message,
+            },
+          });
+        }
+      }
+    }
     switch (action.type) {
       case LOAD_CHATS:
         return update(store,
@@ -35,36 +53,17 @@ export default function router (store = inititalStore, action) {
         return update(store, {
           isLoading: { $set: action.bool },
            chatList: { $set: action.result.result },
-           chats: {
-             $merge: action.result.entities.chat,
-           },
-           messages: { $merge: action.result.entities.message}
         },
         );
         return store;
-      case LOAD_NEWS_SUCCESS:
-        return update(store, {
-          chats: {
-            $merge: action.result.entities.chat,
-          },
-          messages: {
-            $merge: action.result.entities.message,
-          },
-        });
       case CHAT_CREATE:
         return update(store, {
           chatList: { $push: [parseInt(action.result.result)] },
-          chats: {
-            $merge: action.result.entities.chat,
-          },
         });
       case MESSAGE_CREATE:
         console.log(action.result);
         return update(store, {
           messageList: { $push: [parseInt(action.result.result)] },
-          messages: {
-            $merge: action.result.entities.message,
-          },
         })
       case LOAD_CHATS_ERROR:
         return update(store, { isLoading: { $set: false } });

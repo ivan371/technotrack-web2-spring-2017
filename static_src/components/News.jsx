@@ -6,6 +6,7 @@ import New from './New';
 import Post from './Post';
 import Message from './Message';
 import ChatButton from './ChatButton';
+import { Link } from 'react-router';
 
 class NewsComponent extends React.Component {
   componentDidMount() {
@@ -20,7 +21,11 @@ class NewsComponent extends React.Component {
             case 'post':
                 return (<div key={ newId }>
                   <div className="b-post_dark">
-                    <h3>{ this.props.users[this.props.news[newId].author].username } создал пост</h3>
+                    <h3>
+                      <Link to={ '/vk/people/' + this.props.users[this.props.news[newId].author].id + '/' }>
+                        { this.props.users[this.props.news[newId].author].username }
+                      </Link> создал пост
+                    </h3>
                   </div>
                   <Post id={ this.props.news[newId].target }/>
                 </div>);
@@ -28,7 +33,10 @@ class NewsComponent extends React.Component {
             case 'chat':
                 return (<div key={ newId }>
                   <div className="b-post_dark">
-                    <h3>{ this.props.users[this.props.news[newId].author].username } создал чат</h3>
+                    <h3>
+                      <Link to={ '/vk/people/' + this.props.users[this.props.news[newId].author].id + '/' }>
+                        { this.props.users[this.props.news[newId].author].username }
+                      </Link> создал чат</h3>
                   </div>
                   <ChatButton id={ this.props.news[newId].target }/>
                 </div>);
@@ -36,7 +44,10 @@ class NewsComponent extends React.Component {
             case 'message':
                 return (<div key={ newId }>
                   <div className="b-post_dark">
-                    <h3>{ this.props.users[this.props.news[newId].author].username } создал сообщение</h3>
+                    <h3>
+                      <Link to={ '/vk/people/' + this.props.users[this.props.news[newId].author].id + '/' }>
+                        { this.props.users[this.props.news[newId].author].username }
+                      </Link> написал сообщение</h3>
                   </div>
                   <Message id={ this.props.news[newId].target }/>
                 </div>);

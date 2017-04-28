@@ -18,14 +18,13 @@ class PersonComponent extends React.Component {
     }
     return (
       <div className="b-post">
-        <h3>{ this.props.username }</h3>
+        <Link to={ link }><h3>{ this.props.username }</h3></Link>
         <div className="b-post__content">
         <img className="avatar" src={ this.props.avatar }/>
         <p>{ this.props.email }</p>
         <p>{ this.props.firstname }</p>
         <p>{ this.props.lastname }</p>
         <p>{ this.props.rating }</p>
-        {info}
     </div>
        </div>
     );

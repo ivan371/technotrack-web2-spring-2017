@@ -27,6 +27,17 @@ const inititalStore = {
 
 export default function router (store = inititalStore, action) {
     let result = null;
+    if (action.hasOwnProperty('result')) {
+      if (action.result.hasOwnProperty('entities')){
+        if (action.result.entities.hasOwnProperty('author')){
+          store = update(store, {
+            users: {
+              $merge: action.result.entities.author,
+            },
+          });
+        }
+      }
+    }
     switch (action.type) {
       case LOAD_USERS:
         return update(store,
@@ -49,25 +60,6 @@ export default function router (store = inititalStore, action) {
         return update(store, {
           modalopen: { $set: false },
          });
-      case LOAD_POSTS_SUCCESS:
-        return update(store, {
-          users: {
-            $merge: action.result.entities.author,
-          },
-        });
-      case LOAD_NEWS_SUCCESS:
-        console.log("success");
-        return update(store, {
-          users: {
-            $merge: action.result.entities.author,
-          },
-        });
-      case LOAD_CHATS_SUCCESS:
-        return update(store, {
-          users: {
-            $merge: action.result.entities.user,
-          },
-        });
       case LOAD_USERS_ERROR:
         return update(store, { isLoading: { $set: false } });
       case LOAD_USER:
