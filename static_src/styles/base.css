@@ -40,6 +40,14 @@ h3{
   background: linear-gradient(to right, grey, LightGray, grey);
   border: 1px solid black;
 }
+.b-post_dark{
+  margin: 1px;
+  border-radius: 2px;
+  padding-left: 10px;
+  padding-right: 10px;
+  background: linear-gradient(to right, LightGray, grey, LightGray);
+  border: 1px solid black;
+}
 .button_field{
   position: relative;
   height: 50px;

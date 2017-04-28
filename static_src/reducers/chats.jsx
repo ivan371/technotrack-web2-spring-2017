@@ -6,6 +6,9 @@ import {
   CHAT_CLOSE,
   CHAT_CREATE,
   MESSAGE_CREATE} from './../actions/chats';
+import {
+  LOAD_NEWS_SUCCESS
+} from './../actions/news';
 import update from 'react-addons-update';
 import { chatNormalize, messageNormalize } from './../normilizers/chats';
 
@@ -39,6 +42,15 @@ export default function router (store = inititalStore, action) {
         },
         );
         return store;
+      case LOAD_NEWS_SUCCESS:
+        return update(store, {
+          chats: {
+            $merge: action.result.entities.chat,
+          },
+          messages: {
+            $merge: action.result.entities.message,
+          },
+        });
       case CHAT_CREATE:
         return update(store, {
           chatList: { $push: [parseInt(action.result.result)] },
@@ -46,13 +58,6 @@ export default function router (store = inititalStore, action) {
             $merge: action.result.entities.chat,
           },
         });
-        // id = parseInt(action.result.id);
-        // result = {};
-        // result[action.result.id] = action.result;
-        // return update(store, {
-        //   chatList: { $push: [id]},
-        //   chats: { $merge: result}
-        // })
       case MESSAGE_CREATE:
         console.log(action.result);
         return update(store, {

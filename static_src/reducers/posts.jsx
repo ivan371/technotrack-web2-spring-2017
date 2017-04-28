@@ -7,6 +7,9 @@ import {
   POST_CREATE,
   POST_CHANGE} from './../actions/posts';
 import {
+  LOAD_NEWS_SUCCESS
+} from './../actions/news';
+import {
   LOAD_LIKE_SUCCESS,
   LOAD_LIKE_ERROR,
 } from './../actions/like';
@@ -45,6 +48,13 @@ export default function router (store = inititalStore, action) {
           postList: {
             $set: []
           }
+        });
+      case LOAD_NEWS_SUCCESS:
+        console.log("success");
+        return update(store, {
+          posts: {
+            $merge: action.result.entities.posts,
+          },
         });
       case POST_OPEN:
         return update(store, {
