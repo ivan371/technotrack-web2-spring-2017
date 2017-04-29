@@ -5,7 +5,9 @@ import {
   CHAT_OPEN,
   CHAT_CLOSE,
   CHAT_CREATE,
-  MESSAGE_CREATE} from './../actions/chats';
+  MESSAGE_CREATE,
+  CHAT_PAGINATE
+} from './../actions/chats';
 import {
   LOAD_NEWS_SUCCESS
 } from './../actions/news';
@@ -46,13 +48,17 @@ export default function router (store = inititalStore, action) {
       }
     }
     switch (action.type) {
+      case CHAT_PAGINATE:
+        return update(store,
+          { count: { $set: Math.floor(action.result / 10)} },
+        );
       case LOAD_CHATS:
         return update(store,
-          { isLoading: { $set: action.bool } },
+          { isLoading: { $set: true } },
         );
       case LOAD_CHATS_SUCCESS:
         return update(store, {
-          isLoading: { $set: action.bool },
+          isLoading: { $set: false },
            chatList: { $set: action.result.result },
         },
         );

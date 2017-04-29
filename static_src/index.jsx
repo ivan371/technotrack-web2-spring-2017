@@ -24,8 +24,10 @@ const routers =
     <Route path="/vk/self/" component={SelfRoom}/>
     <Route path="/vk/self/page/:id/" component={SelfRoom}/>
     <Route path="/vk/chats/" component={Chats}/>
+    <Route path="/vk/chats/page/:id/" component={Chats}/>
     <Route path="/vk/people/:id/" component={User}/>
     <Route path="/vk/people/" component={People}/>
+    <Route path="/vk/people/page/:id/" component={People}/>
     <Route path="/vk/news/" component={News}/>
     <Route path="/vk/news/page/:id/" component={News}/>
     <Route path="/vk/friends/" component={Friends}/>

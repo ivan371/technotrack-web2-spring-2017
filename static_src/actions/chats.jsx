@@ -16,6 +16,12 @@ export function chatFetchData(url) {
     return FetchData(url, types, chatNormalize, 'get');
 }
 
+export function loadChats() {
+  return {
+    type: LOAD_CHATS,
+  }
+}
+
 export function chatOpen(id) {
   return {
     type: CHAT_OPEN,

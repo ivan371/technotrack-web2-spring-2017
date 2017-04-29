@@ -18,7 +18,7 @@ class ChatComponent extends React.Component {
       <div>
         <div className="box">
           <div className="b-post"><h1>Чаты</h1></div>
-        <div className="b-post"><ChatList/></div>
+        <div className="b-post"><ChatList page={this.props.params.id}/></div>
         <ChatCreate/>
           </div>
         <div className="box">

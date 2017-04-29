@@ -7,7 +7,8 @@ import {
   LOAD_USER_ERROR,
   MODAL_USER,
   MODAL_CLOSE,
-  PROFILE_CHANGE
+  PROFILE_CHANGE,
+  USERS_PAGINATE
  } from './../actions/users';
 import { LOAD_POSTS_SUCCESS } from './../actions/posts';
 import { LOAD_CHATS_SUCCESS } from './../actions/chats';
@@ -40,6 +41,10 @@ export default function router (store = inititalStore, action) {
       }
     }
     switch (action.type) {
+      case USERS_PAGINATE:
+        return update(store,
+          { count: { $set: Math.floor(action.result / 10)} },
+        );
       case LOAD_USERS:
         return update(store,
           { isLoading: { $set: action.bool } },
