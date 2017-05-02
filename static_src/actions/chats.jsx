@@ -6,10 +6,13 @@ export const CHAT_CLOSE = 'CHAT_CLOSE';
 export const MESSAGE_CREATE = 'MESSAGE_CREATE';
 export const CHAT_CREATE = 'CHAT_CREATE';
 export const CHAT_PAGINATE = 'CHAT_PAGINATE';
+export const CHATUSER_OPEN = 'CHATUSER_OPEN';
+export const CHATUSER_CLOSE = 'CHATUSER_CLOSE';
 import { chatNormalize, messageNormalize, simplechatNormalize } from './../normilizers/chats';
 import { post } from './../promises/post';
 import cookie from 'react-cookie';
 import { FetchData } from './load';
+
 
 export function chatFetchData(url) {
     const types = [LOAD_CHATS, LOAD_CHATS_SUCCESS, LOAD_CHATS_ERROR, CHAT_PAGINATE];
@@ -32,6 +35,18 @@ export function chatOpen(id) {
 export function chatClose() {
   return {
     type: CHAT_CLOSE,
+  }
+}
+
+export function chatuserOpen() {
+  return {
+    type: CHATUSER_OPEN,
+  }
+}
+
+export function chatuserClose() {
+  return {
+    type: CHATUSER_CLOSE,
   }
 }
 

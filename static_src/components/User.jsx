@@ -7,7 +7,7 @@ import Profile from './Profile';
 import Person from './Person';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { userFetchData } from './../actions/users';
+import { personFetchData } from './../actions/users';
 
 class UserComponent extends React.Component {
   componentDidMount() {
@@ -16,9 +16,11 @@ class UserComponent extends React.Component {
   }
   render() {
     console.log(this.props.ismeLoading);
-    let usercontent = null;
+    let usercontent = <div className="loading"></div>;
     const numid = parseInt(this.props.params.id);
-    usercontent = <Person key={ numid } id={ numid } islist={ false }/>;
+    if (!this.props.ismeLoading) {
+      usercontent = <Person key={ numid } id={ numid } islist={ false }/>;
+    }
     return (
       <div>
         <div className="box">
@@ -42,12 +44,12 @@ UserComponent.propTypes = {
 
 
 const mapStoreToProps = state => ({
-  ismeLoading: state.users.ismeLoading,
+  ismeLoading: state.users.ispersonLoading,
   // modalopen: state.posts.modalopen,
 });
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchData: (url) => dispatch(userFetchData(url))
+    fetchData: (url) => dispatch(personFetchData(url))
   };
 }
 

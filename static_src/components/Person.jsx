@@ -25,6 +25,9 @@ class PersonComponent extends React.Component {
         <p>{ this.props.firstname }</p>
         <p>{ this.props.lastname }</p>
         <p>{ this.props.rating }</p>
+        <div className="button_field">
+          <button>Добавить в друзья</button>
+        </div>
     </div>
        </div>
     );

@@ -28,12 +28,11 @@ export function simplepostNormalize (posts) {
   return result;
 }
 
-export function commentNormilize(comment) {
+
+export function commentNormalize(comment) {
   const author = new schema.Entity('author');
-  const comments = new schema.Entity('comments', {
-    author: author,
-  });
-  return result = normalize(comment, comments);
+  const com = new schema.Entity('comment', {author:author});
+  return normalize(comment, com);
 }
 
 

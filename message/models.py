@@ -10,7 +10,7 @@ class Chat(Authored, Dated, Eventable):
 
 class ChatUser(models.Model):
 
-    user = models.ForeignKey(User)
+    author = models.ForeignKey(User)
     chat = models.ForeignKey(Chat)
 
 class Message(Authored, Dated, Eventable):

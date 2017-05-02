@@ -8,6 +8,7 @@ import Message from './Message';
 import ChatButton from './ChatButton';
 import { Link } from 'react-router';
 import Page from './Page';
+import Comment from './Comment';
 
 class NewsComponent extends React.Component {
   componentDidMount() {
@@ -64,6 +65,17 @@ class NewsComponent extends React.Component {
                   <Message id={ this.props.news[newId].target }/>
                 </div>);
               break;
+            case 'comment':
+              return (<div key={ newId }>
+                <div className="b-post_dark">
+                  <h3>
+                    <Link to={ '/vk/people/' + this.props.users[this.props.news[newId].author].id + '/' }>
+                      { this.props.users[this.props.news[newId].author].username }
+                    </Link> создал коммент
+                  </h3>
+                </div>
+                <Comment id={ this.props.news[newId].target }/>
+              </div>);
             default:
 
           }

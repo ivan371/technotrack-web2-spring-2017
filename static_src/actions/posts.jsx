@@ -6,7 +6,8 @@ export const POST_CLOSE = 'POST_CLOSE';
 export const POST_CREATE = 'POST_CREATE';
 export const POST_CHANGE = 'POST_CHANGE';
 export const POST_PAGINATE = 'POST_PAGINATE';
-import { postNormalize, postDeNotmilize, simplepostNormalize } from './../normilizers/post';
+export const COMMENT_CREATE = 'COMMENT_CREATE';
+import { postNormalize, postDeNotmilize, simplepostNormalize, commentNormalize } from './../normilizers/post';
 import { post } from './../promises/post';
 import { put } from './../promises/put';
 import cookie from 'react-cookie';
@@ -38,6 +39,11 @@ export function createPostFetchData(url, title, content) {
   return FetchData(url, types, simplepostNormalize, 'post', JSON.stringify({title, content}));
 }
 
+export function createCommentFetchData(url, text) {
+  const types = [LOAD_POSTS, COMMENT_CREATE, LOAD_POSTS_ERROR, POST_PAGINATE];
+  return FetchData(url, types, commentNormalize, 'post', JSON.stringify({text}));
+}
+
 export function updatePostResult(result) {
   console.log(result);
   const apiResponse = simplepostNormalize(result);
@@ -56,4 +62,8 @@ export function updatePostFetchData(url, id, title, content) {
 export function postFetchData(url) {
     const types = [LOAD_POSTS, LOAD_POSTS_SUCCESS, LOAD_POSTS_ERROR, POST_PAGINATE];
     return FetchData(url, types, postNormalize, 'get');
+}
+export function simplepostFetchData(url) {
+  const types = [LOAD_POSTS, LOAD_POSTS_SUCCESS, LOAD_POSTS_ERROR, POST_PAGINATE];
+  return FetchData(url, types, simplepostNormalize, 'get');
 }

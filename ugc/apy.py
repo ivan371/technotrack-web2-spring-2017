@@ -18,7 +18,8 @@ class CommentSerializer(serializers.ModelSerializer):
 
     author = UserSerializer(read_only=True)
     id = serializers.ReadOnlyField()
-    permission_classes = (permissions.IsAuthenticated, IsOwnerOrReadOnly)
+    like_count = serializers.ReadOnlyField()
+    permission_classes = (permissions.IsAuthenticated)
 
     class Meta:
         model = Comment
@@ -30,15 +31,17 @@ class CommentRetrieve(viewsets.ModelViewSet):
     serializer_class = CommentSerializer
 
     def perform_create(self, serializer):
-        serializer.save(author=self.request.user)
+        if 'post' in self.request.query_params:
+            print 'post'
+            serializer.save(author=self.request.user, post_id=self.request.query_params['post'])
 
     def get_queryset(self):
         queryset = super(CommentRetrieve, self).get_queryset()
-        print self.request.query_params
-        if 'author' in self.request.query_params:
-            queryset = queryset.filter(author=self.request.query_params['author'])
+        # if 'author' in self.request.query_params:
+            # queryset = queryset.filter(author=self.request.query_params['author'])
         if 'post' in self.request.query_params:
             queryset = queryset.filter(post=self.request.query_params['post'])
+        return queryset
 
 class PostSerializer(serializers.ModelSerializer):
 

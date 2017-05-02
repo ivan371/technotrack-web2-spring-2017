@@ -9,9 +9,10 @@ export const USER_PAGINATE = 'USER_PAGINATE';
 export const MODAL_USER = 'MODAL_USER';
 export const MODAL_CLOSE = 'MODAL_CLOSE';
 export const PROFILE_CHANGE = 'PROFILE_CHANGE';
+export const LOAD_PERSON_SUCCESS = 'LOAD_PERSON_SUCCESS';
 import cookie from 'react-cookie';
 import { FetchData } from './load';
-import { userNormalize } from './../normilizers/users';
+import { userNormalize, simpleuserNormalize } from './../normilizers/users';
 
 function opt(a) {
   return a;
@@ -77,6 +78,11 @@ export function usersFetchData(url) {
 export function userFetchData(url) {
     const types = [LOAD_USER, LOAD_USER_SUCCESS, LOAD_USER_ERROR, USER_PAGINATE];
     return FetchData(url, types, userNormalize, 'get');
+}
+
+export function personFetchData(url) {
+    const types = [LOAD_USER, LOAD_PERSON_SUCCESS, LOAD_USER_ERROR, USER_PAGINATE];
+    return FetchData(url, types, simpleuserNormalize, 'get', '', 'person');
 }
 
 export function updateProfileResult(apiResponse) {

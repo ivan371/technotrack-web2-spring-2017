@@ -5,6 +5,7 @@ import users from './users';
 import chats from './chats';
 import friend from './friend';
 import news from './news';
+import comment from './comment';
 import { routerReducer } from 'react-router-redux'
 
 
@@ -15,5 +16,6 @@ export default combineReducers({
     chats,
     friend,
     news,
+    comment,
     routing: routerReducer
 });

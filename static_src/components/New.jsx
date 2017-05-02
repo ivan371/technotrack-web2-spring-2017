@@ -9,7 +9,7 @@ class NewComponent extends React.Component {
 
   render() {
     let neww = null;
-    console.log(this.props.objtype);
+    // console.log(this.props.objtype);
     switch (this.props.objtype) {
       case 'post':
         neww = 'post';

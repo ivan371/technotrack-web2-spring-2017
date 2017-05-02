@@ -6,7 +6,9 @@ import {
   CHAT_CLOSE,
   CHAT_CREATE,
   MESSAGE_CREATE,
-  CHAT_PAGINATE
+  CHAT_PAGINATE,
+  CHATUSER_OPEN,
+  CHATUSER_CLOSE,
 } from './../actions/chats';
 import {
   LOAD_NEWS_SUCCESS
@@ -23,6 +25,7 @@ const inititalStore = {
     messages: {},
     chatopen: false,
     count: null,
+    modalopen: false,
 };
 
 
@@ -60,6 +63,7 @@ export default function router (store = inititalStore, action) {
         return update(store, {
           isLoading: { $set: false },
            chatList: { $set: action.result.result },
+          //  userlist: { $set: action.result.userlist },
         },
         );
         return store;
@@ -84,6 +88,14 @@ export default function router (store = inititalStore, action) {
         return update(store, {
           chatopen: { $set: false },
           messageList: { $set: []},
+        });
+      case CHATUSER_OPEN:
+        return update(store, {
+          modalopen: { $set: true },
+         });
+      case CHATUSER_CLOSE:
+        return update(store, {
+          modalopen: { $set: false },
         });
       default:
         return store;

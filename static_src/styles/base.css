@@ -40,6 +40,24 @@ h3{
   background: linear-gradient(to right, grey, LightGray, grey);
   border: 1px solid black;
 }
+.b-comment{
+  background-color: #337ab7;
+  border-color: #2e6da4;
+  color: #fff;
+  border-radius: 6px;
+  padding: 5px 16px;
+  margin: 1px;
+  border-image: initial;
+  align-items: flex-start;
+  border-width: 2px;
+  border-style: outset;
+}
+.b-comment textarea{
+  color: black;
+}
+.b-comment:hover{
+  background-color: black;
+}
 .b-post_dark{
   margin: 1px;
   border-radius: 2px;
@@ -54,6 +72,15 @@ h3{
 }
 .button_field button {
   float: right;
+  color: #fff;
+  background-color: #337ab7;
+  border-color: #2e6da4;
+  text-align: center;
+  padding: 5px 16px;
+  font-size: 18px;
+  border-radius: 6px;
+}
+.button_field select {
   color: #fff;
   background-color: #337ab7;
   border-color: #2e6da4;
@@ -78,6 +105,9 @@ h3{
 .paging {
   width: 100%;
   height: 40px;
+  border-radius: 2px;
+  background: linear-gradient(to right, grey, LightGray, grey);
+  border: 1px solid black;
 }
 .button_field button:hover {
   background-color: black;
@@ -185,4 +215,7 @@ h3{
 }
 .like:hover{
   opacity: 0.5
+}
+body {
+  font-family: sans-serif;
 }

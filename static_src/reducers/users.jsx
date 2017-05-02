@@ -8,7 +8,8 @@ import {
   MODAL_USER,
   MODAL_CLOSE,
   PROFILE_CHANGE,
-  USERS_PAGINATE
+  USERS_PAGINATE,
+  LOAD_PERSON_SUCCESS,
  } from './../actions/users';
 import { LOAD_POSTS_SUCCESS } from './../actions/posts';
 import { LOAD_CHATS_SUCCESS } from './../actions/chats';
@@ -21,6 +22,7 @@ const inititalStore = {
     users: {},
     isLoading: false,
     ismeLoading: true,
+    ispersonLoading: true,
     modalopen: false,
     myid: null,
     count: null,
@@ -74,12 +76,21 @@ export default function router (store = inititalStore, action) {
         );
       case LOAD_USER_SUCCESS:
         return update(store, {
-            userList: { $set: action.result.result },
+            userList: { $set: [action.result.result] },
             users: {
               $merge: action.result.entities.user,
             },
             ismeLoading: { $set: false },
             myid: { $set: action.result.result[0]},
+          },
+        );
+      case LOAD_PERSON_SUCCESS:
+        return update(store, {
+            userList: { $set: [action.result.result] },
+            users: {
+              $merge: action.result.entities.user,
+            },
+            ispersonLoading: { $set: false },
           },
         );
       case PROFILE_CHANGE:

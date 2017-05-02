@@ -1,5 +1,5 @@
 import { normalize, schema, denormilize } from 'normalizr';
-import { simplepostNormalize, commentNormilize } from './post';
+import { simplepostNormalize, commentNormalize } from './post';
 import { simplechatNormalize, messageNormalize } from './chats';
 import update from 'react-addons-update';
 export function newsNormalize (news) {
@@ -53,21 +53,28 @@ export function newsNormalize (news) {
                 $merge: temp.entities.posts,
               },
             },
-            // comments: {
-            //   $merge: temp.entities.comments,
-            // },
-          },
-        );
+        });
+        if (temp.entities.hasOwnProperty('comments')) {
+          Store = update(Store, {
+            entities: {
+              comments: {
+                $merge: temp.entities.comments,
+              },
+            },
+          });
+        }
         break;
       case 'comment':
-        // temp = commentNormilize(news[i]);
-        // console.log(temp);
-        // Store = update(Store, {
-        //     comments: {
-        //       $merge: temp.entities.comments,
-        //     },
-        //   },
-        // );
+        temp = commentNormalize(news[i].target);
+        console.log(temp);
+        Store = update(Store, {
+            entities: {
+              comments: {
+                $merge: temp.entities.comment,
+              },
+            },
+          },
+        );
         break;
       case 'chat':
         temp = simplechatNormalize(news[i].target);

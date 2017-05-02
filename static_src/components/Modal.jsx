@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PostChange from './PostChange';
 import ProfileChange from './ProfileChange';
+import MessageUsers from './MessageUsers';
 
 class ModalComponent extends React.Component {
   render() {
@@ -15,6 +16,8 @@ class ModalComponent extends React.Component {
       case "MyPage":
           modal = <ProfileChange/>;
         break;
+      case "ChatUsers":
+          modal = <MessageUsers/>
       default:
 
     }

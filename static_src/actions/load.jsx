@@ -62,7 +62,7 @@ export function FetchData(url, types, normilizer, method, data, model, id) {
             })
             .then((response) => response.json())
             .then((data) => {
-              if (method == 'get') {
+              if (method == 'get' && model != 'person') {
                   // ...bindActionCreators({loadSuccess(data.results, normilizer, types[1])}, dispatch)
                   dispatch(loadSuccess(data.results, normilizer, types[1]));
                   // console.log(data.count);
