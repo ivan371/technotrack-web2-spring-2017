@@ -206,11 +206,11 @@ h3{
 }
 .like_count {
   float: right;
-  width: 40px;
+  width: 30px;
 }
 .like {
   float: right;
-  width: 40px;
+  width: 35px;
   cursor: pointer;
 }
 .like:hover{

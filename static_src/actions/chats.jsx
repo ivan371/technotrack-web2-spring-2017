@@ -8,7 +8,11 @@ export const CHAT_CREATE = 'CHAT_CREATE';
 export const CHAT_PAGINATE = 'CHAT_PAGINATE';
 export const CHATUSER_OPEN = 'CHATUSER_OPEN';
 export const CHATUSER_CLOSE = 'CHATUSER_CLOSE';
-import { chatNormalize, messageNormalize, simplechatNormalize } from './../normilizers/chats';
+export const CHATUSER_ADD = 'CHATUSER_ADD';
+export const LOAD_CHATUSER = 'LOAD_CHATUSER';
+export const LOAD_CHATUSER_ERROR = 'LOAD_CHATUSER';
+
+import { chatNormalize, messageNormalize, simplechatNormalize, chatuseradd } from './../normilizers/chats';
 import { post } from './../promises/post';
 import cookie from 'react-cookie';
 import { FetchData } from './load';
@@ -48,6 +52,12 @@ export function chatuserClose() {
   return {
     type: CHATUSER_CLOSE,
   }
+}
+
+export function ChatUserAddFetchData(url, author, chat) {
+    console.log(author, chat);
+    const types = [LOAD_CHATUSER, CHATUSER_ADD, LOAD_CHATUSER_ERROR, CHAT_PAGINATE];
+    return FetchData(url, types, chatuseradd, 'post', JSON.stringify({author, chat}));
 }
 
 export function createChatFetchData(url, name) {

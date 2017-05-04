@@ -47,6 +47,9 @@ class PostComponent extends React.Component {
     </div>;
     }
     return (<div className="b-post">
+            <div className="button_field">
+              <img className="like" src="http://127.0.0.1:8000/media/delete.png"/>
+            </div>
             <h3>{ this.props.title }</h3>
             <div className="b-post__content">{ this.props.content }</div>
               <div className="b-user-name">

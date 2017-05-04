@@ -28,3 +28,7 @@ export function messageNormalize (messages) {
   const message = new schema.Entity('message', {'author': author});
   return normalize(messages, message);
 }
+
+export function chatuseradd (result) {
+  return result;
+}

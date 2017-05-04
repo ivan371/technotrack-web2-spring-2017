@@ -9,6 +9,7 @@ import {
   CHAT_PAGINATE,
   CHATUSER_OPEN,
   CHATUSER_CLOSE,
+  CHATUSER_ADD,
 } from './../actions/chats';
 import {
   LOAD_NEWS_SUCCESS
@@ -51,6 +52,10 @@ export default function router (store = inititalStore, action) {
       }
     }
     switch (action.type) {
+      // case CHATUSER_ADD:
+      //   return updata(store,
+      //     { chats: { }}
+      //   );
       case CHAT_PAGINATE:
         return update(store,
           { count: { $set: Math.floor(action.result / 10)} },

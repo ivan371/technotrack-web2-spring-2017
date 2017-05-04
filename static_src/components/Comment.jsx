@@ -8,6 +8,9 @@ class CommentComponent extends React.Component {
 
   render() {
     return (<div className="b-comment">
+      <div className="button_field">
+        <img className="like" src="http://127.0.0.1:8000/media/delete.png"/>
+      </div>
         <h3>{this.props.author}</h3>
         <p>{this.props.text}</p>
         <div className="button_field">

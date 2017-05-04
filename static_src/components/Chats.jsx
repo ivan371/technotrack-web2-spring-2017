@@ -5,7 +5,7 @@ import MessageList from './MessageList';
 import ChatCreate from './ChatCreate.jsx';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { chatuserOpen } from './../actions/chats';
+import { chatuserOpen, chatuseradd } from './../actions/chats';
 import Modal from './Modal';
 
 class ChatComponent extends React.Component {

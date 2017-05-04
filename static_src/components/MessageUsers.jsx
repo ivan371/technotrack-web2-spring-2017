@@ -4,14 +4,23 @@ import { bindActionCreators } from 'redux';
 import { chatuserClose } from './../actions/chats';
 import { Link } from 'react-router';
 import { usersFetchData } from './../actions/users';
+import { ChatUserAddFetchData } from './../actions/chats';
 
 
 class MessageUsersComponent extends React.Component {
   state = {
     user: '',
   }
+  onChange = (e) => {
+    this.setState({user: e.target.value});
+  }
   componentDidMount() {
     this.props.fetchData('/api/users');
+  }
+  onCreate = (e) => {
+    e.preventDefault();
+    this.setState({user: ''});
+    this.props.useradd('/api/chatuser/', this.state.user, this.props.chatid);
   }
   render() {
     const chatuserList = this.props.chat.map(
@@ -34,7 +43,6 @@ class MessageUsersComponent extends React.Component {
            { this.props.users[i].username }
          </option>)
       }
-      console.log(select);
     return (
       <div className="b-post">
         <Link to={'/vk/people/' + this.props.author + '/'}>
@@ -44,8 +52,8 @@ class MessageUsersComponent extends React.Component {
         </Link>
         { chatuserList }
         <div className="button_field">
-          <select>{select}</select>
-          <button onClick={ this.props.chatuserClose.bind(this) }>Добавить друга</button>
+          <select onChange={this.onChange.bind(this)}>{select}</select>
+          <button onClick={ this.onCreate.bind(this) }>Добавить друга</button>
         </div>
         <div className="button_field">
           <button onClick={ this.props.chatuserClose.bind(this) }>Закрыть</button>
@@ -57,17 +65,20 @@ class MessageUsersComponent extends React.Component {
 
 MessageUsersComponent.propTypes = {
   fetchData: PropTypes.func.isRequired,
+  useradd: PropTypes.func.isRequired,
 };
 
 const mapStoreToProps = state => ({
+  chatid: state.chats.chat,
   chat: state.chats.chats[state.chats.chat].chatuser_set,
   users: state.users.users,
   author: state.chats.chats[state.chats.chat].author,
 });
 const mapDispatchToProps = dispatch => ({
   fetchData: (url) => dispatch(usersFetchData(url)),
+  useradd: (url, author, chat) => dispatch(ChatUserAddFetchData(url, author, chat)),
   ...bindActionCreators({
-    chatuserClose
+    chatuserClose,
   }, dispatch),
 });
 
