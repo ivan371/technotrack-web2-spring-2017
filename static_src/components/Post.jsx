@@ -4,7 +4,7 @@ import './../styles/base.css';
 import Button from 'react-bootstrap/lib/Button';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { postOpen } from './../actions/posts';
+import { postOpen, deletePost } from './../actions/posts';
 import { likeFetchData } from './../actions/like';
 import CommentList from './CommentList';
 
@@ -14,6 +14,11 @@ class PostComponent extends React.Component {
     this.props.fetchData('/api/likes/?type=post&&id='+ this.props.id, this.props.id);
   }
 
+  deletePost = (e) => {
+    e.preventDefault();
+    this.props.deletePost('/api/posts/' + this.props.id + '/', this.props.id);
+  }
+
   commentOpen = () => {
     this.setState({isCommentOpen: true});
   }
@@ -21,6 +26,7 @@ class PostComponent extends React.Component {
   commentClose = () => {
     this.setState({isCommentOpen: false});
   }
+
 
   state = {
     isCommentOpen: false,
@@ -48,7 +54,7 @@ class PostComponent extends React.Component {
     }
     return (<div className="b-post">
             <div className="button_field">
-              <img className="like" src="http://127.0.0.1:8000/media/delete.png"/>
+              <img className="like" src="http://127.0.0.1:8000/media/delete.png" onClick={ this.deletePost.bind(this) }/>
             </div>
             <h3>{ this.props.title }</h3>
             <div className="b-post__content">{ this.props.content }</div>
@@ -84,6 +90,7 @@ const mapStoreToProps = (state, props) => ({
 const mapDispatchToProps = dispatch => ({
   ...bindActionCreators({
     postOpen,
+    deletePost,
   }, dispatch),
   fetchData: (url, id) => dispatch(likeFetchData(url, id))
 });

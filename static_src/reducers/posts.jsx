@@ -7,6 +7,7 @@ import {
   POST_CREATE,
   POST_CHANGE,
   POST_PAGINATE,
+  POST_DELETE,
 } from './../actions/posts';
 import {
   LOAD_NEWS_SUCCESS
@@ -40,6 +41,11 @@ export default function router (store = inititalStore, action) {
       }
     }
     switch (action.type) {
+      case POST_DELETE:
+        const index = store.postList.indexOf(action.id)
+        return update(store,
+          { postList: { $splice: [[index, 1]]}},
+        );
       case POST_PAGINATE:
         return update(store,
           { count: { $set: Math.floor(action.result / 10)} },

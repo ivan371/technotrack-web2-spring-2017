@@ -7,11 +7,19 @@ export const POST_CREATE = 'POST_CREATE';
 export const POST_CHANGE = 'POST_CHANGE';
 export const POST_PAGINATE = 'POST_PAGINATE';
 export const COMMENT_CREATE = 'COMMENT_CREATE';
-import { postNormalize, postDeNotmilize, simplepostNormalize, commentNormalize } from './../normilizers/post';
+export const POST_DELETE = 'POST_DELETE';
+export const COMMENT_DELETE = 'COMMENT_DELETE';
+import {
+  postNormalize,
+  postDeNotmilize,
+  simplepostNormalize,
+  commentNormalize,
+  deletenormilize,
+} from './../normilizers/post';
 import { post } from './../promises/post';
 import { put } from './../promises/put';
 import cookie from 'react-cookie';
-import { FetchData } from './load';
+import { FetchData, FetchDelete } from './load';
 
 export function postOpen(id) {
   return {
@@ -66,4 +74,9 @@ export function postFetchData(url) {
 export function simplepostFetchData(url) {
   const types = [LOAD_POSTS, LOAD_POSTS_SUCCESS, LOAD_POSTS_ERROR, POST_PAGINATE];
   return FetchData(url, types, simplepostNormalize, 'get');
+}
+
+export function deletePost(url, id) {
+  const types = [POST_DELETE, LOAD_POSTS_ERROR];
+  return FetchDelete(url, types, id);
 }

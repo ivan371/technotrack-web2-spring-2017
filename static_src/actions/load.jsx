@@ -31,6 +31,37 @@ function loadpaginate(result, type) {
   }
 }
 
+function loaddelete(type, id) {
+  return {
+    type,
+    id,
+  }
+}
+
+export function FetchDelete(url, types, id, model) {
+  return (dispatch) => {
+      const csrftoken = cookie.load('csrftoken');
+      fetch(url, {
+         credentials: "same-origin",
+         method: 'delete',
+         headers: {
+           "X-CSRFToken": csrftoken,
+           'Accept': 'application/json',
+           'Content-Type': 'application/json'
+         },
+      })
+      .then((response) => {
+          if (!response.ok) {
+              throw Error(response.statusText);
+          }
+          dispatch(loaddelete(types[0], id));
+          return response;
+      })
+      .catch(() => dispatch(loadError(types[1], id)))
+      .catch(console.log);
+    }
+}
+
 export function FetchData(url, types, normilizer, method, data, model, id) {
     let headers = null;
     let body = null;

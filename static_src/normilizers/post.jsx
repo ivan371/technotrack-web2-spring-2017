@@ -41,3 +41,7 @@ export function postDeNotmilize (title, content) {
   console.log(result);
   return result;
 }
+
+export function deletenormilize(result) {
+  return result;
+}
