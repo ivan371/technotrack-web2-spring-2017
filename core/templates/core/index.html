@@ -3,10 +3,34 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="{% static "styles/base.css" %}" type="text/css"/>
   </head>
   <body>
+    {% if user.is_authenticated %}
     <div id="root"></div>
-
-    <script src="/static/build/indexBundle.js"></script>
+      <script src="/static/build/indexBundle.js"></script>
+    {% else %}
+      <div class="back">  </div>
+          <div class="empty">
+            <div class="empty">
+            </div>
+          </div>
+        <div class="box">
+          <div class="b-post">
+            <h1>Добро пожаловать на наш сайт!</h1>
+          </div>
+          <div class="b-post">
+            <h3>Вы не авторизированы</h3>
+          </div>
+          <div class="b-post">
+            <div class="button_field">
+              <a href="{% url 'core:login'%}"><button>Войти</button></a>
+            </div>
+            <div class="button_field">
+              <a href="{% url 'core:registration'%}"><button>Зарегистрироваться</button></a>
+            </div>
+          </div>
+        </div>
+    {% endif %}
   </body>
 </html>

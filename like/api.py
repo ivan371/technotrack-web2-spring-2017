@@ -6,26 +6,26 @@ from friend.models import Friend
 from rest_framework.reverse import reverse
 from django.db.models import Q
 from core.api import UserSerializer
-from ugc.apy import PostSerializer, CommentSerializer
+# from ugc.apy import PostSerializer, CommentSerializer
 from django.contrib.contenttypes.models import ContentType
 from ugc.models import Post, Comment
 
 class LikeSerializer(serializers.HyperlinkedModelSerializer):
 
-    def get_target(self, obj):
-        if obj.target_content_type.name == 'post':
-            return PostSerializer(obj.target).data
-        elif obj.target_content_type.name == 'comment':
-            return CommentSerializer(obj.target).data
-        return obj.target_content_type.name
+    # def get_target(self, obj):
+    #     if obj.target_content_type.name == 'post':
+    #         return PostSerializer(obj.target).data
+    #     elif obj.target_content_type.name == 'comment':
+    #         return CommentSerializer(obj.target).data
+    #     return obj.target_content_type.name
 
-    target = serializers.SerializerMethodField()
+    # target = serializers.SerializerMethodField()
     author = UserSerializer(read_only=True)
-    target_id = serializers.ReadOnlyField()
+    # target_id = serializers.ReadOnlyField()
 
     class Meta:
         model = Like
-        fields = ('id', 'author', 'target', 'power', 'target_id')
+        fields = ('id', 'author')
 
 class LikeViewSet(viewsets.ModelViewSet):
     queryset = Like.objects.all()

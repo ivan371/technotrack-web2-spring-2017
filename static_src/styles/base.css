@@ -5,6 +5,10 @@
   box-sizing: border-box;
 }
 
+button {
+  cursor: pointer;
+}
+
 .back{
   background-color: #00FA9A;
   position: fixed;
@@ -39,6 +43,14 @@ h3{
   padding-right: 10px;
   background: linear-gradient(to right, grey, LightGray, grey);
   border: 1px solid black;
+}
+.empty{
+  float: left;
+  width: 25%;
+  margin: 1px;
+  border-radius: 2px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 .b-comment{
   background-color: #337ab7;

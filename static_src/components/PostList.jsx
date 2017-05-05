@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux';
 import { postFetchData } from './../actions/posts';
 import Page from './Page';
 import {Link} from 'react-router';
+import PostSearch from './PostSearch';
 
 class PostListComponent extends React.Component {
   componentDidMount() {
@@ -34,6 +35,7 @@ class PostListComponent extends React.Component {
       }
     return (
         <div className="b-post-list">
+          <PostSearch/>
           <div className="paging">
             {pages}
           </div>

@@ -7,6 +7,8 @@ from application.api import router
 from django.shortcuts import get_object_or_404
 from django.db.models import Q
 from core.api import UserSerializer
+from like.api import LikeSerializer
+from like.models import Like
 
 class IsOwnerOrReadOnly(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
@@ -45,15 +47,30 @@ class CommentRetrieve(viewsets.ModelViewSet):
 
 class PostSerializer(serializers.ModelSerializer):
 
+    def get_likes(self, obj):
+        queryset = Like.objects.filter(target_id=obj.id)
+        serializer = LikeSerializer(queryset, many=True)
+        return serializer.data
+
     author = UserSerializer(read_only=True)
     comment_count = serializers.ReadOnlyField()
     like_count = serializers.ReadOnlyField()
     short_content = serializers.ReadOnlyField()
     comment_set = CommentSerializer(many=True, read_only=True)
-
+    likes = serializers.SerializerMethodField()
+    # likes = serializersPrimaryKeyRelatedField(queryset=Like.objects.all())
     class Meta:
         model = Post
-        fields = ('id','title', 'content','author', 'short_content', 'comment_count', 'like_count', 'comment_set')
+        fields = (
+        'id',
+        'title',
+        'content',
+        'author',
+        'short_content',
+        'comment_count',
+        'like_count',
+        'comment_set',
+        'likes')
 
 
 

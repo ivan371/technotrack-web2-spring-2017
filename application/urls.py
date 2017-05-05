@@ -29,7 +29,9 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api/friendship/', include('friend.urls')),
     url(r'^accounts/profile/', accounts),
-    url(r'^vk/', include('core.urls')),
+    url(r'^vk/', include('core.urls', namespace="core")),
+    url(r'^ugc/', include('ugc.urls', namespace="ugc")),
+    url(r'^search/', include('haystack.urls')),
     #url(r'^api/cores/(?P<pk>\d+)', UserDetail.as_view(), name='UserDetail')
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

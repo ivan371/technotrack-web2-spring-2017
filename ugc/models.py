@@ -15,7 +15,17 @@ class Post(Authored, Dated, Likeable, Eventable):
 	def get_title(self):
 		return self.title[:5]
 
+	@models.permalink
+	def get_absolute_url(self):
+		return 'ugc:post_detail', (), {'pk': self.pk}
+
+	def __str__(self):
+		return self.title
+
 class Comment(Authored, Dated, Likeable, Eventable):
 
 	post = models.ForeignKey(Post)
 	text = models.TextField()
+
+	def __str__(self):
+		return self.text[:20]

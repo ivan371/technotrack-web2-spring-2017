@@ -1,14 +1,32 @@
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {% if user.is_anonymous %}
-        <form method="post" enctype="multipart/form-data" class="form-signin"> {% csrf_token %}
-            {% if form.errors %}
-                <p class="error">Пожалуйста исправьте нижеприведённые ошибки.</p>
-            {% endif %}
-            {{form}}
-            <input type="submit" class="button" value="Зарегистироваться">
-        </form>
-    {% else %}
-        <p class="form-signin-heading"><br> Вы уже зарегистрированы и авторизованы</p>
-    {% endif %}
-</form>
+{% load staticfiles %}
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="{% static "styles/base.css" %}" type="text/css"/>
+  </head>
+  <body>
+    <div class="back">  </div>
+        <div class="empty">
+          <div class="empty">
+          </div>
+        </div>
+      <div class="box">
+        <div class="b-post">
+          <form method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              {% if user.is_anonymous %}
+                  <form method="post" enctype="multipart/form-data" class="form-signin"> {% csrf_token %}
+                      {% if form.errors %}
+                          <p class="error">Пожалуйста исправьте нижеприведённые ошибки.</p>
+                      {% endif %}
+                      {{form}}
+                      <input type="submit" class="button" value="Зарегистироваться">
+                  </form>
+              {% else %}
+                  <p class="form-signin-heading"><br> Вы уже зарегистрированы и авторизованы</p>
+              {% endif %}
+          </form>
+</div>
+</div>
+</body>

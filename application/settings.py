@@ -64,7 +64,7 @@ INSTALLED_APPS = [
     'event.apps.EventConfig',
     'rest_framework',
     'social_django',
-#    'webpack_loader',
+    'haystack',
 ]
 
 MIDDLEWARE = [
@@ -143,6 +143,60 @@ DATABASES = {
     }
 }
 
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'PATH': os.path.join(os.path.dirname(__file__), 'whoosh_index'),
+    },
+}
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
+
+ELASTYCSEARCH_INDEX_SETTINGS = {
+    'settings': {
+        "analysis": {
+            "synonym_analyzer": {
+                "type": "custom",
+                "filter": ["synonym"],
+                "tokenizer": "standard"
+            },
+            "ngram_analyzer": {
+                "type": "custom",
+                "tokenizer": "lowercase",
+                "filter": ["haystack_ngram", "synonym"]
+            },
+            "edgengram_analyzer": {
+                "type": "custom",
+                "tokenizer": "lowercase",
+                "filter": ["haystack_edgengram"]
+            }
+        },
+        "tokenizer": {
+            "haystack_ngram_tokenizer": {
+                "type": "nGram",
+                "min_gram": 3,
+                "max_gram": 15,
+            },
+            "haystack_edgengram_tokenizer": {
+                "type": "edgeNGram",
+                "min_gram": 2,
+                "max_gram": 15,
+                "side": "front",
+            }
+        },
+        "filter": {
+            "haystack_ngram": {
+                "type": "nGram",
+                "min_gram": 3,
+                "max_gram": 15
+            },
+            "haystack_edgengram": {
+                "type": "edgeNGram",
+                "min_gram": 2,
+                "max_gram": 15,
+            }
+        }
+    }
+}
 
 SOCIAL_AUTH_VK_OAUTH2_KEY = '5922090'
 SOCIAL_AUTH_VK_OAUTH2_SECRET = 'iXP4XrxP0OpG2p77k5U2'
@@ -184,7 +238,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/build/'
 STATIC_ROOT = '/home/ivan/vk/collected_static/'
-STATICFILES_DIRS = ('/home/ivan/vk/src/static/build/', )
+STATICFILES_DIRS = ('/home/ivan/vk/src/static/build/', '/home/ivan/vk/src/static_src/')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'media/')

@@ -5,6 +5,7 @@ import Post from './Post';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { postFetchData } from './../actions/posts';
+import PostSearch from './PostSearch';
 
 class UserPostListComponent extends React.Component {
   componentDidMount() {
@@ -18,6 +19,7 @@ class UserPostListComponent extends React.Component {
       );
     return (
         <div className="b-post-list">
+          <PostSearch/>
           { this.props.isLoading ? <div className="loading"></div> :  postList }
         </div>
     );
