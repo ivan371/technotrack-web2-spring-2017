@@ -35,7 +35,7 @@ class PostListComponent extends React.Component {
       }
     return (
         <div className="b-post-list">
-          <PostSearch/>
+          <PostSearch url={'/ugc/posts/'}/>
           <div className="paging">
             {pages}
           </div>

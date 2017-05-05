@@ -65,6 +65,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'social_django',
     'haystack',
+    'drf_haystack',
+    'adjacent'
 ]
 
 MIDDLEWARE = [
@@ -122,6 +124,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'adjacent.context_processors.main'
             ],
         },
     },
@@ -145,8 +148,11 @@ DATABASES = {
 
 HAYSTACK_CONNECTIONS = {
     'default': {
-        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
-        'PATH': os.path.join(os.path.dirname(__file__), 'whoosh_index'),
+        'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+        'URL': 'http://127.0.0.1:9200/',
+        'INDEX_NAME': 'haystack',
+        # 'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        # 'PATH': os.path.join(os.path.dirname(__file__), 'whoosh_index'),
     },
 }
 HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
@@ -200,6 +206,10 @@ ELASTYCSEARCH_INDEX_SETTINGS = {
 
 SOCIAL_AUTH_VK_OAUTH2_KEY = '5922090'
 SOCIAL_AUTH_VK_OAUTH2_SECRET = 'iXP4XrxP0OpG2p77k5U2'
+
+CENTRIFUGE_ADDRESS = 'http://127.0.0.1:8081'
+CENTRIFUGE_SECRET = 'ca3f67e9-c418-46b8-90b9-120cf25e1992'
+CENTRIFUGE_TIMEOUT = 10
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
 

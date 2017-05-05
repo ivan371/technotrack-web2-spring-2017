@@ -9,6 +9,10 @@ from django.db.models import Q
 from core.api import UserSerializer
 from like.api import LikeSerializer
 from like.models import Like
+from ugc.search_indexes import PostIndex
+from drf_haystack.serializers import HaystackSerializer, HaystackSerializerMixin
+from drf_haystack.viewsets import HaystackViewSet
+
 
 class IsOwnerOrReadOnly(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
@@ -72,13 +76,16 @@ class PostSerializer(serializers.ModelSerializer):
         'comment_set',
         'likes')
 
-
+class PostHaystack(HaystackSerializerMixin, PostSerializer):
+    class Meta(PostSerializer.Meta):
+        search_fields = ('text',)
 
 
 class PostRetrieve(viewsets.ModelViewSet):
 
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+    # serializer_class = PostHaystack
     permission_classes = (permissions.IsAuthenticated, IsOwnerOrReadOnly)
 
     def perform_create(self, serializer):
@@ -89,7 +96,7 @@ class PostRetrieve(viewsets.ModelViewSet):
         friends_ids = Friend.objects.filter(first = self.request.user).values_list('second', flat=True)
         # queryset = queryset.filter(Q(author = self.request.user) | Q(author=friends_ids))
         if 'author' in self.request.query_params:
-            queryset = queryset.filter(author=self.request.query_params['author']).order_by('id')
+            queryset = queryset.filter(author=self.request.query_params['author']).order_by('-id')
         else:
             queryset = queryset.filter(author = self.request.user).order_by('-id')
         return queryset

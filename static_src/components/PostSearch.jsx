@@ -16,7 +16,7 @@ class PostSearchComponent extends React.Component {
   onCreate = (e) => {
     e.preventDefault();
     this.setState({text: ''});
-    this.props.fetchData('/ugc/posts/?query=' + this.state.text);
+    this.props.fetchData(this.props.url + '?query=' + this.state.text);
   }
   render() {
     return (
@@ -30,13 +30,16 @@ class PostSearchComponent extends React.Component {
           name="text"></input>
       </div>
         <div className="button_field">
-          <button>Найти</button>
+          <button onClick={ this.onCreate.bind(this) }>Найти</button>
       </div>
        </div>
     );
   }
 }
 
+PostSearchComponent.propTypes = {
+  url: PropTypes.string.isRequired,
+};
 
 
 const mapStoreToProps = (state, props) => ({
@@ -44,7 +47,7 @@ const mapStoreToProps = (state, props) => ({
 });
 const mapDispatchToProps = (dispatch) => {
   return {
-    ...bindActionCreators({}, dispatch),
+    fetchData: (url) => dispatch(postFetchData(url))
   };
 }
 

@@ -4,9 +4,21 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" href="{% static "styles/base.css" %}" type="text/css"/>
+    <script src="https://cdn.jsdelivr.net/sockjs/1.1/sockjs.min.js"></script>
+    <script type="text/javascript" src="/static/build/js/centrifuge.min.js"></script>
   </head>
   <body>
     {% if user.is_authenticated %}
+    <div class="msg_list"></div>
+    <div id="centrifuge" style="display:none"
+      data-url="{{ CENTRIFUGE_WS_ENDPOINT }}"
+      data-user="{{ CENTRIFUGE_USER }}"
+      data-info="{{ CENTRIFUGE_INFO|safe }}"
+      data-token="{{ CENTRIFUGE_TOKEN }}"
+      data-timestamp="{{ CENTRIFUGE_TIMESTAMP }}"
+    >
+    </div>
+    <script type="text/javascript" src="/static/build/js/base.js"></script>
     <div id="root"></div>
       <script src="/static/build/indexBundle.js"></script>
     {% else %}

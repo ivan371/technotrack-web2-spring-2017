@@ -19,7 +19,7 @@ class UserPostListComponent extends React.Component {
       );
     return (
         <div className="b-post-list">
-          <PostSearch/>
+          <PostSearch url={'/ugc/posts/?author=' + this.props.id + '&'}/>
           { this.props.isLoading ? <div className="loading"></div> :  postList }
         </div>
     );
