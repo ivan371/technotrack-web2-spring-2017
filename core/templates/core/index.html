@@ -9,7 +9,6 @@
   </head>
   <body>
     {% if user.is_authenticated %}
-    <div class="msg_list"></div>
     <div id="centrifuge" style="display:none"
       data-url="{{ CENTRIFUGE_WS_ENDPOINT }}"
       data-user="{{ CENTRIFUGE_USER }}"

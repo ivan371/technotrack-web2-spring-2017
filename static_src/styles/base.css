@@ -235,9 +235,7 @@ h3{
 body {
   font-family: Palatino, Times New Roman;
 }
-.msg_list {
-  width: 20em;
-  position: absolute;
-  top: 1em;
-  right: 1em;
+.msg_list a{
+  text-decoration: none;
+  color: white;
 }

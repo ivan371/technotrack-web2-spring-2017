@@ -10,7 +10,21 @@
   centrifuge.subscribe("news", function(message) {
     console.log(message);
     const popup = `
-    <div style="width: 100%; background: rgba(0, 0, 0, 0.5); padding: 0.5em; border-radius: 2px">
+    <div style="
+      bottom: 1px;
+      position: fixed;
+      width: 180px;
+      height: 180px;
+      background-color: #337ab7;
+      border-color: #2e6da4;
+      color: #fff;
+      border-radius: 6px;
+      padding: 5px 16px;
+      margin: 1px;
+      border-image: initial;
+      align-items: flex-start;
+      border-width: 2px;
+      border-style: outset;">
         ${message.data.msg}
     </div>`;
     const el = document.createElement('div');
