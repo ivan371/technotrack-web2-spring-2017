@@ -32,7 +32,7 @@ class MessageViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         queryset = super(MessageViewSet, self).get_queryset()
         if 'chat' in self.request.query_params:
-            queryset = queryset.filter(chat=self.request.query_params['chat']).order_by('id')
+            queryset = queryset.filter(chat=self.request.query_params['chat']).order_by('-id')
         return queryset
 
 

@@ -4,6 +4,7 @@ export const LOAD_CHATS_ERROR = 'LOAD_CHATS_ERROR';
 export const CHAT_OPEN = 'CHAT_OPEN';
 export const CHAT_CLOSE = 'CHAT_CLOSE';
 export const MESSAGE_CREATE = 'MESSAGE_CREATE';
+export const MESSAGE_LOAD = 'MESSAGE_LOAD';
 export const CHAT_CREATE = 'CHAT_CREATE';
 export const CHAT_PAGINATE = 'CHAT_PAGINATE';
 export const CHATUSER_OPEN = 'CHATUSER_OPEN';
@@ -66,6 +67,6 @@ export function createChatFetchData(url, name) {
 }
 
 export function createMessageFetchData(url, chat, content) {
-    const types = [LOAD_CHATS, MESSAGE_CREATE, LOAD_CHATS_ERROR, CHAT_PAGINATE];
+    const types = [MESSAGE_LOAD, MESSAGE_CREATE, LOAD_CHATS_ERROR, CHAT_PAGINATE];
     return FetchData(url, types, messageNormalize, 'post', JSON.stringify({chat, content}));
 }

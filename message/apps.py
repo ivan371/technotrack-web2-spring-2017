@@ -8,3 +8,4 @@ class MessageConfig(AppConfig):
 
     def ready(self):
         import api
+        import signals

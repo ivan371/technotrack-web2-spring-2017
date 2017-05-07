@@ -24,6 +24,12 @@ class ChatComponent extends React.Component {
         <button onClick={ this.props.chatuserOpen.bind(this) }>Пользователи</button>
       </div>;
     }
+    if(this.props.params.id != null) {
+      messageContent = <MessageList chat={this.props.params.id}/>;
+      users = <div className="button_field">
+        <button onClick={ this.props.chatuserOpen.bind(this) }>Пользователи</button>
+      </div>;
+    }
     return (
       <div>
         <div className="box">
