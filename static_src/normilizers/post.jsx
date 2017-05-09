@@ -5,9 +5,13 @@ export function postNormalize (posts) {
   const comment = new schema.Entity('comments', {
     author: author,
   });
+  const like = new schema.Entity('likes', {
+    author: author,
+  });
   const post = new schema.Entity('posts', {
     author: author,
     comment_set: [comment],
+    likes: [like],
   });
   const result = normalize(posts, [post]);
   console.log(result);

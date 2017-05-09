@@ -21,11 +21,11 @@ class LikeSerializer(serializers.HyperlinkedModelSerializer):
 
     # target = serializers.SerializerMethodField()
     author = UserSerializer(read_only=True)
-    # target_id = serializers.ReadOnlyField()
+    target_id = serializers.ReadOnlyField()
 
     class Meta:
         model = Like
-        fields = ('id', 'author')
+        fields = ('id', 'author', 'target_id')
 
 class LikeViewSet(viewsets.ModelViewSet):
     queryset = Like.objects.all()
