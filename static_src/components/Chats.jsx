@@ -1,5 +1,4 @@
 import React from 'react';
-import Col from 'react-bootstrap/lib/Col';
 import ChatList from './ChatList';
 import MessageList from './MessageList';
 import ChatCreate from './ChatCreate.jsx';
@@ -18,23 +17,31 @@ class ChatComponent extends React.Component {
     if (this.props.modelopen) {
       model = <Modal action={ action }/>;
     }
-    if (this.props.chatopen) {
-      messageContent = <MessageList />;
-      users = <div className="button_field">
-        <button onClick={ this.props.chatuserOpen.bind(this) }>Пользователи</button>
-      </div>;
+    // if (this.props.chatopen) {
+    //   messageContent = <MessageList />;
+    //   users = <div className="button_field">
+    //     <button onClick={ this.props.chatuserOpen.bind(this) }>Пользователи</button>
+    //   </div>;
+    // }
+    let page = null;
+    if(this.props.params.id != null && this.props.params.page == 'page') {
+      page = this.props.params.id;
     }
-    if(this.props.params.id != null) {
+    console.log(this.props.params.id);
+    if(this.props.params.id != null && this.props.params.page == null) {
       messageContent = <MessageList chat={this.props.params.id}/>;
       users = <div className="button_field">
         <button onClick={ this.props.chatuserOpen.bind(this) }>Пользователи</button>
       </div>;
     }
+    else {
+      messageContent = null;
+    }
     return (
       <div>
         <div className="box">
           <div className="b-post"><h1>Чаты</h1></div>
-        <div className="b-post"><ChatList page={this.props.params.id}/></div>
+        <div className="b-post"><ChatList page={page}/></div>
         <ChatCreate/>
           </div>
         <div className="box">

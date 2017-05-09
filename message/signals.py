@@ -15,14 +15,14 @@ def post_post_save(instance, created, **kwargs):
     client.publish("user{}".format(instance.chat.author_id),
         {
             "msg":
-                '<p>Новое сообщение от</p> <h4><a href="/vk/people/{}/">{}</a></h4><p>{}</p>'.format(instance.author.id, instance.author, content)
+                '<p>Новое сообщение от</p> <h4><a href="/vk/people/{}/">{}</a></h4><a href="/vk/chats/{}/"><p>{}</p></a>'.format(instance.author.id, instance.author, instance.chat.id, content)
         }
     )
     for user in instance.chat.chatuser_set.get_queryset():
         client.publish("user{}".format(user.author.id),
             {
                 "msg":
-                    '<p>Новое сообщение от </p> <h4><a href="/vk/people/{}/">{}</a></h4><p>{}</p>'.format(instance.author.id, instance.author, content)
+                    '<p>Новое сообщение от </p> <h4><a href="/vk/people/{}/">{}</a></h4><a href="/vk/chats/{}/"><p>{}</p></a>'.format(instance.author.id, instance.author,instance.chat.id, content)
             }
         )
     # client.publish("news",

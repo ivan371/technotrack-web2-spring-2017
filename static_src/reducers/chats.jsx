@@ -10,6 +10,7 @@ import {
   CHATUSER_OPEN,
   CHATUSER_CLOSE,
   CHATUSER_ADD,
+  MESSAGE_LOAD_SUCCESS,
 } from './../actions/chats';
 import {
   LOAD_NEWS_SUCCESS
@@ -52,6 +53,11 @@ export default function router (store = inititalStore, action) {
       }
     }
     switch (action.type) {
+      case MESSAGE_LOAD_SUCCESS:
+        return update(store, {
+           messageList: { $set: action.result.result },
+          },
+        );
       // case CHATUSER_ADD:
       //   return updata(store,
       //     { chats: { }}
@@ -85,14 +91,14 @@ export default function router (store = inititalStore, action) {
         return update(store, { isLoading: { $set: false } });
       case CHAT_OPEN:
         return update(store, {
-          messageList: { $merge: store.chats[action.id].message_set },
+          // messageList: { $merge: store.chats[action.id].message_set },
           chatopen: { $set: true },
-          // chat: { $set: action.id},
+          chat: { $set: action.id},
          });
       case CHAT_CLOSE:
         return update(store, {
           chatopen: { $set: false },
-          messageList: { $set: []},
+          // messageList: { $set: []},
         });
       case CHATUSER_OPEN:
         return update(store, {

@@ -5,6 +5,9 @@ export const CHAT_OPEN = 'CHAT_OPEN';
 export const CHAT_CLOSE = 'CHAT_CLOSE';
 export const MESSAGE_CREATE = 'MESSAGE_CREATE';
 export const MESSAGE_LOAD = 'MESSAGE_LOAD';
+export const MESSAGE_LOAD_SUCCESS = 'MESSAGE_LOAD_SUCCESS';
+export const MESSAGE_LOAD_ERROR = 'MESSAGE_LOAD_ERROR';
+export const MESSAGE_PAGINATE = 'MESSAGE_PAGINATE';
 export const CHAT_CREATE = 'CHAT_CREATE';
 export const CHAT_PAGINATE = 'CHAT_PAGINATE';
 export const CHATUSER_OPEN = 'CHATUSER_OPEN';
@@ -13,7 +16,7 @@ export const CHATUSER_ADD = 'CHATUSER_ADD';
 export const LOAD_CHATUSER = 'LOAD_CHATUSER';
 export const LOAD_CHATUSER_ERROR = 'LOAD_CHATUSER';
 
-import { chatNormalize, messageNormalize, simplechatNormalize, chatuseradd } from './../normilizers/chats';
+import { chatNormalize, messageNormalize, simplemessageNormalize, simplechatNormalize, chatuseradd } from './../normilizers/chats';
 import { post } from './../promises/post';
 import cookie from 'react-cookie';
 import { FetchData } from './load';
@@ -22,6 +25,12 @@ import { FetchData } from './load';
 export function chatFetchData(url) {
     const types = [LOAD_CHATS, LOAD_CHATS_SUCCESS, LOAD_CHATS_ERROR, CHAT_PAGINATE];
     return FetchData(url, types, chatNormalize, 'get');
+}
+
+
+export function messageFetchData(url) {
+    const types = [MESSAGE_LOAD, MESSAGE_LOAD_SUCCESS, MESSAGE_LOAD_ERROR, MESSAGE_PAGINATE];
+    return FetchData(url, types, messageNormalize, 'get')
 }
 
 export function loadChats() {
@@ -68,5 +77,5 @@ export function createChatFetchData(url, name) {
 
 export function createMessageFetchData(url, chat, content) {
     const types = [MESSAGE_LOAD, MESSAGE_CREATE, LOAD_CHATS_ERROR, CHAT_PAGINATE];
-    return FetchData(url, types, messageNormalize, 'post', JSON.stringify({chat, content}));
+    return FetchData(url, types, simplemessageNormalize, 'post', JSON.stringify({chat, content}));
 }

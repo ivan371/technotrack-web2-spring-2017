@@ -73,11 +73,11 @@ class UserChatViewSet(viewsets.ModelViewSet):
 class ChatSerializer(serializers.ModelSerializer):
 
     chatuser_set = ChatUserSerializer(many=True, read_only=True)
-    message_set = MessageSerializer(many=True, read_only=True)
+    # message_set = MessageSerializer(many=True, read_only=True)
     author = UserSerializer(read_only=True)
     class Meta:
         model = Chat
-        fields = ('name', 'chatuser_set', 'id', 'message_set', 'author')
+        fields = ('name', 'chatuser_set', 'id', 'author')
 
 class ChatViewSet(viewsets.ModelViewSet):
     queryset = Chat.objects.all()
