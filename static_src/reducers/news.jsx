@@ -25,6 +25,7 @@ export default function router (store = inititalStore, action) {
           { isLoading: { $set: true } },
         );
       case LOAD_NEWS_SUCCESS:
+        console.log("HERE");
         return update(store, {
           isLoading: { $set: false },
           newsList: { $set: action.result.result },

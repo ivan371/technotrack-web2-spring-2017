@@ -39,10 +39,10 @@ class MessageFormComponent extends React.Component {
 
 MessageFormComponent.propTypes = {
   fetchData: PropTypes.func.isRequired,
+  chat: PropTypes.string.isRequired,
 };
 
 const mapStoreToProps = (state, props) => ({
-  chat: state.chats.chat,
 });
 const mapDispatchToProps = (dispatch) => {
   return {

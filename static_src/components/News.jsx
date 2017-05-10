@@ -54,17 +54,17 @@ class NewsComponent extends React.Component {
                   <ChatButton id={ this.props.news[newId].target }/>
                 </div>);
               break;
-            case 'message':
-                return (<div key={ newId }>
-                  <div className="b-post_dark">
-                    <h3>
-                      <Link to={ '/vk/people/' + this.props.users[this.props.news[newId].author].id + '/' }>
-                        { this.props.users[this.props.news[newId].author].username }
-                      </Link> написал сообщение</h3>
-                  </div>
-                  <Message id={ this.props.news[newId].target }/>
-                </div>);
-              break;
+            // case 'message':
+            //     return (<div key={ newId }>
+            //       <div className="b-post_dark">
+            //         <h3>
+            //           <Link to={ '/vk/people/' + this.props.users[this.props.news[newId].author].id + '/' }>
+            //             { this.props.users[this.props.news[newId].author].username }
+            //           </Link> написал сообщение</h3>
+            //       </div>
+            //       <Message id={ this.props.news[newId].target }/>
+            //     </div>);
+            //   break;
             case 'comment':
               return (<div key={ newId }>
                 <div className="b-post_dark">

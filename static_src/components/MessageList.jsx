@@ -28,7 +28,7 @@ class MessageListComponent extends React.Component {
     return (
       <div scrolling="auto">
         {messageList}
-        <MessageForm/>
+        <MessageForm chat={this.props.chat}/>
       </div>
     );
   }
