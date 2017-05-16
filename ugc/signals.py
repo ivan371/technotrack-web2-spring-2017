@@ -28,5 +28,5 @@ def post_post_save(instance, created, **kwargs):
 
     response = client.send()
 
-post_save.connect(recount_comments_on_post, sender=Comment)
+# post_save.connect(recount_comments_on_post, sender=Comment)
 pre_delete.connect(delete_comments, sender=Post)

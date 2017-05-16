@@ -37,9 +37,9 @@ CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 CELERY_TASK_SERIALIZER = 'json'
 # Application definition
 
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'), # We do this so that django's collectstatic copies or our bundles to the STATIC_ROOT or syncs them to whatever storage we use.
-)
+# STATICFILES_DIRS = (
+#     os.path.join(BASE_DIR, 'static'), # We do this so that django's collectstatic copies or our bundles to the STATIC_ROOT or syncs them to whatever storage we use.
+# )
 
 WEBPACK_LOADER = {
     'DEFAULT': {
@@ -138,7 +138,7 @@ WSGI_APPLICATION = 'application.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': config.get('db', 'NAME'),
         'USER': config.get('db', 'USER'),
         'PASSWORD': config.get('db', 'PASSWORD'),
@@ -157,58 +157,58 @@ HAYSTACK_CONNECTIONS = {
 }
 HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 
-ELASTYCSEARCH_INDEX_SETTINGS = {
-    'settings': {
-        "analysis": {
-            "synonym_analyzer": {
-                "type": "custom",
-                "filter": ["synonym"],
-                "tokenizer": "standard"
-            },
-            "ngram_analyzer": {
-                "type": "custom",
-                "tokenizer": "lowercase",
-                "filter": ["haystack_ngram", "synonym"]
-            },
-            "edgengram_analyzer": {
-                "type": "custom",
-                "tokenizer": "lowercase",
-                "filter": ["haystack_edgengram"]
-            }
-        },
-        "tokenizer": {
-            "haystack_ngram_tokenizer": {
-                "type": "nGram",
-                "min_gram": 3,
-                "max_gram": 15,
-            },
-            "haystack_edgengram_tokenizer": {
-                "type": "edgeNGram",
-                "min_gram": 2,
-                "max_gram": 15,
-                "side": "front",
-            }
-        },
-        "filter": {
-            "haystack_ngram": {
-                "type": "nGram",
-                "min_gram": 3,
-                "max_gram": 15
-            },
-            "haystack_edgengram": {
-                "type": "edgeNGram",
-                "min_gram": 2,
-                "max_gram": 15,
-            }
-        }
-    }
-}
+# ELASTYCSEARCH_INDEX_SETTINGS = {
+#     'settings': {
+#         "analysis": {
+#             "synonym_analyzer": {
+#                 "type": "custom",
+#                 "filter": ["synonym"],
+#                 "tokenizer": "standard"
+#             },
+#             "ngram_analyzer": {
+#                 "type": "custom",
+#                 "tokenizer": "lowercase",
+#                 "filter": ["haystack_ngram", "synonym"]
+#             },
+#             "edgengram_analyzer": {
+#                 "type": "custom",
+#                 "tokenizer": "lowercase",
+#                 "filter": ["haystack_edgengram"]
+#             }
+#         },
+#         "tokenizer": {
+#             "haystack_ngram_tokenizer": {
+#                 "type": "nGram",
+#                 "min_gram": 3,
+#                 "max_gram": 15,
+#             },
+#             "haystack_edgengram_tokenizer": {
+#                 "type": "edgeNGram",
+#                 "min_gram": 2,
+#                 "max_gram": 15,
+#                 "side": "front",
+#             }
+#         },
+#         "filter": {
+#             "haystack_ngram": {
+#                 "type": "nGram",
+#                 "min_gram": 3,
+#                 "max_gram": 15
+#             },
+#             "haystack_edgengram": {
+#                 "type": "edgeNGram",
+#                 "min_gram": 2,
+#                 "max_gram": 15,
+#             }
+#         }
+#     }
+# }
 
 SOCIAL_AUTH_VK_OAUTH2_KEY = '5922090'
 SOCIAL_AUTH_VK_OAUTH2_SECRET = 'iXP4XrxP0OpG2p77k5U2'
 
 CENTRIFUGE_ADDRESS = 'http://127.0.0.1:8081'
-CENTRIFUGE_SECRET = 'ca3f67e9-c418-46b8-90b9-120cf25e1992'
+CENTRIFUGE_SECRET = 'e55aef06-f1fc-4711-86a6-4abd37abab45'
 CENTRIFUGE_TIMEOUT = 10
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
@@ -247,8 +247,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/build/'
-STATIC_ROOT = '/home/ivan/vk/collected_static/'
-STATICFILES_DIRS = ('/home/ivan/vk/src/static/build/', '/home/ivan/vk/src/static_src/')
+#STATIC_URL = '/static/'
+STATIC_ROOT = '/mnt/c/Users/nagai/web/vk/collect_static/'
+STATICFILES_DIRS = [ '/mnt/c/Users/nagai/web/vk/src/static/', '/mnt/c/Users/nagai/web/vk/src/static/build/', '/mnt/c/Users/nagai/web/vk/src/static_src/']
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'media/')

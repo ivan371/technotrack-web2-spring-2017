@@ -54,17 +54,19 @@ class NewsComponent extends React.Component {
                   <ChatButton id={ this.props.news[newId].target }/>
                 </div>);
               break;
-            // case 'message':
-            //     return (<div key={ newId }>
-            //       <div className="b-post_dark">
-            //         <h3>
-            //           <Link to={ '/vk/people/' + this.props.users[this.props.news[newId].author].id + '/' }>
-            //             { this.props.users[this.props.news[newId].author].username }
-            //           </Link> написал сообщение</h3>
-            //       </div>
-            //       <Message id={ this.props.news[newId].target }/>
-            //     </div>);
-            //   break;
+            case 'like':
+                return (<div key={ newId }>лайк</div>)
+            case 'message':
+                return (<div key={ newId }>
+                  <div className="b-post_dark">
+                    <h3>
+                      <Link to={ '/vk/people/' + this.props.users[this.props.news[newId].author].id + '/' }>
+                        { this.props.users[this.props.news[newId].author].username }
+                      </Link> написал сообщение</h3>
+                  </div>
+                  <Message id={ this.props.news[newId].target }/>
+                </div>);
+              break;
             case 'comment':
               return (<div key={ newId }>
                 <div className="b-post_dark">
@@ -77,9 +79,9 @@ class NewsComponent extends React.Component {
                 <Comment id={ this.props.news[newId].target }/>
               </div>);
             default:
-
+            return (<div>Что-то не то</div>);
           }
-          return <New key={ newId } id={ newId }/>
+          // return <New key={ newId } id={ newId }/>
         }
       );
     }
@@ -90,7 +92,7 @@ class NewsComponent extends React.Component {
     return (
       <div>
         <div className="box">
-          <div className="b-post"><h1>Новости</h1></div>
+          <div className="b-post"><h1>Новости!</h1></div>
           <div className="paging">
             {pages}
           </div>

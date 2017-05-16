@@ -1,6 +1,6 @@
 import { normalize, schema, denormilize } from 'normalizr';
 import { simplepostNormalize, commentNormalize } from './post';
-import { simplechatNormalize, messageNormalize } from './chats';
+import { simplechatNormalize, messageNormalize, simplemessageNormalize } from './chats';
 import update from 'react-addons-update';
 export function newsNormalize (news) {
   const author = new schema.Entity('author');
@@ -89,7 +89,7 @@ export function newsNormalize (news) {
         );
         break;
       case 'message':
-        temp = messageNormalize(news[i].target);
+        temp = simplemessageNormalize(news[i].target);
         console.log(temp);
         Store = update(Store, {
             entities: {
