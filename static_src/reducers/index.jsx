@@ -7,6 +7,7 @@ import friend from './friend';
 import news from './news';
 import comment from './comment';
 import likes from './likes';
+import groups from './groups';
 import { routerReducer } from 'react-router-redux'
 
 
@@ -19,5 +20,6 @@ export default combineReducers({
     news,
     comment,
     likes,
+    groups,
     routing: routerReducer
 });

@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import UserPostList from './UserPostList';
+import PostList from './PostList';
 import PostForm from './PostForm';
 import Modal from './Modal';
 import Post from './Post';
@@ -27,7 +28,11 @@ class UserComponent extends React.Component {
 
           <div className="b-post"><h1>Посты пользователя</h1></div>
 
-           <UserPostList onPostOpen={ this.onPostOpen } id={ this.props.params.id}/>
+          <PostList onPostOpen={ this.onPostOpen }
+                    page={this.props.params.page}
+                    link={'/api/posts/?author=' + this.props.params.id + '&&'}
+          />
+           {/*<UserPostList onPostOpen={ this.onPostOpen } id={ this.props.params.id}/>*/}
 
            </div>
         <div className="box">

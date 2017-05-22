@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     'message.apps.MessageConfig',
     'like.apps.LikeConfig',
     'event.apps.EventConfig',
+    'group.apps.GroupConfig',
     'rest_framework',
     'social_django',
     'haystack',
@@ -248,8 +249,36 @@ USE_TZ = True
 
 STATIC_URL = '/static/build/'
 #STATIC_URL = '/static/'
-STATIC_ROOT = '/mnt/c/Users/nagai/web/vk/collect_static/'
+STATIC_ROOT = '/mnt/c/Users/nagai/web/vk/collected_static/'
 STATICFILES_DIRS = [ '/mnt/c/Users/nagai/web/vk/src/static/', '/mnt/c/Users/nagai/web/vk/src/static/build/', '/mnt/c/Users/nagai/web/vk/src/static_src/']
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'media/')
+
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'handlers': {
+#         # 'file': {
+#         #     'level': 'DEBUG',
+#         #     'class': 'logging.FileHandler',
+#         #     'filename': '/path/to/django/debug.log',
+#         # },
+#         'console': {
+#             'level': 'DEBUG',
+#             'class': 'logging.StreamHandler',
+#         }
+#     },
+#     'loggers': {
+#         'django': {
+#             'handlers': ['console'],
+#             'level': 'DEBUG',
+#             'propagate': True,
+#         },
+#         'django.db': {
+#             'handlers': ['console'],
+#             'level': 'DEBUG',
+#             'propagate': False,
+#         }
+#     },
+# }

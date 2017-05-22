@@ -83,7 +83,7 @@ class PostHaystack(HaystackSerializerMixin, PostSerializer):
 
 class PostRetrieve(viewsets.ModelViewSet):
 
-    queryset = Post.objects.all()
+    queryset = Post.objects.all().select_related('author').prefetch_related('comment_set__author')
     serializer_class = PostSerializer
     # serializer_class = PostHaystack
     permission_classes = (permissions.IsAuthenticated, IsOwnerOrReadOnly)

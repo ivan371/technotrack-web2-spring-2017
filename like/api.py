@@ -35,10 +35,10 @@ class LikeViewSet(viewsets.ModelViewSet):
         queryset = super(LikeViewSet, self).get_queryset()
         if 'type' in self.request.query_params and 'id' in self.request.query_params:
             try:
-                l = Like.objects.get(Q(target_id = self.request.query_params['id']) & Q(author=self.request.user))
+                l = Like.objects.get(Q(target_id = self.request.query_params['id']) & Q(author=self.request.user)) ##filter, first
                 l.delete()
             except:
-                if self.request.query_params['type'] == 'post':
+                if self.request.query_params['type'] == 'post': #small dict, content_type from dict
                     serializer.save(
                         author=self.request.user,
                         target_id=self.request.query_params['id'],

@@ -17,7 +17,13 @@ class LayoutComponent extends React.Component {
               <Link to="/vk/chats/">
                <button className="button">Чаты</button></Link>
               <Link to="/vk/people/">
-               <button className="button">Люди</button></Link>
+               <button className="button">Люди</button>
+              </Link>
+                 <Link to="/vk/groups/">
+                    <button className="button">
+                        Группы
+                    </button>
+                 </Link>
                  <div className="msg_list"></div>
              </div>
          <div> { this.props.children }</div>

@@ -12,15 +12,18 @@ import PostSearch from './PostSearch';
 class PostListComponent extends React.Component {
   componentDidMount() {
     if(this.props.page != null) {
-      this.props.fetchData('/api/posts/?offset=' + 10 * (parseInt(this.props.page) - 1));
+      this.props.fetchData(this.props.link + 'offset=' + 10 * (parseInt(this.props.page || 1) - 1));
     }
     else {
-      this.props.fetchData('/api/posts');
+      this.props.fetchData(this.props.link);
     }
   }
   componentWillReceiveProps(nextProps) {
     if(nextProps.page != this.props.page) {
-      this.props.fetchData('/api/posts/?offset=' + 10 * (parseInt(nextProps.page) - 1));
+      this.props.fetchData(this.props.link + 'offset=' + 10 * (parseInt(nextProps.page) - 1));
+    }
+    if(nextProps.link != this.props.link) {
+      this.props.fetchData(nextProps.link + 'offset=' + 10 * (parseInt(this.props.page) - 1 || 0));
     }
   }
   render() {
@@ -47,6 +50,7 @@ class PostListComponent extends React.Component {
 
 PostListComponent.propTypes = {
   fetchData: PropTypes.func.isRequired,
+  link: PropTypes.string,
   page: PropTypes.string
 };
 

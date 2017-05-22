@@ -6,6 +6,7 @@ import App from './components/app';
 import SelfRoom from './components/SelfRoom';
 import Layout from './components/Layout';
 import Chats from './components/Chats';
+import Groups from './components/Group';
 import Friends from './components/Friends';
 import News from './components/News';
 import People from './components/People';
@@ -34,6 +35,9 @@ const routers =
     <Route path="/vk/friends/" component={Friends}/>
     <Route path="/vk/friends/page/:id/" component={Friends}/>
     <Route path="/vk/user/" component={User}/>
+    <Route path="/vk/groups/" component={Groups}/>
+    <Route path="/vk/groups/:id/" component={Groups}/>
+    <Route path="/vk/groups/:page/:id/" component={Groups}/>
   </Route></div>);
 
 ReactDOM.render(
