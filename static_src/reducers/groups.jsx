@@ -2,7 +2,8 @@ import {
   LOAD_GROUPS,
     LOAD_GROUPS_SUCCESS,
     LOAD_GROUPS_ERROR,
-    GROUPS_PAGINATE
+    GROUPS_PAGINATE,
+    GROUPS_CREATE,
 } from './../actions/groups';
 import {
   LOAD_NEWS_SUCCESS
@@ -70,17 +71,18 @@ export default function router (store = inititalStore, action) {
         },
         );
         return store;
-      // case CHAT_CREATE:
-      //   return update(store, {
-      //     chatList: { $push: [parseInt(action.result.result)] },
-      //   });
+      case GROUPS_CREATE:
+        return update(store, {
+            isLoading: { $set: false },
+          groupList: { $push: [parseInt(action.result.result)] },
+        });
       // case MESSAGE_CREATE:
       //   console.log(action.result);
       //   return update(store, {
       //     messageList: { $push: [parseInt(action.result.result)] },
       //   })
-      // case LOAD_GROUPS_ERROR:
-      //   return update(store, { isLoading: { $set: false } });
+      case LOAD_GROUPS_ERROR:
+        return update(store, { isLoading: { $set: false } });
       // case CHAT_OPEN:
       //   return update(store, {
       //     // messageList: { $merge: store.chats[action.id].message_set },

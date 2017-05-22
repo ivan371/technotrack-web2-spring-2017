@@ -66,13 +66,13 @@ class MessageUsersComponent extends React.Component {
 MessageUsersComponent.propTypes = {
   fetchData: PropTypes.func.isRequired,
   useradd: PropTypes.func.isRequired,
+    chatid: PropTypes.string.isRequired,
 };
 
-const mapStoreToProps = state => ({
-  chatid: state.chats.chat,
-  chat: state.chats.chats[state.chats.chat].chatuser_set,
+const mapStoreToProps = (state, props) => ({
+  chat: state.chats.chats[props.chatid].chatuser_set,
   users: state.users.users,
-  author: state.chats.chats[state.chats.chat].author,
+  author: state.chats.chats[props.chatid].author,
 });
 const mapDispatchToProps = dispatch => ({
   fetchData: (url) => dispatch(usersFetchData(url)),

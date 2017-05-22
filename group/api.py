@@ -15,6 +15,9 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
 class PostGroupSerializer(serializers.ModelSerializer):
 
     author = UserSerializer(read_only=True)
+    comment_count = serializers.ReadOnlyField()
+    like_count = serializers.ReadOnlyField()
+    short_content = serializers.ReadOnlyField()
 
     class Meta:
         model = PostGroup
@@ -33,7 +36,8 @@ class PostGroupViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticated, IsOwnerOrReadOnly)
 
     def perform_create(self, serializer):
-        serializer.save(author=self.request.user)
+        if 'group' in self.request.query_params:
+            serializer.save(author=self.request.user, group_id=self.request.query_params['group'])
 
     def get_queryset(self):
         queryset = super(PostGroupViewSet, self).get_queryset()

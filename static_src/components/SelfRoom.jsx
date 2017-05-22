@@ -34,7 +34,7 @@ class SelfRoomComponent extends React.Component {
 
           <div className="b-post"><h1>Лента постов</h1></div>
 
-           <PostForm onCreate={ this.onCreate }/>
+           <PostForm onCreate={ this.onCreate } link={'/api/posts/'}/>
            <PostList onPostOpen={ this.onPostOpen } page={page} link={'/api/posts/?&&'}/>
           { model }
 

@@ -17,7 +17,9 @@ class ModalComponent extends React.Component {
           modal = <ProfileChange/>;
         break;
       case "ChatUsers":
-          modal = <MessageUsers/>
+          modal = <MessageUsers chatid={this.props.chat}/>;
+        case "GroupUsers":
+          modal = <div/>;
       default:
 
     }
@@ -34,6 +36,8 @@ class ModalComponent extends React.Component {
 
 ModalComponent.PropTypes = {
   action: PropTypes.string.isRequired,
+    chat: PropTypes.string,
+    group: PropTypes.string,
 }
 
 const mapStoreToProps = state => ({

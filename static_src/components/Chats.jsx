@@ -15,7 +15,7 @@ class ChatComponent extends React.Component {
     let users = null;
     const action = "ChatUsers";
     if (this.props.modelopen) {
-      model = <Modal action={ action }/>;
+      model = <Modal action={ action } chat={this.props.params.id}/>;
     }
     // if (this.props.chatopen) {
     //   messageContent = <MessageList />;

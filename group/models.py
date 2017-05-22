@@ -7,9 +7,9 @@ from ugc.models import Notable, Commentable
 
 class Groupp(Authored, Eventable):
     name = models.CharField(max_length=100)
-    
-    def __str__(self):
-        return self.name
+    #
+    # def __str__(self):
+    #     return self.name
 
 class GroupUser(models.Model):
     group = models.ForeignKey(Groupp)

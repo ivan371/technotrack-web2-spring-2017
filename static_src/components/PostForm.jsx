@@ -3,7 +3,6 @@ import FormGroup from 'react-bootstrap/lib/FormGroup'
 import ControlLabel from 'react-bootstrap/lib/ControlLabel'
 import FormControl from 'react-bootstrap/lib/FormControl'
 import HelpBlock from 'react-bootstrap/lib/HelpBlock'
-import Button from 'react-bootstrap/lib/Button';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { createPostFetchData } from './../actions/posts';
@@ -35,7 +34,7 @@ class PostFormComponent extends React.Component {
   onCreate = (e) => {
     e.preventDefault();
     // this.props.postCreate(this.state.title, this.state.content);
-    this.props.fetchData('/api/posts/', this.state.title, this.state.content);
+    this.props.fetchData(this.props.link, this.state.title, this.state.content);
     this.setState({title: '', content: ''});
   }
 
@@ -72,6 +71,7 @@ class PostFormComponent extends React.Component {
 // }
 PostFormComponent.propTypes = {
   fetchData: PropTypes.func.isRequired,
+    link: PropTypes.string.isRequired,
 };
 
 const mapStoreToProps = props => ({

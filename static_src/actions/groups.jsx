@@ -15,7 +15,7 @@ export const LOAD_GROUPUSER = 'LOAD_GROUPUSER';
 export const LOAD_GROUPUSER_ERROR = 'LOAD_GROUPUSER';
 
 // import { chatNormalize, messageNormalize, simplemessageNormalize, simplechatNormalize, chatuseradd } from './../normilizers/chats';
-import { groupNormalize } from './../normilizers/groups';
+import { groupNormalize, simplegroupNormalize } from './../normilizers/groups';
 import { FetchData } from './load';
 
 
@@ -67,10 +67,10 @@ export function loadGroups() {
 //     return FetchData(url, types, chatuseradd, 'post', JSON.stringify({author, chat}));
 // }
 //
-// export function createChatFetchData(url, name) {
-//     const types = [LOAD_CHATS, CHAT_CREATE, LOAD_CHATS_ERROR, CHAT_PAGINATE];
-//     return FetchData(url, types, simplechatNormalize, 'post', JSON.stringify({name}));
-// }
+export function createGroupFetchData(url, name) {
+    const types = [LOAD_GROUPS, GROUPS_CREATE, LOAD_GROUPS_ERROR, GROUPS_PAGINATE];
+    return FetchData(url, types, simplegroupNormalize, 'post', JSON.stringify({name}));
+}
 //
 // export function createMessageFetchData(url, chat, content) {
 //     const types = [MESSAGE_LOAD, MESSAGE_CREATE, LOAD_CHATS_ERROR, CHAT_PAGINATE];

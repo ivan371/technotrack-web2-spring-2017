@@ -1,9 +1,9 @@
 import React from 'react';
-import ChatList from './ChatList';
 import GroupList from './GroupList';
 import PostList from './PostList';
+import GroupCreate from './GroupCreate';
 import MessageList from './MessageList';
-import ChatCreate from './ChatCreate.jsx';
+import PostForm from './PostForm';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { chatuserOpen, chatuseradd } from './../actions/chats';
@@ -23,11 +23,11 @@ class GroupsComponent extends React.Component {
     if(this.props.params.id != null && this.props.params.page == 'page') {
       page = this.props.params.id;
     }
-    // console.log(this.props.params.id);
     if(this.props.params.id != null && this.props.params.page == null) {
-      // groupContent = <PostGroupList chat={this.props.params.id}/>;
-        console.log("HKLJKLJLKJ");
-        groupContent = <PostList link={'/api/postgroup/?group=' + this.props.params.id + '&&'}/>;
+        groupContent = (<div>
+          <PostForm link={'/api/postgroup/?group=' + this.props.params.id}/>
+            <PostList link={'/api/postgroup/?group=' + this.props.params.id + '&&'}/>
+        </div>);
       users = <div className="button_field">
         <button>Пользователи</button>
       </div>;
@@ -40,7 +40,7 @@ class GroupsComponent extends React.Component {
         <div className="box">
           <div className="b-post"><h1>Группы</h1></div>
         <div className="b-post"><GroupList page={page}/></div>
-        {/*<ChatCreate/>*/}
+            <GroupCreate/>
           </div>
         <div className="box">
           <div className="b-post">
